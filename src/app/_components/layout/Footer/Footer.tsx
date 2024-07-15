@@ -1,6 +1,6 @@
-import { getDictionary } from '@app/[lang]/dictionaries';
-import { Div } from '@jumbo/shared';
-import { Button, Typography } from '@mui/material';
+import { getDictionary } from "@app/[lang]/dictionaries";
+import { Div } from "@jumbo/shared";
+import { Button, Typography } from "@mui/material";
 
 const Footer = async ({ lang }: { lang: string }) => {
   const { footer } = await getDictionary(lang);
@@ -10,21 +10,21 @@ const Footer = async ({ lang }: { lang: string }) => {
         py: 2,
         px: { lg: 6, xs: 4 },
         borderTop: 2,
-        borderColor: 'divider',
-        bgcolor: 'background.paper',
+        borderColor: "divider",
+        bgcolor: "background.paper",
       }}
     >
       <Div
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        <Typography variant={'body1'} color={'text.primary'}>
-          {'Copyright Company Name © 2024'}
+        <Typography variant={"body1"} color={"text.primary"}>
+          {"Copyright TokenClan © 2024"}
         </Typography>
-        <Div sx={{ display: 'flex', alignItems: 'center' }}>
+        {/*<Div sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography
             variant='h5'
             sx={{
@@ -37,7 +37,7 @@ const Footer = async ({ lang }: { lang: string }) => {
             {'$24 Only'}
           </Typography>
           <Button variant='contained'>{'Buy Now'}</Button>
-        </Div>
+        </Div>*/}
       </Div>
     </Div>
   );
