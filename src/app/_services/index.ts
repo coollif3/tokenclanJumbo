@@ -1,3 +1,4 @@
+import { MenuItem } from "@mui/material";
 import { getDictionary } from "@app/[lang]/dictionaries";
 
 async function getMenus(locale: string) {
@@ -6,16 +7,16 @@ async function getMenus(locale: string) {
 
   const menuItems = [
     {
-      label: sidebar.menu.sample,
+      label: sidebar.menu.main,
       children: [
         {
           path: `/${locale}/blockchains`,
-          label: "Blockchains",
+          label: sidebar.menuItem.blockchains,
           icon: "sample",
         },
         {
           path: `/${locale}/exchanges`,
-          label: "Exchanges",
+          label: sidebar.menuItem.exchanges,
           icon: "sample",
         },
       ],

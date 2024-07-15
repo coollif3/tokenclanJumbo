@@ -1,10 +1,12 @@
 {
   "sidebar": {
     "menu": {
-      "sample": "Sample Menu"
+      "sample": "Sample Menu",
+      "main": "Main Menu"
     },
     "menuItem": {
-      "sample": "Sample Item"
+      "blockchains": "Blockchains",
+      "exchanges": "Exchanges"
     }
   }
 }
