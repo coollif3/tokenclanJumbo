@@ -11,3 +11,4 @@ public
 .env.local
 yarn-error.log
 npm-debug.log
+.env.local

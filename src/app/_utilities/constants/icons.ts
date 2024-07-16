@@ -11,9 +11,11 @@ import {
   TaskAltOutlined,
   Twitter,
   YouTube,
-} from '@mui/icons-material';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { SxProps, Theme } from '@mui/material';
+  CurrencyExchange,
+  CurrencyBitcoin,
+} from "@mui/icons-material";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { SxProps, Theme } from "@mui/material";
 
 type Icon = {
   name: string;
@@ -25,65 +27,73 @@ type Icon = {
 
 const APP_ICONS: Icon[] = [
   {
-    name: 'sample',
+    name: "sample",
     Component: EditOutlinedIcon,
     props: { sx: { fontSize: 20 } },
   },
   {
-    name: 'facebook-outlined',
+    name: "facebook-outlined",
     Component: FacebookOutlined,
     props: { sx: { fontSize: 20 } },
   },
   {
-    name: 'twitter',
+    name: "twitter",
     Component: Twitter,
     props: { sx: { fontSize: 20 } },
   },
   {
-    name: 'instagram',
+    name: "instagram",
     Component: Instagram,
     props: { sx: { fontSize: 20 } },
   },
   {
-    name: 'google',
+    name: "google",
     Component: Instagram,
     props: { sx: { fontSize: 20 } },
   },
   {
-    name: 'youtube',
+    name: "youtube",
     Component: YouTube,
     props: { sx: { fontSize: 20 } },
   },
   {
-    name: 'linkedin',
+    name: "linkedin",
     Component: LinkedIn,
     props: { sx: { fontSize: 20 } },
   },
   {
-    name: 'refresh',
+    name: "refresh",
     Component: Refresh,
     props: { sx: { fontSize: 20 } },
   },
   {
-    name: 'settings',
+    name: "settings",
     Component: Settings,
     props: { sx: { fontSize: 20 } },
   },
   {
-    name: 'message-outlined',
+    name: "message-outlined",
     Component: MessageOutlined,
   },
   {
-    name: 'mail',
+    name: "mail",
     Component: Mail,
   },
   {
-    name: 'task-alt-outlined',
+    name: "task-alt-outlined",
     Component: TaskAltOutlined,
   },
   {
-    name: 'notifications-active-rounded',
+    name: "notifications-active-rounded",
     Component: NotificationsActiveRounded,
+  },
+  {
+    name: "exchanges",
+    Component: CurrencyExchange,
+  },
+  {
+    name: "blockchains",
+    Component: CurrencyBitcoin,
   },
 ];
 
