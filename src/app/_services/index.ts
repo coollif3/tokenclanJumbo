@@ -12,12 +12,12 @@ async function getMenus(locale: string) {
         {
           path: `/${locale}/blockchains`,
           label: sidebar.menuItem.blockchains,
-          icon: "sample",
+          icon: "blockchains",
         },
         {
           path: `/${locale}/exchanges`,
           label: sidebar.menuItem.exchanges,
-          icon: "sample",
+          icon: "exchanges",
         },
       ],
     },
