@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
-import { blockchain as db } from "../../_config/db/db";
-import query from "../../_sql/query";
+import { listBlockchains } from "../../_services/blockchain";
 
-export async function GET(req, { params }) {
+export async function GET(req) {
   try {
-    const [results, metadata] = await db.query(query.listAllBlockchains);
+    const results = await listBlockchains();
     return NextResponse.json(results, { status: 200 });
   } catch (error) {
     console.log(error);
