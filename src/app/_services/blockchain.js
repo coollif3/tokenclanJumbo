@@ -1,18 +1,20 @@
 "use server";
 
 import { cache } from "react";
+import { unstable_cache as nextCache } from "next/cache";
 import { blockchain as db } from "../_config/db/db";
+import query from "../_sql/query";
 
-const listBlockchains = cache(async () => {
-  try {
-    const [results, metadata] = await db.query(
-      "SELECT bc.id, bc.name AS blockchain, bc.slug, bc.coin_id, c.symbol AS gas_coin, bc.createdAt FROM blockchains AS bc INNER JOIN coins AS c ON bc.coin_id = c.id; "
-    );
-    return results;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Error fetching all blockchain data");
-  }
-});
+const listBlockchains = nextCache(
+  cache(async () => {
+    try {
+      const [results, metadata] = await db.query(query.listAllBlockchains);
+      return results;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error fetching all blockchain data");
+    }
+  })
+);
 
 export { listBlockchains };
