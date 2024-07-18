@@ -8,10 +8,6 @@ const {
   DEMO_DB_PASS,
   DB_BLOCKCHAIN,
   DB_EXCHANGE,
-  USEREDIS,
-  REDIS_HOST,
-  REDIS_PORTS,
-  REDIS_PASS,
 } = process.env;
 
 let config = {};
@@ -25,9 +21,6 @@ if (NODE_ENV === "production") {
     dbPass: DB_PASS,
     dbBlockchain: DB_BLOCKCHAIN,
     dbExchange: DB_EXCHANGE,
-    redisHost: REDIS_HOST,
-    redisPort: REDIS_PORTS,
-    redisPass: REDIS_PASS,
   };
 } else {
   config = {
