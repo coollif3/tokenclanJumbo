@@ -8,5 +8,10 @@
       "blockchains": "Blockchains",
       "exchanges": "Exchanges"
     }
+  },
+  "footer": {
+    "content": "Copyright Company Name © 2024",
+    "buy": "Buy Now",
+    "price": "$24 Only"
   }
 }
