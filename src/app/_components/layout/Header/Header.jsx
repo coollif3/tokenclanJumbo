@@ -38,14 +38,15 @@ function Header() {
       {isSidebarStyle(SIDEBAR_STYLES.CLIPPED_UNDER_HEADER) && !isBelowLg && (
         <Logo sx={{ mr: 3, minWidth: 150 }} mode={theme.type} />
       )}
-      <Search show={searchVisibility} onClose={handleSearchVisibility} />
+      {/* <Search show={searchVisibility} onClose={handleSearchVisibility} /> */}
       <Stack direction="row" alignItems="center" gap={1.25} sx={{ ml: "auto" }}>
-        <ThemeModeOption />
-        <TranslationPopover />
-        <SearchIconButtonOnSmallScreen onClick={handleSearchVisibility} />
+        {/* {/* <ThemeModeOption /> */}
+        {/* <TranslationPopover /> */}
+        {/* <SearchIconButtonOnSmallScreen onClick={handleSearchVisibility} /> */}
         {/* <MessagesPopover /> */}
-        <NotificationsPopover />
-        <AuthUserPopover />
+        {/* <NotificationsPopover /> */}
+        <DropDownPopover />
+        {/* <AuthUserPopover /> */}
       </Stack>
     </React.Fragment>
   );
