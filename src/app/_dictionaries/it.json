@@ -1,0 +1,15 @@
+{
+  "sidebar": {
+    "menu": {
+      "sample": "Menù di esempio"
+    },
+    "menuItem": {
+      "sample": "Articolo campione"
+    }
+  },
+  "footer": {
+    "content": "Copyright Nome azienda © 2024",
+    "buy": "Acquista ora",
+    "price": "Solo $ 24"
+  }
+}
