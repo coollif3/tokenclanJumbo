@@ -15,7 +15,6 @@ let config = {};
 if (NODE_ENV === "production") {
   config = {
     env: NODE_ENV,
-    useRedis: USEREDIS,
     dbHost: DB_HOST,
     dbUser: DB_USER,
     dbPass: DB_PASS,
@@ -25,7 +24,6 @@ if (NODE_ENV === "production") {
 } else {
   config = {
     env: "development",
-    useRedis: false,
     dbHost: DEMO_DB_HOST,
     dbUser: DEMO_DB_USER,
     dbPass: DEMO_DB_PASS,
