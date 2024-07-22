@@ -17,6 +17,7 @@ import { Stack, useMediaQuery } from "@mui/material";
 import React from "react";
 import { Search, SearchIconButtonOnSmallScreen } from "./components";
 import { ThemeModeOption } from "./components/ThemeModeOptions";
+import { DropDownPopover } from "@app/_components/popovers/DropDownPopover";
 
 function Header() {
   const { isSidebarStyle } = useSidebarState();
