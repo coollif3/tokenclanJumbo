@@ -1,0 +1,15 @@
+{
+  "sidebar": {
+    "menu": {
+      "sample": "Exemple de menu"
+    },
+    "menuItem": {
+      "sample": "Exemple d'article"
+    }
+  },
+  "footer": {
+    "content": "Droits d'auteur Nom de l'entreprise © 2024",
+    "buy": "Acheter maintenant",
+    "price": "24 $ seulement"
+  }
+}

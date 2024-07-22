@@ -1,0 +1,34 @@
+'use client';
+
+import { createTheme } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { JumboThemeFooterContext } from './JumboThemeFooterContext';
+
+const JumboThemeFooter = ({ children, init }) => {
+  //todo: we can setup a default theme for footer here instead of {}
+  const [footerTheme, setFooterTheme] = React.useState(init ?? {});
+
+  const themeFooterContextValue = React.useMemo(
+    () => ({
+      footerTheme: createTheme(footerTheme),
+      setFooterTheme: setFooterTheme,
+    }),
+    [footerTheme, setFooterTheme]
+  );
+
+  return (
+    <JumboThemeFooterContext.Provider value={themeFooterContextValue}>
+      {children}
+    </JumboThemeFooterContext.Provider>
+  );
+};
+
+export { JumboThemeFooter };
+
+JumboThemeFooter.propTypes = {
+  children: PropTypes.node.isRequired,
+  init: PropTypes.shape({
+    footer: PropTypes.themeConfig, // Adjust as per your header initialization shape
+  }).isRequired,
+};
