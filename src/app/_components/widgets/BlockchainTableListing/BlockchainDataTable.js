@@ -5,38 +5,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Link from "next/link";
+import { displayRedGreenColumn } from "@app/_utilities/helpers";
 
-export default function DataTable({ rows }) {
-  function displayRedGreenColumn(item, last = false) {
-    const num = (+item).toFixed(2);
-    if (last) {
-      if (num > 0) {
-        return (
-          <TableCell
-            align="right"
-            sx={{ color: "green", pr: 4 }}
-          >{`${num}%`}</TableCell>
-        );
-      } else {
-        return (
-          <TableCell
-            align="right"
-            sx={{ color: "red", pr: 4 }}
-          >{`${num}%`}</TableCell>
-        );
-      }
-    }
-    if (num > 0) {
-      return (
-        <TableCell align="right" sx={{ color: "green" }}>{`${num}%`}</TableCell>
-      );
-    } else {
-      return (
-        <TableCell align="right" sx={{ color: "red" }}>{`${num}%`}</TableCell>
-      );
-    }
-  }
-
+export default function BlockchainDataTable({ rows }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -62,7 +34,9 @@ export default function DataTable({ rows }) {
               <TableCell component="th" scope="row">
                 {row.blockchain_id}
               </TableCell>
-              <TableCell>{row.name}</TableCell>
+              <TableCell>
+                <Link href={`/blockchains/${row.slug}`}>{row.name}</Link>
+              </TableCell>
               <TableCell align="right">{row.usd}</TableCell>
               <TableCell align="right">{row.dominance}</TableCell>
               {displayRedGreenColumn(row["1day_usd_chng"])}
