@@ -1,5 +1,36 @@
 import moment from "moment";
 import { USE_IMAGE_PLACEHOLDERS } from "../constants/paths";
+import TableCell from "@mui/material/TableCell";
+
+export const displayRedGreenColumn = (item, last = false) => {
+  const num = (+item).toFixed(2);
+  if (last) {
+    if (num > 0) {
+      return (
+        <TableCell
+          align="right"
+          sx={{ color: "green", pr: 4 }}
+        >{`${num}%`}</TableCell>
+      );
+    } else {
+      return (
+        <TableCell
+          align="right"
+          sx={{ color: "red", pr: 4 }}
+        >{`${num}%`}</TableCell>
+      );
+    }
+  }
+  if (num > 0) {
+    return (
+      <TableCell align="right" sx={{ color: "green" }}>{`${num}%`}</TableCell>
+    );
+  } else {
+    return (
+      <TableCell align="right" sx={{ color: "red" }}>{`${num}%`}</TableCell>
+    );
+  }
+};
 
 export const formatToTimestampArray = (items) => {
   const dateArr = [];
