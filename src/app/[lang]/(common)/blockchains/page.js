@@ -1,4 +1,4 @@
-import DataTable from "@app/_components/widgets/BlockchainTableListing/DataTable";
+import BlockchainDataTable from "@app/_components/widgets/BlockchainTableListing/BlockchainDataTable";
 import {
   blockchainMktOverview,
   listBlockchains,
@@ -36,7 +36,7 @@ const BlockchainsPage = async () => {
           <GlobalCharts series={formattedSeries} config={chartConfig} />
         </Grid>
         <Grid item xs={12}>
-          <DataTable rows={listingRows} />
+          <BlockchainDataTable rows={listingRows} />
         </Grid>
       </Grid>
     </Container>
