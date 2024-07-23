@@ -3,9 +3,9 @@
 import { cache } from "react";
 import { unstable_cache as nextCache } from "next/cache";
 import { exchange as db } from "../_config/db/db";
-import { listAllExchanges } from "../_sql/query";
+import { listAllExchanges, globalVolumeOverview } from "../_sql/query";
 
-const listExchanges = nextCache(
+export const listExchanges = nextCache(
   cache(async () => {
     try {
       const [results, metadata] = await db.query(listAllExchanges);
@@ -19,4 +19,16 @@ const listExchanges = nextCache(
   { revalidate: 28800 }
 );
 
-export { listExchanges };
+export const volumeMktOverview = nextCache(
+  cache(async () => {
+    try {
+      const [results, metadata] = await db.query(globalVolumeOverview);
+      return results;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error fetching volume market overview data");
+    }
+  }),
+  ["getVolumeOverview"],
+  { revalidate: 28800 }
+);
