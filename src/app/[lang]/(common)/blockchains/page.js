@@ -1,11 +1,11 @@
-import DataTable from "../../../_components/widgets/BlockchainTableListing/DataTable";
+import DataTable from "@app/_components/widgets/BlockchainTableListing/DataTable";
 import {
   blockchainMktOverview,
   listBlockchains,
-} from "../../../_services/blockchain";
+} from "@app/_services/blockchain";
 import { Container, Grid } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
-import GlobalCharts from "../../../_components/charts/apex/GlobalCharts";
+import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
 import { formatToTimestampArray } from "@app/_utilities/helpers";
 
 const BlockchainsPage = async () => {
