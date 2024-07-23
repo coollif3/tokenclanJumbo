@@ -5,38 +5,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Link from "next/link";
+import { displayRedGreenColumn } from "@app/_utilities/helpers/";
 
 export default function ExchangeDataTable({ rows }) {
-  function displayRedGreenColumn(item, last = false) {
-    const num = (+item).toFixed(2);
-    if (last) {
-      if (num > 0) {
-        return (
-          <TableCell
-            align="right"
-            sx={{ color: "green", pr: 4 }}
-          >{`${num}%`}</TableCell>
-        );
-      } else {
-        return (
-          <TableCell
-            align="right"
-            sx={{ color: "red", pr: 4 }}
-          >{`${num}%`}</TableCell>
-        );
-      }
-    }
-    if (num > 0) {
-      return (
-        <TableCell align="right" sx={{ color: "green" }}>{`${num}%`}</TableCell>
-      );
-    } else {
-      return (
-        <TableCell align="right" sx={{ color: "red" }}>{`${num}%`}</TableCell>
-      );
-    }
-  }
-
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -63,14 +35,16 @@ export default function ExchangeDataTable({ rows }) {
               <TableCell component="th" scope="row">
                 {row.exchange_id}
               </TableCell>
-              <TableCell>{row.exchange}</TableCell>
+              <TableCell>
+                <Link href={`/exchanges/${row.slug}`}>{row.exchange}</Link>
+              </TableCell>
               <TableCell align="right">{row.category}</TableCell>
               <TableCell align="right">{row.vol_24hr}</TableCell>
               {displayRedGreenColumn(row["1day_vol_norm_chng"])}
               {displayRedGreenColumn(row["7day_usd_chng"])}
               {displayRedGreenColumn(row["30day_usd_chng"])}
               <TableCell align="right" sx={{ pr: 4 }}>
-                {row.coin}
+                <Link href={`/exchanges/${row.slug}`}>{row.coin}</Link>
               </TableCell>
             </TableRow>
           ))}
