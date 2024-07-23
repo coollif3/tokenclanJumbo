@@ -8,6 +8,12 @@ import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
 import { formatToTimestampArray } from "@app/_utilities/helpers";
 
+const chartConfig = {
+  chartTitle: "Total Blockchain TVL",
+  tooltipSeries: "Total TVL",
+  yaxisTitle: "TVL in USD (Billion)",
+};
+
 const BlockchainsPage = async () => {
   const listingRows = await listBlockchains();
   const chartSeries = await blockchainMktOverview();
@@ -27,7 +33,7 @@ const BlockchainsPage = async () => {
     >
       <Grid container spacing={3.75}>
         <Grid item xs={12}>
-          <GlobalCharts series={formattedSeries} />
+          <GlobalCharts series={formattedSeries} config={chartConfig} />
         </Grid>
         <Grid item xs={12}>
           <DataTable rows={listingRows} />

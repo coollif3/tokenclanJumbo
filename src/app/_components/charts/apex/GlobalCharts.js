@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export default function GlobalCharts({ series }) {
+export default function GlobalCharts({ series, config }) {
   const chartConfig = {
     options: {
       chart: {
@@ -20,7 +20,7 @@ export default function GlobalCharts({ series }) {
         size: 0,
       },
       title: {
-        text: "Total Blockchain TVL in USD",
+        text: config.chartTitle,
         align: "left",
       },
       fill: {
@@ -40,7 +40,7 @@ export default function GlobalCharts({ series }) {
           },
         },
         title: {
-          text: "USD (Billion)",
+          text: config.yaxisTitle,
         },
       },
       xaxis: {
@@ -63,7 +63,7 @@ export default function GlobalCharts({ series }) {
 
     series: [
       {
-        name: "Global TVL",
+        name: config.tooltipSeries,
         data: series,
       },
     ],
