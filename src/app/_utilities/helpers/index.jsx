@@ -1,10 +1,19 @@
-import moment from 'moment';
-import { USE_IMAGE_PLACEHOLDERS } from '../constants/paths';
+import moment from "moment";
+import { USE_IMAGE_PLACEHOLDERS } from "../constants/paths";
+
+export const formatToTimestampArray = (items) => {
+  const dateArr = [];
+  items.map((item) => {
+    const newDate = new Date(item.x);
+    dateArr.push([newDate.valueOf(), item.y]);
+  });
+  return dateArr;
+};
 
 export const getCustomDateTime = (
   value = 0,
-  unit = 'days',
-  format = 'HH:mm a | MMMM DD, YYYY'
+  unit = "days",
+  format = "HH:mm a | MMMM DD, YYYY"
 ) => {
   if (value === 0) {
     return moment().format(format);
@@ -14,11 +23,11 @@ export const getCustomDateTime = (
 };
 
 export const getDateElements = (date) => {
-  const dateString = moment(date).format('dddd, MMMM DD YYYY, hh:mm A');
-  const dateSections = dateString.split(',');
+  const dateString = moment(date).format("dddd, MMMM DD YYYY, hh:mm A");
+  const dateSections = dateString.split(",");
   const day = dateSections[0];
   const time = dateSections[2];
-  const datePart = dateSections[1].trim().split(' ');
+  const datePart = dateSections[1].trim().split(" ");
   return {
     day,
     time,
