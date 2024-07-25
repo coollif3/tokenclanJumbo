@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
 import { listExchangeVolumeFor } from "@app/_services/exchanges";
 
-export async function GET(req, { params }) {
+export async function GET(req, { params, query }) {
   try {
     const slug = params.slug;
-    // console.log(slug);
-    const results = await listExchangeVolumeFor(slug);
+    const url = new URL(req.url);
+    const searchParams = new URLSearchParams(url.searchParams);
+    const period = searchParams.get("period");
+    // console.log("period: ", period);
+    const results = await listExchangeVolumeFor(slug, parseInt(period));
     return NextResponse.json({ results }, { status: 200 });
   } catch (error) {
     console.log(error);
