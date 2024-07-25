@@ -3,7 +3,27 @@
 import { cache } from "react";
 import { unstable_cache as nextCache } from "next/cache";
 import { exchange as db } from "../_config/db/db";
-import { listAllExchanges, globalVolumeOverview } from "../_sql/query";
+import {
+  listAllExchanges,
+  globalVolumeOverview,
+  getExchangeVolumeBySlug,
+} from "../_sql/query";
+
+export const listExchangeVolumeFor = nextCache(
+  cache(async (slug) => {
+    try {
+      const [results, metadata] = await db.query(getExchangeVolumeBySlug, {
+        replacements: { slug, periodLimit: 30 },
+      });
+      return results;
+    } catch (error) {
+      console.log(error);
+      throw new Error(`Error fetching exchange volume for slug ${slug} data`);
+    }
+  }),
+  ["listExchangeVolumeForSlug"],
+  { revalidate: 28800 }
+);
 
 export const listExchanges = nextCache(
   cache(async () => {
