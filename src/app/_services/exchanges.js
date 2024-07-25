@@ -10,10 +10,10 @@ import {
 } from "../_sql/query";
 
 export const listExchangeVolumeFor = nextCache(
-  cache(async (slug) => {
+  cache(async (slug, period) => {
     try {
       const [results, metadata] = await db.query(getExchangeVolumeBySlug, {
-        replacements: { slug, periodLimit: 30 },
+        replacements: { slug, periodLimit: +period },
       });
       return results;
     } catch (error) {
