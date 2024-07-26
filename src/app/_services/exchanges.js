@@ -27,7 +27,7 @@ export const listExchangeVolumeFor = nextCache(
       throw new Error(`Error fetching exchange volume for slug ${slug} data`);
     }
   }),
-  ["listExchangeVolumeForSlug"],
+  ["getExchangeVolumeForSlug"],
   { revalidate: 28800 }
 );
 
@@ -45,7 +45,7 @@ export const getExchangeVolumeChngFor = nextCache(
       );
     }
   }),
-  ["listExchangeVolumeForSlug"],
+  ["getExchangeVolumeChngForSlug"],
   { revalidate: 28800 }
 );
 
@@ -59,7 +59,7 @@ export const listExchanges = nextCache(
       throw new Error("Error fetching all exchanges data");
     }
   }),
-  ["listExchanges"],
+  ["getExchanges"],
   { revalidate: 28800 }
 );
 
@@ -75,6 +75,6 @@ export const volumeMktOverview = nextCache(
       throw new Error("Error fetching volume market overview data");
     }
   }),
-  ["getVolumeOverview"],
+  ["getVolumeMarketOverview"],
   { revalidate: 28800 }
 );
