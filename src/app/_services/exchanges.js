@@ -8,9 +8,51 @@ import {
   globalVolumeOverview,
   getExchangeVolumeBySlug,
   getExchangeVolumeChngBySlug,
+  getExchangeMktcapBySlug,
+  getExchangeMktcapChngBySlug,
 } from "../_sql/query";
 
 import { formatToTimestampArray } from "@app/_utilities/helpers";
+
+export const getExchangeMktcapChngFor = nextCache(
+  cache(async (slug, period) => {
+    try {
+      const [results, metadata] = await db.query(getExchangeMktcapChngBySlug, {
+        replacements: { slug },
+      });
+
+      return results[0];
+    } catch (error) {
+      console.log(error);
+      throw new Error(
+        `Error fetching exchange marketcap chng for slug ${slug} data`
+      );
+    }
+  }),
+  ["getExchangeMktcapChngForSlug"],
+  { revalidate: 28800 }
+);
+
+export const getExchangeMktcapFor = nextCache(
+  cache(async (slug, period) => {
+    try {
+      const [results, metadata] = await db.query(getExchangeMktcapBySlug, {
+        replacements: { slug, periodLimit: period },
+      });
+
+      const formattedResults = formatToTimestampArray(results);
+
+      return formattedResults;
+    } catch (error) {
+      console.log(error);
+      throw new Error(
+        `Error fetching exchange marketcap for slug ${slug} data`
+      );
+    }
+  }),
+  ["getExchangeMktcapForSlug"],
+  { revalidate: 28800 }
+);
 
 export const getExchangeVolumeFor = nextCache(
   cache(async (slug, period) => {
