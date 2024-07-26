@@ -15,7 +15,7 @@ export const getExchangeVolumeBySlug = `SELECT v.created_on AS x, v.vol_24hr_nor
 export const getExchangeMktcapBySlug = `SELECT m.created_on AS x, m.market_cap AS y FROM coin_markets_usd AS m INNER JOIN coins AS c ON m.coin_id = c.id WHERE c.name_id = :slug ORDER BY m.created_on DESC LIMIT :periodLimit`;
 
 export const getExchangeVolumeChngBySlug =
-  "SELECT v.vol_24hr_normalized, v. 1day_vol_norm_chng, v.7day_vol_norm_chng, v.30day_vol_norm_chng FROM volume_norm_chng AS v INNER JOIN exchanges AS e ON e.id = v.exchange_id INNER JOIN coins AS c ON c.id = e.coin_id WHERE c.name_id = :slug ORDER BY v.created_on DESC LIMIT 1;";
+  "SELECT v.vol_24hr_normalized, v.1day_vol_norm_chng AS one_day_chng, v.7day_vol_norm_chng AS seven_day_chng, v.30day_vol_norm_chng AS thirty_day_chng FROM volume_norm_chng AS v INNER JOIN exchanges AS e ON e.id = v.exchange_id INNER JOIN coins AS c ON c.id = e.coin_id WHERE c.name_id = :slug ORDER BY v.created_on DESC LIMIT 1;";
 
 export const getExchangeMktcapChngBySlug =
   "SELECT m.market_cap, m.1day_mktcap_chng, m.7day_mktcap_chng, m.30day_mktcap_chng FROM mktcap_usd_chng AS m INNER JOIN coins AS c ON c.id = m.coin_id WHERE c.name_id = :slug ORDER BY m.created_on DESC LIMIT 1;";
