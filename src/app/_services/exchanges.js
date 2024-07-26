@@ -7,7 +7,10 @@ import {
   listAllExchanges,
   globalVolumeOverview,
   getExchangeVolumeBySlug,
+  getExchangeVolumeChngBySlug,
 } from "../_sql/query";
+
+import { formatToTimestampArray } from "@app/_utilities/helpers";
 
 export const listExchangeVolumeFor = nextCache(
   cache(async (slug, period) => {
@@ -15,10 +18,31 @@ export const listExchangeVolumeFor = nextCache(
       const [results, metadata] = await db.query(getExchangeVolumeBySlug, {
         replacements: { slug, periodLimit: period },
       });
-      return results;
+
+      const formattedResults = formatToTimestampArray(results);
+
+      return formattedResults;
     } catch (error) {
       console.log(error);
       throw new Error(`Error fetching exchange volume for slug ${slug} data`);
+    }
+  }),
+  ["listExchangeVolumeForSlug"],
+  { revalidate: 28800 }
+);
+
+export const getExchangeVolumeChngFor = nextCache(
+  cache(async (slug) => {
+    try {
+      const [results, metadata] = await db.query(getExchangeVolumeChngBySlug, {
+        replacements: { slug },
+      });
+      return results;
+    } catch (error) {
+      console.log(error);
+      throw new Error(
+        `Error fetching exchange volume change for slug ${slug} data`
+      );
     }
   }),
   ["listExchangeVolumeForSlug"],
@@ -43,7 +67,9 @@ export const volumeMktOverview = nextCache(
   cache(async () => {
     try {
       const [results, metadata] = await db.query(globalVolumeOverview);
-      return results;
+      const formattedResults = formatToTimestampArray(results);
+
+      return formattedResults;
     } catch (error) {
       console.log(error);
       throw new Error("Error fetching volume market overview data");
