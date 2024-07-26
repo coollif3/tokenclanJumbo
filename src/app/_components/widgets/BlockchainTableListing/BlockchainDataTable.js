@@ -39,9 +39,9 @@ export default function BlockchainDataTable({ rows }) {
               </TableCell>
               <TableCell align="right">{row.usd}</TableCell>
               <TableCell align="right">{row.dominance}</TableCell>
-              {displayRedGreenColumn(row["1day_usd_chng"])}
-              {displayRedGreenColumn(row["7day_usd_chng"])}
-              {displayRedGreenColumn(row["30day_usd_chng"], true)}
+              {displayRedGreenColumn(row.one_day_chng)}
+              {displayRedGreenColumn(row.seven_day_chng)}
+              {displayRedGreenColumn(row.thirty_day_chng, true)}
             </TableRow>
           ))}
         </TableBody>
