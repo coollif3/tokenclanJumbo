@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { volumeMktOverview } from "@app/_services/exchanges";
+import { getVolumeMktOverview } from "@app/_services/exchanges";
 
 export async function GET(req) {
   try {
-    const results = await volumeMktOverview();
+    const results = await getVolumeMktOverview();
     return NextResponse.json(results, { status: 200 });
   } catch (error) {
     console.log(error);

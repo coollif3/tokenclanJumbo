@@ -63,7 +63,7 @@ export const getExchanges = nextCache(
   { revalidate: 28800 }
 );
 
-export const volumeMktOverview = nextCache(
+export const getVolumeMktOverview = nextCache(
   cache(async () => {
     try {
       const [results, metadata] = await db.query(globalVolumeOverview);
