@@ -10,9 +10,51 @@ import {
   getExchangeVolumeChngBySlug,
   getExchangeMktcapBySlug,
   getExchangeMktcapChngBySlug,
+  getExchangeTvevBySlug,
+  getExchangeTvevChngBySlug,
 } from "../_sql/query";
 
 import { formatToTimestampArray } from "@app/_utilities/helpers";
+
+export const getExchangeTvevChngFor = nextCache(
+  cache(async (slug, period) => {
+    try {
+      const [results, metadata] = await db.query(getExchangeTvevChngBySlug, {
+        replacements: { slug },
+      });
+
+      return results[0];
+    } catch (error) {
+      console.log(error);
+      throw new Error(
+        `Error fetching exchange tvev chng for slug ${slug} data`
+      );
+    }
+  }),
+  ["getExchangeTvevChngForSlug"],
+  { revalidate: 28800 }
+);
+
+export const getExchangeTvevFor = nextCache(
+  cache(async (slug, period) => {
+    try {
+      const [results, metadata] = await db.query(getExchangeTvevBySlug, {
+        replacements: { slug, periodLimit: period },
+      });
+
+      const formattedResults = formatToTimestampArray(results);
+
+      return formattedResults;
+    } catch (error) {
+      console.log(error);
+      throw new Error(
+        `Error fetching exchange tvev ratio for slug ${slug} data`
+      );
+    }
+  }),
+  ["getExchangeTvevForSlug"],
+  { revalidate: 28800 }
+);
 
 export const getExchangeMktcapChngFor = nextCache(
   cache(async (slug, period) => {
