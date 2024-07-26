@@ -7,8 +7,14 @@ export const listAllExchanges =
 export const getDefiMktOverview =
   "SELECT all_total_usd AS y, createdAt AS x FROM `defi_markets` ORDER BY `createdAt` DESC LIMIT 30;";
 
+export const getDefiMktOverviewChng =
+  "SELECT all_total_usd, 1day_usd_chng AS one_day_chng, 7day_usd_chng AS seven_day_chng, 30day_usd_chng AS thirty_day_chng FROM `defi_mkt_chng` ORDER BY `createdAt` DESC LIMIT 1";
+
 export const globalVolumeOverview =
   "SELECT totalvolume_usd AS y, updated_at AS x FROM `global` ORDER BY `updated_at` DESC LIMIT 30;";
+
+export const globalVolumeOverviewChng =
+  "SELECT totalvolume_usd, 1day_volume_usd_chng AS one_day_chng, 7day_volume_usd_chng AS seven_day_chng, 30day_volume_usd_chng AS thirty_day_chng FROM `global_volume_chng` ORDER BY `updated_at` DESC LIMIT 1";
 
 export const getExchangeVolumeBySlug = `SELECT v.created_on AS x, v.vol_24hr_normalized AS y FROM exchange_vol AS v INNER JOIN exchanges AS e ON e.id = v.exchange_id INNER JOIN coins AS c ON c.id = e.coin_id  WHERE c.name_id = :slug ORDER BY v.created_on DESC LIMIT :periodLimit`;
 
@@ -25,3 +31,21 @@ export const getExchangeTvevBySlug =
 
 export const getExchangeTvevChngBySlug =
   "SELECT t.ratio, t.1day_ratio_chng AS one_day_chng, t.7day_ratio_chng AS seven_day_chng, t.30day_ratio_chng AS thirty_day_chng FROM coin_tvev_chng AS t INNER JOIN coins AS c ON c.id = t.coin_id WHERE c.name_id = :slug ORDER BY t.created_on DESC LIMIT 1";
+
+export const getBlockchainTvlForSlug =
+  "SELECT t.createdAt AS x, t.usd AS y FROM blockchain_tvl AS t INNER JOIN blockchains AS b ON b.id = t.blockchain_id WHERE b.slug = :slug ORDER BY t.createdAt DESC LIMIT :periodLimit";
+
+export const getBlockchainTvlChngForSlug =
+  "SELECT usd, 1day_usd_chng AS one_day_chng, 7day_usd_chng AS seven_day_chng, 30day_usd_chng AS thirty_day_chng FROM blockchain_tvl_chng WHERE slug = :slug ORDER BY createdAt DESC LIMIT 1";
+
+export const getBlockchainCoinMktcapForSlug =
+  "SELECT m.createdAt AS x, m.market_cap AS y FROM coin_mkts_usd AS m INNER JOIN coins AS c ON c.id = m.coin_id WHERE c.name_id = :slug ORDER BY m.createdAt DESC LIMIT :periodLimit";
+
+export const getBlockchainCoinMktcapChngForSlug =
+  "SELECT m.market_cap, m.1day_mktcap_chng AS one_day_chng, m.7day_mktcap_chng AS seven_day_chng, 30day_mktcap_chng AS thirty_day_chng FROM mktcap_usd_chng AS m INNER JOIN coins AS c ON c.id = m.coin_id WHERE c.name_id = :slug ORDER BY m.createdAt DESC LIMIT 1";
+
+export const getBlockchainRatioForSlug =
+  "SELECT r.createdAt AS x, r.ratio AS y FROM mktcap_tvl_blkchain AS r INNER JOIN blockchains AS b ON b.id = r.blockchain_id WHERE b.slug = :slug ORDER BY r.createdAt DESC LIMIT :periodLimit";
+
+export const getBlockchainRatioChngForSlug =
+  "SELECT m.ratio, m.1day_ratio_chng AS one_day_chng, m.7day_ratio_chng AS seven_day_chng, 30day_ratio_chng AS thirty_day_chng FROM mktcap_tvl_chng AS m INNER JOIN blockchains AS b ON b.id = m.blockchain_id WHERE b.slug = :slug ORDER BY m.createdAt DESC LIMIT 1";
