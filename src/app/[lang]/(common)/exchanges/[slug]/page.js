@@ -5,6 +5,8 @@ import {
   getExchangeVolumeChngFor,
   getExchangeMktcapFor,
   getExchangeMktcapChngFor,
+  getExchangeTvevFor,
+  getExchangeTvevChngFor,
 } from "@app/_services/exchanges";
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "../../../../_components/metrics/PercentChngCard/PercentChngCard";
@@ -22,6 +24,12 @@ const marketcapChartConfig = {
   yaxisTitle: "USD",
 };
 
+const tvevChartConfig = {
+  chartTitle: "TVEV",
+  tooltipSeries: "Tvev Ratio",
+  yaxisTitle: "Ratio",
+};
+
 export default async function ExchangeDetailedPage({ params }) {
   const slug = params.slug;
   const volData = await getExchangeVolumeFor(slug, 30);
@@ -29,6 +37,9 @@ export default async function ExchangeDetailedPage({ params }) {
 
   const mktcapData = await getExchangeMktcapFor(slug, 30);
   const mktcapChng = await getExchangeMktcapChngFor(slug);
+
+  const tvevData = await getExchangeTvevFor(slug, 30);
+  const tvevChng = await getExchangeTvevChngFor(slug);
 
   return (
     <>
@@ -118,6 +129,37 @@ export default async function ExchangeDetailedPage({ params }) {
 
           <Grid item xs={12}>
             <Typography variant="h2">TVEV Ratio</Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <CurrentMarketCard
+              subheader={"Today's Ratio"}
+              value={tvevChng.ratio}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <PercentChngCard
+              title={`24hr Change`}
+              value={parseFloat(tvevChng.one_day_chng)}
+              period={"day"}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <PercentChngCard
+              title={`7 Day Change`}
+              value={parseFloat(tvevChng.seven_day_chng)}
+              period={"week"}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <PercentChngCard
+              title={`30 Day Change`}
+              value={parseFloat(tvevChng.thirty_day_chng)}
+              period={"month"}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <ExchangeCharts series={tvevData} config={tvevChartConfig} />
           </Grid>
         </Grid>
       </Container>
