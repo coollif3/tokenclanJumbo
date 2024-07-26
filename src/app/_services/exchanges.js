@@ -37,7 +37,7 @@ export const getExchangeVolumeChngFor = nextCache(
       const [results, metadata] = await db.query(getExchangeVolumeChngBySlug, {
         replacements: { slug },
       });
-      return results;
+      return results[0];
     } catch (error) {
       console.log(error);
       throw new Error(
