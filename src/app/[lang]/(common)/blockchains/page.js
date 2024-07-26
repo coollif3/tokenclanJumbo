@@ -1,7 +1,7 @@
 import BlockchainDataTable from "@app/_components/widgets/BlockchainTableListing/BlockchainDataTable";
 import {
-  blockchainMktOverview,
-  listBlockchains,
+  getBlockchainMktOverview,
+  getBlockchains,
 } from "@app/_services/blockchain";
 import { Container, Grid } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
@@ -15,8 +15,8 @@ const chartConfig = {
 };
 
 const BlockchainsPage = async () => {
-  const listingRows = await listBlockchains();
-  const chartSeries = await blockchainMktOverview();
+  const listingRows = await getBlockchains();
+  const chartSeries = await getBlockchainMktOverview();
   const formattedSeries = formatToTimestampArray(chartSeries);
 
   return (

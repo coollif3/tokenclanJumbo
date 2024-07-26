@@ -5,7 +5,7 @@ import { unstable_cache as nextCache } from "next/cache";
 import { blockchain as db } from "../_config/db/db";
 import { listAllBlockchains, getDefiMktOverview } from "../_sql/query";
 
-export const listBlockchains = nextCache(
+export const getBlockchains = nextCache(
   cache(async () => {
     try {
       const [results, metadata] = await db.query(listAllBlockchains);
@@ -15,11 +15,11 @@ export const listBlockchains = nextCache(
       throw new Error("Error fetching all blockchain data");
     }
   }),
-  ["listBlockchains"],
+  ["getBlockchains"],
   { revalidate: 28800 }
 );
 
-export const blockchainMktOverview = nextCache(
+export const getBlockchainMktOverview = nextCache(
   cache(async () => {
     try {
       const [results, metadata] = await db.query(getDefiMktOverview);
