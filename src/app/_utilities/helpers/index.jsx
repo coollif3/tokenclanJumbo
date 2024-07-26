@@ -2,6 +2,10 @@ import moment from "moment";
 import { USE_IMAGE_PLACEHOLDERS } from "../constants/paths";
 import TableCell from "@mui/material/TableCell";
 
+export const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 export const displayRedGreenColumn = (item, last = false) => {
   const num = (+item).toFixed(2);
   if (last) {
