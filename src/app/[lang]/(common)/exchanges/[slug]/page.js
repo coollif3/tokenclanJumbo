@@ -6,6 +6,7 @@ import {
 } from "@app/_services/exchanges";
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "../../../../_components/metrics/PercentChngCard/PercentChngCard";
+import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
 const chartConfig = {
   chartTitle: "Exchange Volume USD",
@@ -36,7 +37,10 @@ export default async function ExchangeDetailedPage({ params }) {
           </Grid>
 
           <Grid item xs={3}>
-            <Typography variant="h2">Current</Typography>
+            <CurrentMarketCard
+              subheader={"Today's Volume USD"}
+              value={volChng.vol_24hr_normalized}
+            />
           </Grid>
           <Grid item xs={3}>
             <PercentChngCard
