@@ -6,7 +6,7 @@ import {
   getExchangeMktcapChngFor,
   getExchangeTvevFor,
   getExchangeTvevChngFor,
-} from "@app/_services/exchanges";
+} from "@app/_services/exchange";
 
 export async function GET(req, { params, query }) {
   try {

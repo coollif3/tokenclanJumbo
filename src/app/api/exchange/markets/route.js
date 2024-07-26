@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getVolumeMktOverview } from "@app/_services/exchanges";
+import { getVolumeMktOverview } from "@app/_services/exchange";
 
 export async function GET(req) {
   try {

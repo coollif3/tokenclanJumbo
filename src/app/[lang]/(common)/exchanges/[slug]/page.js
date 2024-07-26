@@ -7,7 +7,7 @@ import {
   getExchangeMktcapChngFor,
   getExchangeTvevFor,
   getExchangeTvevChngFor,
-} from "@app/_services/exchanges";
+} from "@app/_services/exchange";
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "../../../../_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";

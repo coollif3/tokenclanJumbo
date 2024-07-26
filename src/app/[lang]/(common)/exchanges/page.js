@@ -1,4 +1,4 @@
-import { getExchanges, getVolumeMktOverview } from "@app/_services/exchanges";
+import { getExchanges, getVolumeMktOverview } from "@app/_services/exchange";
 import ExchangeDataTable from "@app/_components/widgets/ExchangeTableListing/ExchangeDataTable";
 import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
 import { Container, Grid } from "@mui/material";
