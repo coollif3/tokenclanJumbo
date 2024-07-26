@@ -6,7 +6,6 @@ import {
 import { Container, Grid } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
-import { formatToTimestampArray } from "@app/_utilities/helpers";
 
 const chartConfig = {
   chartTitle: "Total Blockchain TVL",
@@ -17,7 +16,6 @@ const chartConfig = {
 const BlockchainsPage = async () => {
   const listingRows = await getBlockchains();
   const chartSeries = await getBlockchainMktOverview();
-  const formattedSeries = formatToTimestampArray(chartSeries);
 
   return (
     <Container
@@ -33,7 +31,7 @@ const BlockchainsPage = async () => {
     >
       <Grid container spacing={3.75}>
         <Grid item xs={12}>
-          <GlobalCharts series={formattedSeries} config={chartConfig} />
+          <GlobalCharts series={chartSeries} config={chartConfig} />
         </Grid>
         <Grid item xs={12}>
           <BlockchainDataTable rows={listingRows} />
