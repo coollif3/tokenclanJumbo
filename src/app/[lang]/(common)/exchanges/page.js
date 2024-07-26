@@ -1,6 +1,5 @@
 import { listExchanges, volumeMktOverview } from "@app/_services/exchanges";
 import ExchangeDataTable from "@app/_components/widgets/ExchangeTableListing/ExchangeDataTable";
-import { formatToTimestampArray } from "@app/_utilities/helpers";
 import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
 import { Container, Grid } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
@@ -14,7 +13,6 @@ const chartConfig = {
 const ExchangesPage = async () => {
   const results = await listExchanges();
   const chartSeries = await volumeMktOverview();
-  const formattedSeries = formatToTimestampArray(chartSeries);
   return (
     <Container
       maxWidth={false}
@@ -29,7 +27,7 @@ const ExchangesPage = async () => {
     >
       <Grid container spacing={3.75}>
         <Grid item xs={12}>
-          <GlobalCharts series={formattedSeries} config={chartConfig} />
+          <GlobalCharts series={chartSeries} config={chartConfig} />
         </Grid>
         <Grid item xs={12}>
           <ExchangeDataTable rows={results} />
