@@ -3,21 +3,33 @@ import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
   getExchangeVolumeFor,
   getExchangeVolumeChngFor,
+  getExchangeMktcapFor,
+  getExchangeMktcapChngFor,
 } from "@app/_services/exchanges";
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "../../../../_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
-const chartConfig = {
+const volumeChartConfig = {
   chartTitle: "Exchange Volume USD",
   tooltipSeries: "Volume",
   yaxisTitle: "24hr Volume USD (Billions)",
+};
+
+const marketcapChartConfig = {
+  chartTitle: "Market Cap",
+  tooltipSeries: "Market Cap",
+  yaxisTitle: "USD",
 };
 
 export default async function ExchangeDetailedPage({ params }) {
   const slug = params.slug;
   const volData = await getExchangeVolumeFor(slug, 30);
   const volChng = await getExchangeVolumeChngFor(slug);
+
+  const mktcapData = await getExchangeMktcapFor(slug, 30);
+  const mktcapChng = await getExchangeMktcapChngFor(slug);
+
   return (
     <>
       <Container
@@ -65,11 +77,43 @@ export default async function ExchangeDetailedPage({ params }) {
           </Grid>
 
           <Grid item xs={12}>
-            <ExchangeCharts series={volData} config={chartConfig} />
+            <ExchangeCharts series={volData} config={volumeChartConfig} />
           </Grid>
 
           <Grid item xs={12}>
             <Typography variant="h2">Market Cap (USD)</Typography>
+          </Grid>
+
+          <Grid item xs={3}>
+            <CurrentMarketCard
+              subheader={"Today's Market Cap USD"}
+              value={mktcapChng.market_cap}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <PercentChngCard
+              title={`24hr Change`}
+              value={parseFloat(mktcapChng.one_day_chng)}
+              period={"day"}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <PercentChngCard
+              title={`7 Day Change`}
+              value={parseFloat(mktcapChng.seven_day_chng)}
+              period={"week"}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <PercentChngCard
+              title={`30 Day Change`}
+              value={parseFloat(mktcapChng.thirty_day_chng)}
+              period={"month"}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <ExchangeCharts series={mktcapData} config={marketcapChartConfig} />
           </Grid>
 
           <Grid item xs={12}>
