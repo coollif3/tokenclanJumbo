@@ -13,7 +13,7 @@ export const listExchangeVolumeFor = nextCache(
   cache(async (slug, period) => {
     try {
       const [results, metadata] = await db.query(getExchangeVolumeBySlug, {
-        replacements: { slug, periodLimit: +period },
+        replacements: { slug, periodLimit: period },
       });
       return results;
     } catch (error) {
