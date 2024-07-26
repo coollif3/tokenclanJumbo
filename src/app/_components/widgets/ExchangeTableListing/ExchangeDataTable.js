@@ -40,9 +40,9 @@ export default function ExchangeDataTable({ rows }) {
               </TableCell>
               <TableCell align="right">{row.category}</TableCell>
               <TableCell align="right">{row.vol_24hr}</TableCell>
-              {displayRedGreenColumn(row["1day_vol_norm_chng"])}
-              {displayRedGreenColumn(row["7day_usd_chng"])}
-              {displayRedGreenColumn(row["30day_usd_chng"])}
+              {displayRedGreenColumn(row.one_day_chng)}
+              {displayRedGreenColumn(row.seven_day_chng)}
+              {displayRedGreenColumn(row.thirty_day_chng)}
               <TableCell align="right" sx={{ pr: 4 }}>
                 <Link href={`/exchanges/${row.slug}`}>{row.coin}</Link>
               </TableCell>
