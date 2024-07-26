@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
-import { listExchangeVolumeFor } from "@app/_services/exchanges";
+import {
+  listExchangeVolumeFor,
+  getExchangeVolumeChngFor,
+} from "@app/_services/exchanges";
 
 export async function GET(req, { params, query }) {
   try {
@@ -8,8 +11,18 @@ export async function GET(req, { params, query }) {
     const searchParams = new URLSearchParams(url.searchParams);
     const period = searchParams.get("period");
     // console.log("period: ", period);
-    const results = await listExchangeVolumeFor(slug, parseInt(period));
-    return NextResponse.json({ results }, { status: 200 });
+    const volumeData = await listExchangeVolumeFor(slug, parseInt(period));
+    const volumeChngData = await getExchangeVolumeChngFor(slug);
+
+    return NextResponse.json(
+      {
+        results: {
+          volume: volumeData,
+          volumeChng: volumeChngData,
+        },
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.log(error);
     return NextResponse.json(
