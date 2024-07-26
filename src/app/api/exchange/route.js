@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { listExchanges } from "../../_services/exchanges";
+import { getExchanges } from "../../_services/exchanges";
 
 export async function GET(req) {
   try {
-    const results = await listExchanges();
+    const results = await getExchanges();
     return NextResponse.json(results, { status: 200 });
   } catch (error) {
     console.log(error);

@@ -49,7 +49,7 @@ export const getExchangeVolumeChngFor = nextCache(
   { revalidate: 28800 }
 );
 
-export const listExchanges = nextCache(
+export const getExchanges = nextCache(
   cache(async () => {
     try {
       const [results, metadata] = await db.query(listAllExchanges);
