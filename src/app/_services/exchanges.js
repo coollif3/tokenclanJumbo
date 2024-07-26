@@ -12,7 +12,7 @@ import {
 
 import { formatToTimestampArray } from "@app/_utilities/helpers";
 
-export const listExchangeVolumeFor = nextCache(
+export const getExchangeVolumeFor = nextCache(
   cache(async (slug, period) => {
     try {
       const [results, metadata] = await db.query(getExchangeVolumeBySlug, {

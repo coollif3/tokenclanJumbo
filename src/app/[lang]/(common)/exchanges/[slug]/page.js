@@ -1,7 +1,7 @@
 import { Container, Grid, Typography } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
-  listExchangeVolumeFor,
+  getExchangeVolumeFor,
   getExchangeVolumeChngFor,
 } from "@app/_services/exchanges";
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
@@ -16,7 +16,7 @@ const chartConfig = {
 
 export default async function ExchangeDetailedPage({ params }) {
   const slug = params.slug;
-  const volData = await listExchangeVolumeFor(slug, 30);
+  const volData = await getExchangeVolumeFor(slug, 30);
   const volChng = await getExchangeVolumeChngFor(slug);
   return (
     <>
