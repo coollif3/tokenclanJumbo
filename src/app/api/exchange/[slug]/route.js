@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import {
   getExchangeVolumeFor,
   getExchangeVolumeChngFor,
+  getExchangeMktcapFor,
+  getExchangeMktcapChngFor,
 } from "@app/_services/exchanges";
 
 export async function GET(req, { params, query }) {
@@ -13,12 +15,16 @@ export async function GET(req, { params, query }) {
     // console.log("period: ", period);
     const volumeData = await getExchangeVolumeFor(slug, parseInt(period));
     const volumeChngData = await getExchangeVolumeChngFor(slug);
+    const marketcap = await getExchangeMktcapFor(slug, parseInt(period));
+    const marketcapChng = await getExchangeMktcapChngFor(slug);
 
     return NextResponse.json(
       {
         results: {
           volume: volumeData,
           volumeChng: volumeChngData,
+          marketcap,
+          marketcapChng,
         },
       },
       { status: 200 }
