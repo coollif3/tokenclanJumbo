@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
+import { numberWithCommas } from "@app/_utilities/helpers";
 
 export default function ExchangeCharts({ series, config }) {
   const chartConfig = {
@@ -36,7 +37,7 @@ export default function ExchangeCharts({ series, config }) {
       yaxis: {
         labels: {
           formatter: function (val) {
-            return `${val.toFixed(0)}`;
+            return `${val.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
           },
         },
         title: {
