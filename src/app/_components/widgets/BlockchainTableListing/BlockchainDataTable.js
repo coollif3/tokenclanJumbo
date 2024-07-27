@@ -7,6 +7,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Link from "next/link";
 import { displayRedGreenColumn } from "@app/_utilities/helpers";
+import styles from "./styles.module.css";
 
 export default function BlockchainDataTable({ rows }) {
   return (
@@ -25,7 +26,7 @@ export default function BlockchainDataTable({ rows }) {
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody className={styles.tokenclan}>
           {rows.map((row) => (
             <TableRow
               key={row.blockchain_id}
