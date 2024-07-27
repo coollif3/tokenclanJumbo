@@ -1,8 +1,14 @@
-import { getExchanges, getVolumeMktOverview } from "@app/_services/exchange";
+import {
+  getExchanges,
+  getVolumeMktOverview,
+  getVolumeMktOverviewChng,
+} from "@app/_services/exchange";
 import ExchangeDataTable from "@app/_components/widgets/ExchangeTableListing/ExchangeDataTable";
 import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
+import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
+import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
 const chartConfig = {
   chartTitle: "Total Volume 24hr",
@@ -13,6 +19,8 @@ const chartConfig = {
 const ExchangesPage = async () => {
   const results = await getExchanges();
   const chartSeries = await getVolumeMktOverview();
+  const chngData = await getVolumeMktOverviewChng();
+
   return (
     <Container
       maxWidth={false}
@@ -26,6 +34,36 @@ const ExchangesPage = async () => {
       disableGutters
     >
       <Grid container spacing={3.75}>
+        <Grid item xs={12}>
+          <Typography variant="h2">Global Volume</Typography>
+        </Grid>
+        <Grid item xs={3}>
+          <CurrentMarketCard
+            subheader={"Today's Volume USD"}
+            value={chngData.totalvolume_usd}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <PercentChngCard
+            title={`24hr Change`}
+            value={parseFloat(chngData.one_day_chng)}
+            period={"day"}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <PercentChngCard
+            title={`7 Day Change`}
+            value={parseFloat(chngData.seven_day_chng)}
+            period={"week"}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <PercentChngCard
+            title={`30 Day Change`}
+            value={parseFloat(chngData.thirty_day_chng)}
+            period={"month"}
+          />
+        </Grid>
         <Grid item xs={12}>
           <GlobalCharts series={chartSeries} config={chartConfig} />
         </Grid>
