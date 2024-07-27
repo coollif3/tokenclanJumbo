@@ -7,6 +7,7 @@ import { numberWithCommas } from "@app/_utilities/helpers";
 export default function ExchangeCharts({ series, config }) {
   const chartConfig = {
     options: {
+      colors: ["#5DCBA6"],
       chart: {
         zoom: {
           type: "x",

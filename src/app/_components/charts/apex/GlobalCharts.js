@@ -6,6 +6,7 @@ const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 export default function GlobalCharts({ series, config }) {
   const chartConfig = {
     options: {
+      colors: ["#5DCBA6"],
       chart: {
         zoom: {
           type: "x",

@@ -17,7 +17,7 @@ const CurrentMarketCard = ({
   const formattedValue = numberWithCommas(marketValue);
   return (
     <JumboCard
-      bgcolor={["#23BCBA"]}
+      bgcolor={["#5DCBA6"]}
       contentSx={{ p: 3, height: 145 }}
       contentWrapper
     >
