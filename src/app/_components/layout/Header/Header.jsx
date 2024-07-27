@@ -40,7 +40,7 @@ function Header() {
       )}
       {/* <Search show={searchVisibility} onClose={handleSearchVisibility} /> */}
       <Stack direction="row" alignItems="center" gap={1.25} sx={{ ml: "auto" }}>
-        {/* {/* <ThemeModeOption /> */}
+        {/* <ThemeModeOption /> */}
         {/* <TranslationPopover /> */}
         {/* <SearchIconButtonOnSmallScreen onClick={handleSearchVisibility} /> */}
         {/* <MessagesPopover /> */}

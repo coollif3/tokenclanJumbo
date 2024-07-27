@@ -60,7 +60,6 @@ const DropDownPopover = () => {
                 <ListItemIcon sx={{ minWidth: 36 }}>
                   <CurrencyBitcoinIcon />
                 </ListItemIcon>
-                {/* <ListItemText primary='Blockchains' sx={{ my: 0 }} /> */}
                 Blockchains
               </ListItemButton>
             </Link>
@@ -74,7 +73,6 @@ const DropDownPopover = () => {
                 <ListItemIcon sx={{ minWidth: 36 }}>
                   <CurrencyExchangeIcon />
                 </ListItemIcon>
-                {/* <ListItemText primary='Exchanges' sx={{ my: 0 }} /> */}
                 Exchanges
               </ListItemButton>
             </Link>
