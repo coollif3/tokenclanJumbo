@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import {
   getBlockchainTvlForSlug,
   getBlockchainTvlChngForSlug,
+  getBlockchainCoinMktcapForSlug,
+  getBlockchainCoinMktcapChngForSlug,
 } from "@app/_services/blockchain";
 
 export async function GET(req, { params, query }) {
@@ -15,13 +17,19 @@ export async function GET(req, { params, query }) {
     const tvlData = await getBlockchainTvlForSlug(slug, parseInt(period));
     const tvlChngData = await getBlockchainTvlChngForSlug(slug);
 
+    const mktcapData = await getBlockchainCoinMktcapForSlug(
+      slug,
+      parseInt(period)
+    );
+    const mktcapChngData = await getBlockchainCoinMktcapChngForSlug(slug);
+
     return NextResponse.json(
       {
         results: {
           tvlData: tvlData,
           tvlChng: tvlChngData,
-          //   marketcap: marketcapData,
-          //   marketcapChng,
+          marketcap: mktcapData,
+          marketcapChng: mktcapChngData,
           //   tvev: tvevData,
           //   tvevChng,
         },

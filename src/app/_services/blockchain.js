@@ -8,8 +8,56 @@ import {
   getDefiMktOverview,
   getBlockchainTvlForSlug as getBlockchainTvlForSlugSql,
   getBlockchainTvlChngForSlug as getBlockchainTvlChngForSlugSql,
+  getBlockchainCoinMktcapForSlug as getBlockchainCoinMktcapForSlugSql,
+  getBlockchainCoinMktcapChngForSlug as getBlockchainCoinMktcapChngForSlugSql,
 } from "../_sql/query";
 import { formatToTimestampArray } from "@app/_utilities/helpers";
+
+export const getBlockchainCoinMktcapChngForSlug = nextCache(
+  cache(async (slug) => {
+    try {
+      const [results, metadata] = await db.query(
+        getBlockchainCoinMktcapChngForSlugSql,
+        {
+          replacements: {
+            slug,
+          },
+        }
+      );
+      return results[0];
+    } catch (error) {
+      console.log(error);
+      throw new Error(
+        `Error fetching blockchain coin mktcap chng data for ${slug}`
+      );
+    }
+  }),
+  [`getBlockchainCoinMktcapChngForSlug`],
+  { revalidate: 28800 }
+);
+
+export const getBlockchainCoinMktcapForSlug = nextCache(
+  cache(async (slug, period) => {
+    try {
+      const [results, metadata] = await db.query(
+        getBlockchainCoinMktcapForSlugSql,
+        {
+          replacements: {
+            slug,
+            periodLimit: period,
+          },
+        }
+      );
+      const formattedResults = formatToTimestampArray(results);
+      return formattedResults;
+    } catch (error) {
+      console.log(error);
+      throw new Error(`Error fetching blockchain coin mktcap data for ${slug}`);
+    }
+  }),
+  [`getBlockchainCoinMktcapForSlug`],
+  { revalidate: 28800 }
+);
 
 export const getBlockchainTvlChngForSlug = nextCache(
   cache(async (slug) => {

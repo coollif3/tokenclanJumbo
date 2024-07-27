@@ -3,6 +3,8 @@ import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
   getBlockchainTvlForSlug,
   getBlockchainTvlChngForSlug,
+  getBlockchainCoinMktcapForSlug,
+  getBlockchainCoinMktcapChngForSlug,
 } from "@app/_services/blockchain";
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
@@ -13,11 +15,20 @@ const tvlChartConfig = {
   tooltipSeries: "TVL",
   yaxisTitle: "USD",
 };
+const mktcapChartConfig = {
+  chartTitle: "Market Cap USD",
+  tooltipSeries: "MarketCap",
+  yaxisTitle: "USD",
+};
 
 export default async function BlockchainDetailedPage({ params }) {
   const slug = params.slug;
   const tvlData = await getBlockchainTvlForSlug(slug, 30);
   const tvlChng = await getBlockchainTvlChngForSlug(slug);
+
+  const mktcapData = await getBlockchainCoinMktcapForSlug(slug, 30);
+  const mktcapChng = await getBlockchainCoinMktcapChngForSlug(slug);
+
   return (
     <Container
       maxWidth={false}
@@ -63,6 +74,41 @@ export default async function BlockchainDetailedPage({ params }) {
         </Grid>
         <Grid item xs={12}>
           <ExchangeCharts series={tvlData} config={tvlChartConfig} />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h2">Market Cap (USD)</Typography>
+        </Grid>
+
+        <Grid item xs={3}>
+          <CurrentMarketCard
+            subheader={"Today's Market Cap USD"}
+            value={mktcapChng.market_cap}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <PercentChngCard
+            title={`24hr Change`}
+            value={parseFloat(mktcapChng.one_day_chng)}
+            period={"day"}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <PercentChngCard
+            title={`7 Day Change`}
+            value={parseFloat(mktcapChng.seven_day_chng)}
+            period={"week"}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <PercentChngCard
+            title={`30 Day Change`}
+            value={parseFloat(mktcapChng.thirty_day_chng)}
+            period={"month"}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <ExchangeCharts series={mktcapData} config={mktcapChartConfig} />
         </Grid>
       </Grid>
     </Container>
