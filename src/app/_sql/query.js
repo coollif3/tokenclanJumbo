@@ -49,3 +49,7 @@ export const getBlockchainRatioForSlug =
 
 export const getBlockchainRatioChngForSlug =
   "SELECT m.ratio, m.1day_ratio_chng AS one_day_chng, m.7day_ratio_chng AS seven_day_chng, 30day_ratio_chng AS thirty_day_chng FROM mktcap_tvl_chng AS m INNER JOIN blockchains AS b ON b.id = m.blockchain_id WHERE b.slug = :slug ORDER BY m.createdAt DESC LIMIT 1";
+
+export const getExchangeName =
+  "SELECT `name` FROM `coins` WHERE name_id = :slug";
+

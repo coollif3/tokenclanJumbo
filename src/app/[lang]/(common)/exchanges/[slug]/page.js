@@ -7,6 +7,7 @@ import {
   getExchangeMktcapChngFor,
   getExchangeTvevFor,
   getExchangeTvevChngFor,
+  getExchangeNameFor,
 } from "@app/_services/exchange";
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
@@ -32,6 +33,8 @@ const tvevChartConfig = {
 
 export default async function ExchangeDetailedPage({ params }) {
   const slug = params.slug;
+  const coin = await getExchangeNameFor(slug);
+
   const volData = await getExchangeVolumeFor(slug, 30);
   const volChng = await getExchangeVolumeChngFor(slug);
 
@@ -56,7 +59,7 @@ export default async function ExchangeDetailedPage({ params }) {
       >
         <Grid container spacing={3.75}>
           <Grid item xs={12}>
-            <Typography variant="h2">Exchange Volume USD</Typography>
+            <Typography variant="h2">{`${coin.name} Exchange Volume USD`}</Typography>
           </Grid>
 
           <Grid item xs={3}>
@@ -92,7 +95,7 @@ export default async function ExchangeDetailedPage({ params }) {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h2">Market Cap (USD)</Typography>
+            <Typography variant="h2">{`${coin.name} Market Cap (USD)`}</Typography>
           </Grid>
 
           <Grid item xs={3}>
@@ -128,7 +131,7 @@ export default async function ExchangeDetailedPage({ params }) {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h2">TVEV Ratio</Typography>
+            <Typography variant="h2">{`${coin.name} TVEV Ratio`}</Typography>
           </Grid>
           <Grid item xs={3}>
             <CurrentMarketCard

@@ -6,6 +6,7 @@ import {
   getExchangeMktcapChngFor,
   getExchangeTvevFor,
   getExchangeTvevChngFor,
+  getExchangeNameFor,
 } from "@app/_services/exchange";
 
 export async function GET(req, { params, query }) {
@@ -23,9 +24,11 @@ export async function GET(req, { params, query }) {
     const tvevData = await getExchangeTvevFor(slug, parseInt(period));
     const tvevChng = await getExchangeTvevChngFor(slug);
 
+    const coin = await getExchangeNameFor(slug);
     return NextResponse.json(
       {
         results: {
+          coin,
           volume: volumeData,
           volumeChng: volumeChngData,
           marketcap: marketcapData,

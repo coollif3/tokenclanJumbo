@@ -13,9 +13,27 @@ import {
   getExchangeTvevBySlug,
   getExchangeTvevChngBySlug,
   globalVolumeOverviewChng as globalVolumeOverviewChngSql,
+  getExchangeName as getExchangeNameSql,
 } from "../_sql/query";
 
 import { formatToTimestampArray } from "@app/_utilities/helpers";
+
+export const getExchangeNameFor = nextCache(
+  cache(async (slug) => {
+    try {
+      const [results, metadata] = await db.query(getExchangeNameSql, {
+        replacements: { slug },
+      });
+
+      return results[0];
+    } catch (error) {
+      console.log(error);
+      throw new Error(`Error fetching exchange name for slug ${slug}`);
+    }
+  }),
+  ["getExchangeNameForSlug"],
+  { revalidate: 28800 }
+);
 
 export const getExchangeTvevChngFor = nextCache(
   cache(async (slug, period) => {
