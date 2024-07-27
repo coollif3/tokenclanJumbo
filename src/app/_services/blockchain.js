@@ -10,8 +10,53 @@ import {
   getBlockchainTvlChngForSlug as getBlockchainTvlChngForSlugSql,
   getBlockchainCoinMktcapForSlug as getBlockchainCoinMktcapForSlugSql,
   getBlockchainCoinMktcapChngForSlug as getBlockchainCoinMktcapChngForSlugSql,
+  getBlockchainRatioForSlug as getBlockchainRatioForSlugSql,
+  getBlockchainRatioChngForSlug as getBlockchainRatioChngForSlugSql,
 } from "../_sql/query";
 import { formatToTimestampArray } from "@app/_utilities/helpers";
+
+export const getBlockchainRatioChngForSlug = nextCache(
+  cache(async (slug) => {
+    try {
+      const [results, metadata] = await db.query(
+        getBlockchainRatioChngForSlugSql,
+        {
+          replacements: {
+            slug,
+          },
+        }
+      );
+      return results[0];
+    } catch (error) {
+      console.log(error);
+      throw new Error(
+        `Error fetching blockchain mktcap/tvl chng data for ${slug}`
+      );
+    }
+  }),
+  [`getBlockchainRatioChngForSlug`],
+  { revalidate: 28800 }
+);
+
+export const getBlockchainRatioForSlug = nextCache(
+  cache(async (slug, period) => {
+    try {
+      const [results, metadata] = await db.query(getBlockchainRatioForSlugSql, {
+        replacements: {
+          slug,
+          periodLimit: period,
+        },
+      });
+      const formattedResults = formatToTimestampArray(results);
+      return formattedResults;
+    } catch (error) {
+      console.log(error);
+      throw new Error(`Error fetching blockchain mktcap/Tvl ratio for ${slug}`);
+    }
+  }),
+  [`getBlockchainRatioForSlug`],
+  { revalidate: 28800 }
+);
 
 export const getBlockchainCoinMktcapChngForSlug = nextCache(
   cache(async (slug) => {

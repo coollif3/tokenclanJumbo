@@ -5,6 +5,8 @@ import {
   getBlockchainTvlChngForSlug,
   getBlockchainCoinMktcapForSlug,
   getBlockchainCoinMktcapChngForSlug,
+  getBlockchainRatioForSlug,
+  getBlockchainRatioChngForSlug,
 } from "@app/_services/blockchain";
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
@@ -20,6 +22,11 @@ const mktcapChartConfig = {
   tooltipSeries: "MarketCap",
   yaxisTitle: "USD",
 };
+const ratioChartConfig = {
+  chartTitle: "Mktcap/Tvl",
+  tooltipSeries: "MarketCap/TVL",
+  yaxisTitle: "Ratio",
+};
 
 export default async function BlockchainDetailedPage({ params }) {
   const slug = params.slug;
@@ -28,6 +35,9 @@ export default async function BlockchainDetailedPage({ params }) {
 
   const mktcapData = await getBlockchainCoinMktcapForSlug(slug, 30);
   const mktcapChng = await getBlockchainCoinMktcapChngForSlug(slug);
+
+  const ratioData = await getBlockchainRatioForSlug(slug, 30);
+  const ratioChng = await getBlockchainRatioChngForSlug(slug);
 
   return (
     <Container
@@ -109,6 +119,40 @@ export default async function BlockchainDetailedPage({ params }) {
 
         <Grid item xs={12}>
           <ExchangeCharts series={mktcapData} config={mktcapChartConfig} />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h2">MarketCap/TVL Ratio</Typography>
+        </Grid>
+        <Grid item xs={3}>
+          <CurrentMarketCard
+            subheader={"Today's Ratio"}
+            value={ratioChng.ratio}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <PercentChngCard
+            title={`24hr Change`}
+            value={parseFloat(ratioChng.one_day_chng)}
+            period={"day"}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <PercentChngCard
+            title={`7 Day Change`}
+            value={parseFloat(ratioChng.seven_day_chng)}
+            period={"week"}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <PercentChngCard
+            title={`30 Day Change`}
+            value={parseFloat(ratioChng.thirty_day_chng)}
+            period={"month"}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <ExchangeCharts series={ratioData} config={ratioChartConfig} />
         </Grid>
       </Grid>
     </Container>
