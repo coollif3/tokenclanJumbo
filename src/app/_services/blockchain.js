@@ -161,7 +161,7 @@ export const getBlockchains = nextCache(
 );
 
 export const getBlockchainMktOverviewChng = nextCache(
-  cache(async (slug, period) => {
+  cache(async (slug) => {
     try {
       const [results, metadata] = await db.query(getDefiMktOverviewChngSql);
       return results[0];
