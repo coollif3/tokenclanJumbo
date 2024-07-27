@@ -7,6 +7,7 @@ import {
   getBlockchainCoinMktcapChngForSlug,
   getBlockchainRatioForSlug,
   getBlockchainRatioChngForSlug,
+  getBlockchainNameForSlug,
 } from "@app/_services/blockchain";
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
@@ -30,6 +31,8 @@ const ratioChartConfig = {
 
 export default async function BlockchainDetailedPage({ params }) {
   const slug = params.slug;
+
+  const coin = await getBlockchainNameForSlug(slug);
   const tvlData = await getBlockchainTvlForSlug(slug, 30);
   const tvlChng = await getBlockchainTvlChngForSlug(slug);
 
@@ -53,7 +56,7 @@ export default async function BlockchainDetailedPage({ params }) {
     >
       <Grid container spacing={3.75}>
         <Grid item xs={12}>
-          <Typography variant="h2">Blockchain TVL USD</Typography>
+          <Typography variant="h2">{`${coin.name} Blockchain TVL USD`}</Typography>
         </Grid>
         <Grid item xs={3}>
           <CurrentMarketCard
@@ -86,7 +89,7 @@ export default async function BlockchainDetailedPage({ params }) {
           <ExchangeCharts series={tvlData} config={tvlChartConfig} />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h2">Market Cap (USD)</Typography>
+          <Typography variant="h2">{`${coin.name} Market Cap (USD)`}</Typography>
         </Grid>
 
         <Grid item xs={3}>
@@ -121,7 +124,7 @@ export default async function BlockchainDetailedPage({ params }) {
           <ExchangeCharts series={mktcapData} config={mktcapChartConfig} />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h2">MarketCap/TVL Ratio</Typography>
+          <Typography variant="h2">{`${coin.name} MarketCap/TVL Ratio`}</Typography>
         </Grid>
         <Grid item xs={3}>
           <CurrentMarketCard

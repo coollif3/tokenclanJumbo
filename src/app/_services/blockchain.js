@@ -13,8 +13,27 @@ import {
   getBlockchainRatioForSlug as getBlockchainRatioForSlugSql,
   getBlockchainRatioChngForSlug as getBlockchainRatioChngForSlugSql,
   getDefiMktOverviewChng as getDefiMktOverviewChngSql,
+  getBlockchainName as getBlockchainNameSql,
 } from "../_sql/query";
 import { formatToTimestampArray } from "@app/_utilities/helpers";
+
+export const getBlockchainNameForSlug = nextCache(
+  cache(async (slug) => {
+    try {
+      const [results, metadata] = await db.query(getBlockchainNameSql, {
+        replacements: {
+          slug,
+        },
+      });
+      return results[0];
+    } catch (error) {
+      console.log(error);
+      throw new Error(`Error fetching blockchain name for ${slug}`);
+    }
+  }),
+  [`getBlockchainNameForSlug`],
+  { revalidate: 28800 }
+);
 
 export const getBlockchainRatioChngForSlug = nextCache(
   cache(async (slug) => {

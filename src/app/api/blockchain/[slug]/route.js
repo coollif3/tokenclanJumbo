@@ -6,6 +6,7 @@ import {
   getBlockchainCoinMktcapChngForSlug,
   getBlockchainRatioForSlug,
   getBlockchainRatioChngForSlug,
+  getBlockchainNameForSlug,
 } from "@app/_services/blockchain";
 
 export async function GET(req, { params, query }) {
@@ -15,6 +16,8 @@ export async function GET(req, { params, query }) {
     const searchParams = new URLSearchParams(url.searchParams);
     const period = searchParams.get("period");
     // console.log("period: ", period);
+
+    const coin = await getBlockchainNameForSlug(slug);
 
     const tvlData = await getBlockchainTvlForSlug(slug, parseInt(period));
     const tvlChngData = await getBlockchainTvlChngForSlug(slug);
@@ -31,6 +34,7 @@ export async function GET(req, { params, query }) {
     return NextResponse.json(
       {
         results: {
+          coin,
           tvlData: tvlData,
           tvlChng: tvlChngData,
           marketcap: mktcapData,

@@ -53,3 +53,5 @@ export const getBlockchainRatioChngForSlug =
 export const getExchangeName =
   "SELECT `name` FROM `coins` WHERE name_id = :slug";
 
+export const getBlockchainName =
+  "SELECT name FROM `blockchains` WHERE slug = :slug";
