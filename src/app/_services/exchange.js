@@ -12,6 +12,7 @@ import {
   getExchangeMktcapChngBySlug,
   getExchangeTvevBySlug,
   getExchangeTvevChngBySlug,
+  globalVolumeOverviewChng as globalVolumeOverviewChngSql,
 } from "../_sql/query";
 
 import { formatToTimestampArray } from "@app/_utilities/helpers";
@@ -144,6 +145,21 @@ export const getExchanges = nextCache(
     }
   }),
   ["getExchanges"],
+  { revalidate: 28800 }
+);
+
+export const getVolumeMktOverviewChng = nextCache(
+  cache(async () => {
+    try {
+      const [results, metadata] = await db.query(globalVolumeOverviewChngSql);
+
+      return results[0];
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error fetching volume market overview chng data");
+    }
+  }),
+  ["getVolumeMarketOverviewChng"],
   { revalidate: 28800 }
 );
 

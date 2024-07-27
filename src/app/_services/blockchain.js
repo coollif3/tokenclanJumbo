@@ -12,6 +12,7 @@ import {
   getBlockchainCoinMktcapChngForSlug as getBlockchainCoinMktcapChngForSlugSql,
   getBlockchainRatioForSlug as getBlockchainRatioForSlugSql,
   getBlockchainRatioChngForSlug as getBlockchainRatioChngForSlugSql,
+  getDefiMktOverviewChng as getDefiMktOverviewChngSql,
 } from "../_sql/query";
 import { formatToTimestampArray } from "@app/_utilities/helpers";
 
@@ -156,6 +157,20 @@ export const getBlockchains = nextCache(
     }
   }),
   ["getBlockchains"],
+  { revalidate: 28800 }
+);
+
+export const getBlockchainMktOverviewChng = nextCache(
+  cache(async (slug, period) => {
+    try {
+      const [results, metadata] = await db.query(getDefiMktOverviewChngSql);
+      return results[0];
+    } catch (error) {
+      console.log(error);
+      throw new Error(`Error fetching blockchain market overiew chng data`);
+    }
+  }),
+  [`getBlockchainOverviewChng`],
   { revalidate: 28800 }
 );
 
