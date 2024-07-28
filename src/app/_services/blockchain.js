@@ -17,153 +17,167 @@ import {
 } from "../_sql/query";
 import { formatToTimestampArray } from "@app/_utilities/helpers";
 
-export const getBlockchainNameForSlug = nextCache(
-  cache(async (slug) => {
-    try {
-      const [results, metadata] = await db.query(getBlockchainNameSql, {
-        replacements: {
-          slug,
-        },
-      });
-      return results[0];
-    } catch (error) {
-      console.log(error);
-      throw new Error(`Error fetching blockchain name for ${slug}`);
+export const getBlockchainRatioChngForSlug = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await db.query(
+          getBlockchainRatioChngForSlugSql,
+          {
+            replacements: {
+              slug,
+            },
+          }
+        );
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(
+          `Error fetching blockchain mktcap/tvl chng data for ${slug}`
+        );
+      }
+    }),
+    [`getBlockchainRatioChngForSlug-${slug}`],
+    {
+      revalidate: 28800,
+      tags: [`blockchain-${slug}`],
     }
-  }),
-  [`getBlockchainNameForSlug`],
-  { revalidate: 28800 }
-);
+  );
 
-export const getBlockchainRatioChngForSlug = nextCache(
-  cache(async (slug) => {
-    try {
-      const [results, metadata] = await db.query(
-        getBlockchainRatioChngForSlugSql,
-        {
-          replacements: {
-            slug,
-          },
-        }
-      );
-      return results[0];
-    } catch (error) {
-      console.log(error);
-      throw new Error(
-        `Error fetching blockchain mktcap/tvl chng data for ${slug}`
-      );
+  return await getData(slug);
+};
+
+export const getBlockchainRatioForSlug = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await db.query(
+          getBlockchainRatioForSlugSql,
+          {
+            replacements: {
+              slug,
+              periodLimit: period,
+            },
+          }
+        );
+        const formattedResults = formatToTimestampArray(results);
+        return formattedResults;
+      } catch (error) {
+        console.log(error);
+        throw new Error(
+          `Error fetching blockchain mktcap/Tvl ratio for ${slug}`
+        );
+      }
+    }),
+    [`getBlockchainRatioForSlug-${slug}-${period}`],
+    {
+      revalidate: 28800,
+      tags: [`blockchain-${slug}-${period}`],
     }
-  }),
-  [`getBlockchainRatioChngForSlug`],
-  { revalidate: 28800 }
-);
+  );
+  return await getData(slug, parseInt(period));
+};
 
-export const getBlockchainRatioForSlug = nextCache(
-  cache(async (slug, period) => {
-    try {
-      const [results, metadata] = await db.query(getBlockchainRatioForSlugSql, {
-        replacements: {
-          slug,
-          periodLimit: period,
-        },
-      });
-      const formattedResults = formatToTimestampArray(results);
-      return formattedResults;
-    } catch (error) {
-      console.log(error);
-      throw new Error(`Error fetching blockchain mktcap/Tvl ratio for ${slug}`);
-    }
-  }),
-  [`getBlockchainRatioForSlug`],
-  { revalidate: 28800 }
-);
+export const getBlockchainCoinMktcapChngForSlug = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await db.query(
+          getBlockchainCoinMktcapChngForSlugSql,
+          {
+            replacements: {
+              slug,
+            },
+          }
+        );
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(
+          `Error fetching blockchain coin mktcap chng data for ${slug}`
+        );
+      }
+    }),
+    [`getBlockchainCoinMktcapChngForSlug-${slug}`],
+    { revalidate: 28800, tags: [`blockchain-${slug}`] }
+  );
+  return await getData(slug);
+};
 
-export const getBlockchainCoinMktcapChngForSlug = nextCache(
-  cache(async (slug) => {
-    try {
-      const [results, metadata] = await db.query(
-        getBlockchainCoinMktcapChngForSlugSql,
-        {
-          replacements: {
-            slug,
-          },
-        }
-      );
-      return results[0];
-    } catch (error) {
-      console.log(error);
-      throw new Error(
-        `Error fetching blockchain coin mktcap chng data for ${slug}`
-      );
-    }
-  }),
-  [`getBlockchainCoinMktcapChngForSlug`],
-  { revalidate: 28800 }
-);
+export const getBlockchainCoinMktcapForSlug = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await db.query(
+          getBlockchainCoinMktcapForSlugSql,
+          {
+            replacements: {
+              slug,
+              periodLimit: period,
+            },
+          }
+        );
+        const formattedResults = formatToTimestampArray(results);
+        return formattedResults;
+      } catch (error) {
+        console.log(error);
+        throw new Error(
+          `Error fetching blockchain coin mktcap data for ${slug}`
+        );
+      }
+    }),
+    [`getBlockchainCoinMktcapForSlug-${slug}-${period}`],
+    { revalidate: 28800, tags: [`blockchain-${slug}-${period}`] }
+  );
+  return await getData(slug, parseInt(period));
+};
 
-export const getBlockchainCoinMktcapForSlug = nextCache(
-  cache(async (slug, period) => {
-    try {
-      const [results, metadata] = await db.query(
-        getBlockchainCoinMktcapForSlugSql,
-        {
+export const getBlockchainTvlChngForSlug = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await db.query(
+          getBlockchainTvlChngForSlugSql,
+          {
+            replacements: {
+              slug,
+            },
+          }
+        );
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching blockchain tvl chng data for ${slug}`);
+      }
+    }),
+    [`getBlockchainTvlChngForSlug-${slug}`],
+    { revalidate: 28800, tags: [`blockchain-${slug}`] }
+  );
+  return await getData(slug);
+};
+
+export const getBlockchainTvlForSlug = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await db.query(getBlockchainTvlForSlugSql, {
           replacements: {
             slug,
             periodLimit: period,
           },
-        }
-      );
-      const formattedResults = formatToTimestampArray(results);
-      return formattedResults;
-    } catch (error) {
-      console.log(error);
-      throw new Error(`Error fetching blockchain coin mktcap data for ${slug}`);
-    }
-  }),
-  [`getBlockchainCoinMktcapForSlug`],
-  { revalidate: 28800 }
-);
-
-export const getBlockchainTvlChngForSlug = nextCache(
-  cache(async (slug) => {
-    try {
-      const [results, metadata] = await db.query(
-        getBlockchainTvlChngForSlugSql,
-        {
-          replacements: {
-            slug,
-          },
-        }
-      );
-      return results[0];
-    } catch (error) {
-      console.log(error);
-      throw new Error(`Error fetching blockchain tvl chng data for ${slug}`);
-    }
-  }),
-  [`getBlockchainTvlChngForSlug`],
-  { revalidate: 28800 }
-);
-
-export const getBlockchainTvlForSlug = nextCache(
-  cache(async (slug, period) => {
-    try {
-      const [results, metadata] = await db.query(getBlockchainTvlForSlugSql, {
-        replacements: {
-          slug,
-          periodLimit: period,
-        },
-      });
-      const formattedResults = formatToTimestampArray(results);
-      return formattedResults;
-    } catch (error) {
-      console.log(error);
-      throw new Error(`Error fetching blockchain tvl data for ${slug}`);
-    }
-  }),
-  [`getBlockchainTvlForSlug`],
-  { revalidate: 28800 }
-);
+        });
+        const formattedResults = formatToTimestampArray(results);
+        return formattedResults;
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching blockchain tvl data for ${slug}`);
+      }
+    }),
+    [`getBlockchainTvlForSlug-${slug}-${period}`],
+    { revalidate: 28800, tags: [`blockchain-${slug}-${period}`] }
+  );
+  return await getData(slug, parseInt(period));
+};
 
 export const getBlockchains = nextCache(
   cache(async () => {
@@ -179,8 +193,34 @@ export const getBlockchains = nextCache(
   { revalidate: 28800 }
 );
 
+export const getBlockchainNameForSlug = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        console.log("inside function");
+        console.log(slug);
+        const [results, metadata] = await db.query(getBlockchainNameSql, {
+          replacements: {
+            slug,
+          },
+        });
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching blockchain name for ${slug}`);
+      }
+    }),
+    [`getBlockchainNameForSlug-${slug}`],
+    {
+      revalidate: 28800,
+      tags: ["getBlockchainNameForSlug", `blockchain-${slug}}`],
+    }
+  );
+  return await getData(slug);
+};
+
 export const getBlockchainMktOverviewChng = nextCache(
-  cache(async (slug) => {
+  cache(async () => {
     try {
       const [results, metadata] = await db.query(getDefiMktOverviewChngSql);
       return results[0];
