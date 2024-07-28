@@ -9,7 +9,7 @@ import {
   getBlockchainNameForSlug,
 } from "@app/_services/blockchain";
 
-export async function GET(req, { params, query }) {
+export async function GET(req, { params }) {
   try {
     const slug = params.slug;
     const url = new URL(req.url);
