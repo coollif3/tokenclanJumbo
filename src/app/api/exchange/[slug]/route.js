@@ -16,12 +16,12 @@ export async function GET(req, { params }) {
     const searchParams = new URLSearchParams(url.searchParams);
     const period = searchParams.get("period");
     // console.log("period: ", period);
-    const volumeData = await getExchangeVolumeFor(slug, parseInt(period));
+    const volumeData = await getExchangeVolumeFor(slug, period);
     const volumeChngData = await getExchangeVolumeChngFor(slug);
-    const marketcapData = await getExchangeMktcapFor(slug, parseInt(period));
+    const marketcapData = await getExchangeMktcapFor(slug, period);
     const marketcapChng = await getExchangeMktcapChngFor(slug);
 
-    const tvevData = await getExchangeTvevFor(slug, parseInt(period));
+    const tvevData = await getExchangeTvevFor(slug, period);
     const tvevChng = await getExchangeTvevChngFor(slug);
 
     const coin = await getExchangeNameFor(slug);

@@ -18,139 +18,166 @@ import {
 
 import { formatToTimestampArray } from "@app/_utilities/helpers";
 
-export const getExchangeNameFor = nextCache(
-  cache(async (slug) => {
-    try {
-      const [results, metadata] = await db.query(getExchangeNameSql, {
-        replacements: { slug },
-      });
+export const getExchangeTvevChngFor = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await db.query(getExchangeTvevChngBySlug, {
+          replacements: { slug },
+        });
 
-      return results[0];
-    } catch (error) {
-      console.log(error);
-      throw new Error(`Error fetching exchange name for slug ${slug}`);
-    }
-  }),
-  ["getExchangeNameForSlug"],
-  { revalidate: 28800 }
-);
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(
+          `Error fetching exchange tvev chng for slug ${slug} data`
+        );
+      }
+    }),
+    [`getExchangeTvevChngForSlug-${slug}`],
+    { revalidate: 28800, tags: [`exchange-${slug}`] }
+  );
+  return await getData(slug);
+};
 
-export const getExchangeTvevChngFor = nextCache(
-  cache(async (slug, period) => {
-    try {
-      const [results, metadata] = await db.query(getExchangeTvevChngBySlug, {
-        replacements: { slug },
-      });
+export const getExchangeTvevFor = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await db.query(getExchangeTvevBySlug, {
+          replacements: { slug, periodLimit: period },
+        });
 
-      return results[0];
-    } catch (error) {
-      console.log(error);
-      throw new Error(
-        `Error fetching exchange tvev chng for slug ${slug} data`
-      );
-    }
-  }),
-  ["getExchangeTvevChngForSlug"],
-  { revalidate: 28800 }
-);
+        const formattedResults = formatToTimestampArray(results);
 
-export const getExchangeTvevFor = nextCache(
-  cache(async (slug, period) => {
-    try {
-      const [results, metadata] = await db.query(getExchangeTvevBySlug, {
-        replacements: { slug, periodLimit: period },
-      });
+        return formattedResults;
+      } catch (error) {
+        console.log(error);
+        throw new Error(
+          `Error fetching exchange tvev ratio for slug ${slug} data`
+        );
+      }
+    }),
+    [`getExchangeTvevForSlug-${slug}-${period}`],
+    { revalidate: 28800, tags: [`exchange-${slug}-${period}`] }
+  );
+  return await getData(slug, parseInt(period));
+};
 
-      const formattedResults = formatToTimestampArray(results);
+export const getExchangeMktcapChngFor = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await db.query(
+          getExchangeMktcapChngBySlug,
+          {
+            replacements: { slug },
+          }
+        );
 
-      return formattedResults;
-    } catch (error) {
-      console.log(error);
-      throw new Error(
-        `Error fetching exchange tvev ratio for slug ${slug} data`
-      );
-    }
-  }),
-  ["getExchangeTvevForSlug"],
-  { revalidate: 28800 }
-);
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(
+          `Error fetching exchange marketcap chng for slug ${slug} data`
+        );
+      }
+    }),
+    [`getExchangeMktcapChngForSlug-${slug}`],
+    { revalidate: 28800, tags: [`exchange-${slug}`] }
+  );
+  return await getData(slug);
+};
 
-export const getExchangeMktcapChngFor = nextCache(
-  cache(async (slug, period) => {
-    try {
-      const [results, metadata] = await db.query(getExchangeMktcapChngBySlug, {
-        replacements: { slug },
-      });
+export const getExchangeMktcapFor = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await db.query(getExchangeMktcapBySlug, {
+          replacements: { slug, periodLimit: period },
+        });
 
-      return results[0];
-    } catch (error) {
-      console.log(error);
-      throw new Error(
-        `Error fetching exchange marketcap chng for slug ${slug} data`
-      );
-    }
-  }),
-  ["getExchangeMktcapChngForSlug"],
-  { revalidate: 28800 }
-);
+        const formattedResults = formatToTimestampArray(results);
 
-export const getExchangeMktcapFor = nextCache(
-  cache(async (slug, period) => {
-    try {
-      const [results, metadata] = await db.query(getExchangeMktcapBySlug, {
-        replacements: { slug, periodLimit: period },
-      });
+        return formattedResults;
+      } catch (error) {
+        console.log(error);
+        throw new Error(
+          `Error fetching exchange marketcap for slug ${slug} data`
+        );
+      }
+    }),
+    [`getExchangeMktcapForSlug-${slug}-${period}`],
+    { revalidate: 28800, tags: [`exchange-${slug}-${period}`] }
+  );
+  return await getData(slug, parseInt(period));
+};
 
-      const formattedResults = formatToTimestampArray(results);
+export const getExchangeVolumeFor = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await db.query(getExchangeVolumeBySlug, {
+          replacements: { slug, periodLimit: period },
+        });
 
-      return formattedResults;
-    } catch (error) {
-      console.log(error);
-      throw new Error(
-        `Error fetching exchange marketcap for slug ${slug} data`
-      );
-    }
-  }),
-  ["getExchangeMktcapForSlug"],
-  { revalidate: 28800 }
-);
+        const formattedResults = formatToTimestampArray(results);
 
-export const getExchangeVolumeFor = nextCache(
-  cache(async (slug, period) => {
-    try {
-      const [results, metadata] = await db.query(getExchangeVolumeBySlug, {
-        replacements: { slug, periodLimit: period },
-      });
+        return formattedResults;
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching exchange volume for slug ${slug} data`);
+      }
+    }),
+    [`getExchangeVolumeForSlug-${slug}-${period}`],
+    { revalidate: 28800, tags: [`exchange-${slug}-${period}`] }
+  );
+  return await getData(slug, parseInt(period));
+};
 
-      const formattedResults = formatToTimestampArray(results);
+export const getExchangeVolumeChngFor = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await db.query(
+          getExchangeVolumeChngBySlug,
+          {
+            replacements: { slug },
+          }
+        );
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(
+          `Error fetching exchange volume change for slug ${slug} data`
+        );
+      }
+    }),
+    [`getExchangeVolumeChngForSlug-${slug}`],
+    { revalidate: 28800, tags: [`exchange-${slug}`] }
+  );
+  return await getData(slug);
+};
 
-      return formattedResults;
-    } catch (error) {
-      console.log(error);
-      throw new Error(`Error fetching exchange volume for slug ${slug} data`);
-    }
-  }),
-  ["getExchangeVolumeForSlug"],
-  { revalidate: 28800 }
-);
+export const getExchangeNameFor = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await db.query(getExchangeNameSql, {
+          replacements: { slug },
+        });
 
-export const getExchangeVolumeChngFor = nextCache(
-  cache(async (slug) => {
-    try {
-      const [results, metadata] = await db.query(getExchangeVolumeChngBySlug, {
-        replacements: { slug },
-      });
-      return results[0];
-    } catch (error) {
-      console.log(error);
-      throw new Error(
-        `Error fetching exchange volume change for slug ${slug} data`
-      );
-    }
-  }),
-  ["getExchangeVolumeChngForSlug"],
-  { revalidate: 28800 }
-);
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching exchange name for slug ${slug}`);
+      }
+    }),
+    [`getExchangeNameForSlug-${slug}`],
+    { revalidate: 28800, tags: [`exchange-${slug}`] }
+  );
+  return await getData(slug);
+};
 
 export const getExchanges = nextCache(
   cache(async () => {
