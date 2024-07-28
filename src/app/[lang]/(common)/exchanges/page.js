@@ -41,6 +41,8 @@ const ExchangesPage = async () => {
           <CurrentMarketCard
             subheader={"Today's Volume USD"}
             value={chngData.totalvolume_usd}
+            prefixUnit="$"
+            roundedDigit={0}
           />
         </Grid>
         <Grid item xs={3}>

@@ -41,6 +41,8 @@ const BlockchainsPage = async () => {
           <CurrentMarketCard
             subheader={"Today's TVL USD"}
             value={chngData.all_total_usd}
+            prefixUnit="$"
+            roundedDigit={0}
           />
         </Grid>
         <Grid item xs={3}>

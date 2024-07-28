@@ -9,11 +9,15 @@ import { numberWithCommas } from "@app/_utilities/helpers";
 const CurrentMarketCard = ({
   subheader,
   value,
+  prefixUnit,
+  roundedDigit,
 }: {
   subheader: React.ReactNode;
   value: string;
+  prefixUnit?: string;
+  roundedDigit: number;
 }) => {
-  const marketValue = (+value).toFixed();
+  const marketValue = (+value).toFixed(roundedDigit);
   const formattedValue = numberWithCommas(marketValue);
   return (
     <JumboCard
@@ -30,7 +34,7 @@ const CurrentMarketCard = ({
         />
         <Div sx={{ ml: 2, flex: 1 }}>
           <Typography color={"common.white"} variant={"h2"} mb={0.5}>
-            {`$ ${formattedValue} `}
+            {`${prefixUnit} ${formattedValue} `}
           </Typography>
           <Typography color={"common.white"} variant={"h5"} mb={0}>
             {subheader}

@@ -66,6 +66,8 @@ export default async function ExchangeDetailedPage({ params }) {
             <CurrentMarketCard
               subheader={"Today's Volume USD"}
               value={volChng.vol_24hr_normalized}
+              prefixUnit="$"
+              roundedDigit={0}
             />
           </Grid>
           <Grid item xs={3}>
@@ -102,6 +104,8 @@ export default async function ExchangeDetailedPage({ params }) {
             <CurrentMarketCard
               subheader={"Today's Market Cap USD"}
               value={mktcapChng.market_cap}
+              prefixUnit="$"
+              roundedDigit={0}
             />
           </Grid>
           <Grid item xs={3}>
@@ -137,6 +141,8 @@ export default async function ExchangeDetailedPage({ params }) {
             <CurrentMarketCard
               subheader={"Today's Ratio"}
               value={tvevChng.ratio}
+              prefixUnit=""
+              roundedDigit={2}
             />
           </Grid>
           <Grid item xs={3}>
