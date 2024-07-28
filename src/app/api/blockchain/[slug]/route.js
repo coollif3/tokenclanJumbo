@@ -19,16 +19,13 @@ export async function GET(req, { params }) {
 
     const coin = await getBlockchainNameForSlug(slug);
 
-    const tvlData = await getBlockchainTvlForSlug(slug, parseInt(period));
+    const tvlData = await getBlockchainTvlForSlug(slug, period);
     const tvlChngData = await getBlockchainTvlChngForSlug(slug);
 
-    const mktcapData = await getBlockchainCoinMktcapForSlug(
-      slug,
-      parseInt(period)
-    );
+    const mktcapData = await getBlockchainCoinMktcapForSlug(slug, period);
     const mktcapChngData = await getBlockchainCoinMktcapChngForSlug(slug);
 
-    const ratioData = await getBlockchainRatioForSlug(slug, parseInt(period));
+    const ratioData = await getBlockchainRatioForSlug(slug, period);
     const ratioChng = await getBlockchainRatioChngForSlug(slug);
 
     return NextResponse.json(
