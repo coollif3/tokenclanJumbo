@@ -60,7 +60,7 @@ export default async function BlockchainDetailedPage({ params }) {
         </Grid>
         <Grid item xs={3}>
           <CurrentMarketCard
-            subheader={"Today's Volume USD"}
+            subheader={"Today's TVL USD"}
             value={tvlChng.usd}
           />
         </Grid>
