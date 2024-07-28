@@ -9,12 +9,10 @@ const PercentChngCard = ({
   title,
   value,
   period,
-  unit,
 }: {
   title: React.ReactNode;
   value: number;
   period: "day" | "week" | "month";
-  unit?: string;
 }) => {
   const outcome = value > 0 ? true : false;
   let periodWording: string = "Today";
@@ -54,7 +52,7 @@ const PercentChngCard = ({
         }}
       >
         <Typography variant={"h2"} color={"common.white"}>
-          {`${value.toFixed(2)}${unit ? unit : ""}`}
+          {`${value.toFixed(2)}%`}
         </Typography>
         <Typography variant={"h6"} color={"common.white"} mb={0}>
           {`${outcome ? "UP" : "DOWN"} ${periodWording}`}

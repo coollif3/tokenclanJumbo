@@ -73,7 +73,6 @@ export default async function ExchangeDetailedPage({ params }) {
               title={`24hr Change`}
               value={parseFloat(volChng.one_day_chng)}
               period={"day"}
-              unit={"%"}
             />
           </Grid>
           <Grid item xs={3}>
@@ -81,7 +80,6 @@ export default async function ExchangeDetailedPage({ params }) {
               title={`7 Day Change`}
               value={parseFloat(volChng.seven_day_chng)}
               period={"week"}
-              unit={"%"}
             />
           </Grid>
           <Grid item xs={3}>
@@ -89,7 +87,6 @@ export default async function ExchangeDetailedPage({ params }) {
               title={`30 Day Change`}
               value={parseFloat(volChng.thirty_day_chng)}
               period={"month"}
-              unit={"%"}
             />
           </Grid>
 
@@ -112,7 +109,6 @@ export default async function ExchangeDetailedPage({ params }) {
               title={`24hr Change`}
               value={parseFloat(mktcapChng.one_day_chng)}
               period={"day"}
-              unit={"%"}
             />
           </Grid>
           <Grid item xs={3}>
@@ -120,7 +116,6 @@ export default async function ExchangeDetailedPage({ params }) {
               title={`7 Day Change`}
               value={parseFloat(mktcapChng.seven_day_chng)}
               period={"week"}
-              unit={"%"}
             />
           </Grid>
           <Grid item xs={3}>
@@ -128,7 +123,6 @@ export default async function ExchangeDetailedPage({ params }) {
               title={`30 Day Change`}
               value={parseFloat(mktcapChng.thirty_day_chng)}
               period={"month"}
-              unit={"%"}
             />
           </Grid>
 
@@ -150,7 +144,6 @@ export default async function ExchangeDetailedPage({ params }) {
               title={`24hr Change`}
               value={parseFloat(tvevChng.one_day_chng)}
               period={"day"}
-              unit={""}
             />
           </Grid>
           <Grid item xs={3}>
@@ -158,7 +151,6 @@ export default async function ExchangeDetailedPage({ params }) {
               title={`7 Day Change`}
               value={parseFloat(tvevChng.seven_day_chng)}
               period={"week"}
-              unit={""}
             />
           </Grid>
           <Grid item xs={3}>
@@ -166,7 +158,6 @@ export default async function ExchangeDetailedPage({ params }) {
               title={`30 Day Change`}
               value={parseFloat(tvevChng.thirty_day_chng)}
               period={"month"}
-              unit={""}
             />
           </Grid>
 
