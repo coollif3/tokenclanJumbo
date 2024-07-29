@@ -12,7 +12,6 @@ export async function generateStaticParams() {
   return [{ lang: "en-US" }];
 }
 export const metadata = {
-  title: "Jumbo - Admin Dashboard",
   icons: "/assets/images/favicon.ico",
 };
 

@@ -1,18 +1,20 @@
 {
   "sidebar": {
     "menu": {
-      "sample": "Sample Menu",
-      "main": "Main Menu"
+      "main": "Other Links",
+      "chart": "Charts"
     },
     "menuItem": {
       "blockchains": "Blockchains",
       "exchanges": "Exchanges",
-      "support": "Support"
+      "tvevRatio": "TVEV Ratio",
+      "disclaimer": "Disclaimer",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "contact": "Contact Us"
     }
   },
   "footer": {
-    "content": "Copyright TokenClan © 2019",
-    "buy": "Buy Now",
-    "price": "$24 Only"
+    "content": "Copyright TokenClan © 2024"
   }
 }

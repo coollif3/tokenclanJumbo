@@ -6,7 +6,7 @@ async function getMenus(locale: string) {
 
   const menuItems = [
     {
-      label: sidebar.menu.main,
+      label: sidebar.menu.chart,
       children: [
         {
           path: `/${locale}/blockchains`,
@@ -22,6 +22,36 @@ async function getMenus(locale: string) {
           path: `https://support.tokenclan.io`,
           label: sidebar.menuItem.support,
           icon: "support",
+        },
+      ],
+    },
+    {
+      label: sidebar.menu.main,
+      children: [
+        {
+          path: `/${locale}/tvev`,
+          label: sidebar.menuItem.tvevRatio,
+          icon: "tvevRatio",
+        },
+        {
+          path: `/${locale}/disclaimer`,
+          label: sidebar.menuItem.disclaimer,
+          icon: "disclaimer",
+        },
+        {
+          path: `/${locale}/privacy`,
+          label: sidebar.menuItem.privacy,
+          icon: "privacy",
+        },
+        {
+          path: `/${locale}/terms`,
+          label: sidebar.menuItem.terms,
+          icon: "terms",
+        },
+        {
+          path: `https://support.tokenclan.io`,
+          label: sidebar.menuItem.contact,
+          icon: "contact",
         },
       ],
     },

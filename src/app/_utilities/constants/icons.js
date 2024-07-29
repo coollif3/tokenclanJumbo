@@ -12,7 +12,11 @@ import {
   YouTube,
   CurrencyExchange,
   CurrencyBitcoin,
-  HelpCenter,
+  Calculate,
+  WarningAmber,
+  PrivacyTip,
+  Policy,
+  ContactMail,
 } from "@mui/icons-material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { SxProps, Theme } from "@mui/material";
@@ -88,8 +92,24 @@ const APP_ICONS = [
     Component: CurrencyBitcoin,
   },
   {
-    name: "support",
-    Component: HelpCenter,
+    name: "tvevRatio",
+    Component: Calculate,
+  },
+  {
+    name: "disclaimer",
+    Component: WarningAmber,
+  },
+  {
+    name: "privacy",
+    Component: PrivacyTip,
+  },
+  {
+    name: "terms",
+    Component: Policy,
+  },
+  {
+    name: "contact",
+    Component: ContactMail,
   },
 ];
 
