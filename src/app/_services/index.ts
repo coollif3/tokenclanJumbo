@@ -19,6 +19,31 @@ async function getMenus(locale: string) {
           label: sidebar.menuItem.exchanges,
           icon: "exchanges",
         },
+        {
+          path: `/${locale}/tvev`,
+          label: sidebar.menuItem.tvevRatio,
+          icon: "tvevRatio",
+        },
+        {
+          path: `/${locale}/disclaimer`,
+          label: sidebar.menuItem.disclaimer,
+          icon: "disclaimer",
+        },
+        {
+          path: `/${locale}/privacy`,
+          label: sidebar.menuItem.privacy,
+          icon: "privacy",
+        },
+        {
+          path: `/${locale}/terms`,
+          label: sidebar.menuItem.terms,
+          icon: "terms",
+        },
+        {
+          path: `/${locale}/contact`,
+          label: sidebar.menuItem.contact,
+          icon: "contact",
+        },
       ],
     },
   ];

@@ -11,10 +11,10 @@ const Logo = ({ mini = false, mode = 'light', sx }) => {
           <Image
             src={
               mode === 'light'
-                ? `/assets/images/logo.png`
-                : `/assets/images/logo-white.png`
+                ? `/assets/images/tc-logo.png`
+                : `/assets/images/tc-logo.png`
             }
-            alt='Jumbo React'
+            alt='TokenClan'
             width={110}
             height={35}
             style={{ verticalAlign: 'middle' }}
@@ -23,10 +23,10 @@ const Logo = ({ mini = false, mode = 'light', sx }) => {
           <Image
             src={
               mode === 'light'
-                ? `/assets/images/logo-short.png`
-                : `/assets/images/logo-short-white.png`
+                ? `/assets/images/tc-logo-small.png`
+                : `/assets/images/tc-logo-small.png`
             }
-            alt='Jumbo React'
+            alt='TokenClan'
             width={35}
             height={35}
             style={{ verticalAlign: 'middle' }}
