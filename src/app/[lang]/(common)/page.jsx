@@ -11,6 +11,7 @@ import {
   Container,
   Grid,
   Typography,
+  Divider
 } from '@mui/material';
 
 export default function Home() {
@@ -26,10 +27,9 @@ export default function Home() {
       }}
       disableGutters
     >
-      <Typography variant='h1' mb={3}>
-        TokenClan Main Page
+      <Typography variant='h1' align='center' mb={5}>
+        Empowering Crypto Investors With Financial Data
       </Typography>
-      
       <Card sx={{ mb: 3 }}>
         <CardContent>
           <Grid container spacing={3.75} mb={1}>
@@ -40,7 +40,7 @@ export default function Home() {
                 <CardMedia
                   component='img'
                   image={getAssetPath(
-                    `${ASSET_IMAGES}/callouts/charles-deluvio.jpg`,
+                    `${ASSET_IMAGES}/main-page/exchange-coin.jpg`,
                     '640x640'
                   )}
                   alt=''
@@ -63,20 +63,14 @@ export default function Home() {
                 order: { md: -1 },
               }}
             >
-              <Typography variant='h2' mb={2}>
-                Cedar Barrel Sauna
+              <Typography variant='h3' mb={2}>
+                Exchange Coin TVEV Ratio
               </Typography>
-              <Typography variant='body1' mb={2}>
-                Contrary to popular belief, Lorem Ipsum is not simply random
-                text. It has roots in a piece of classical Latin literature from
-                45 BC, making it over 2000 years old. Richard McClintock, a
-                Latin professor at Hampden-Sydney College in Virginia, looked up
-                one of the more obscure Latin words, consectetur, from a Lorem
-                Ipsum passage, and going through the cites of the word in
-                classical literature, discovered the undoubtable source.
+              <Typography variant='body1' mb={5}>
+                Token value to exchange volume (TVEV) ratio. A way to value crypto exchange coins. Adopted from Willy Woo Bitcoin NVT ratio.
               </Typography>
-              <Button variant={'contained'} disableElevation>
-                View Range
+              <Button variant={'contained'} href='/blockchains' disableElevation>
+                Go to Charts
               </Button>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -86,7 +80,7 @@ export default function Home() {
                 <CardMedia
                   component='img'
                   image={getAssetPath(
-                    `${ASSET_IMAGES}/callouts/alexander-andrews.jpg`,
+                    `${ASSET_IMAGES}/main-page/defi-coin.jpg`,
                     '640x640'
                   )}
                   alt=''
@@ -100,25 +94,24 @@ export default function Home() {
               </Div>
             </Grid>
             <Grid item xs={12} md={6} sx={{ alignSelf: 'center' }}>
-              <Typography variant='h2' mb={2}>
-                Traditional Saunas
+              <Typography variant='h3' mb={2}>
+                DeFi Coin Metrics
               </Typography>
-              <Typography variant='body1' mb={2}>
-                Contrary to popular belief, Lorem Ipsum is not simply random
-                text. It has roots in a piece of classical Latin literature from
-                45 BC, making it over 2000 years old. Richard McClintock, a
-                Latin professor at Hampden-Sydney College in Virginia, looked up
-                one of the more obscure Latin words, consectetur, from a Lorem
-                Ipsum passage, and going through the cites of the word in
-                classical literature, discovered the undoubtable source.
+              <Typography variant='body1' mb={5}>
+                Grow your DeFi coins back up with their platform utility data. 
+                Identify the data trend easily which DeFi coins to keep with TVL and market cap aggregated history.
               </Typography>
-              <Button variant={'contained'} disableElevation>
-                View Range
+              <Button variant={'contained'} href='/exchanges' disableElevation>
+                Go to Charts
               </Button>
             </Grid>
           </Grid>
         </CardContent>
       </Card>
+      <Divider />
+      <Typography variant='h2' align='center' mt={5} mb={5}>
+        Data Aggregated From
+      </Typography>
       <Card>
         <Grid container>
           <Grid item xs={12} md={6}>
@@ -128,7 +121,7 @@ export default function Home() {
               <CardMedia
                 component='img'
                 image={getAssetPath(
-                  `${ASSET_IMAGES}/callouts/giorgio-trovato.jpg`,
+                  `${ASSET_IMAGES}/main-page/coingecko-logo.png`,
                   '640x640'
                 )}
                 alt=''
@@ -139,33 +132,6 @@ export default function Home() {
                 }}
               />
             </Div>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              alignSelf: 'center',
-              p: 3,
-              textAlign: { sm: 'left', md: 'right' },
-              order: { md: -1 },
-            }}
-          >
-            <Typography variant='h2' mb={2}>
-              Cedar Barrel Sauna
-            </Typography>
-            <Typography variant='body1' mb={2}>
-              Contrary to popular belief, Lorem Ipsum is not simply random text.
-              It has roots in a piece of classical Latin literature from 45 BC,
-              making it over 2000 years old. Richard McClintock, a Latin
-              professor at Hampden-Sydney College in Virginia, looked up one of
-              the more obscure Latin words, consectetur, from a Lorem Ipsum
-              passage, and going through the cites of the word in classical
-              literature, discovered the undoubtable source.
-            </Typography>
-            <Button variant={'contained'} disableElevation>
-              View Range
-            </Button>
           </Grid>
           <Grid item xs={12} md={6}>
             <Div
@@ -174,7 +140,7 @@ export default function Home() {
               <CardMedia
                 component='img'
                 image={getAssetPath(
-                  `${ASSET_IMAGES}/callouts/tangerine-newt.jpg`,
+                  `${ASSET_IMAGES}/main-page/coinpaprika-logo.png`,
                   '640x640'
                 )}
                 alt=''
@@ -185,23 +151,6 @@ export default function Home() {
                 }}
               />
             </Div>
-          </Grid>
-          <Grid item xs={12} md={6} sx={{ alignSelf: 'center', p: 3 }}>
-            <Typography variant='h2' mb={2}>
-              Traditional Saunas
-            </Typography>
-            <Typography variant='body1' mb={2}>
-              Contrary to popular belief, Lorem Ipsum is not simply random text.
-              It has roots in a piece of classical Latin literature from 45 BC,
-              making it over 2000 years old. Richard McClintock, a Latin
-              professor at Hampden-Sydney College in Virginia, looked up one of
-              the more obscure Latin words, consectetur, from a Lorem Ipsum
-              passage, and going through the cites of the word in classical
-              literature, discovered the undoubtable source.
-            </Typography>
-            <Button variant={'contained'} disableElevation>
-              View Range
-            </Button>
           </Grid>
         </Grid>
       </Card>
