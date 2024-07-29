@@ -1,8 +1,9 @@
 {
   "sidebar": {
     "menu": {
-      "sample": "Sample Menu",
-      "main": "Main Menu"
+      "main": "Other Links",
+      "chart": "Charts"
+
     },
     "menuItem": {
       "blockchains": "Blockchains",
@@ -11,12 +12,10 @@
       "disclaimer": "Disclaimer",
       "privacy": "Privacy",
       "terms": "Terms",
-      "contact": "Contact"
+      "contact": "Contact Us"
     }
   },
   "footer": {
-    "content": "Copyright TokenClan © 2024",
-    "buy": "Buy Now",
-    "price": "$24 Only"
+    "content": "Copyright TokenClan © 2024"
   }
 }

@@ -7,7 +7,7 @@ async function getMenus(locale: string) {
 
   const menuItems = [
     {
-      label: sidebar.menu.main,
+      label: sidebar.menu.chart,
       children: [
         {
           path: `/${locale}/blockchains`,
@@ -19,6 +19,11 @@ async function getMenus(locale: string) {
           label: sidebar.menuItem.exchanges,
           icon: "exchanges",
         },
+      ]
+    },
+    {
+      label: sidebar.menu.main,
+      children: [
         {
           path: `/${locale}/tvev`,
           label: sidebar.menuItem.tvevRatio,
@@ -45,7 +50,7 @@ async function getMenus(locale: string) {
           icon: "contact",
         },
       ],
-    },
+    }
   ];
 
   return menuItems;
