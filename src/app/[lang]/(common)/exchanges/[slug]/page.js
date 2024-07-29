@@ -1,4 +1,4 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography, Breadcrumbs, Link } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
   getExchangeVolumeFor,
@@ -57,11 +57,23 @@ export default async function ExchangeDetailedPage({ params }) {
         }}
         disableGutters
       >
-        <Grid container spacing={3.75}>
-          <Grid item xs={12}>
+        <Grid container spacing={3.75} sx={{ my: 3 }}>
+          <Grid item xs={12} sm={4}>
             <Typography variant="h2">{`${coin.name} Exchange Volume USD`}</Typography>
           </Grid>
-
+          <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link underline="hover" color="inherit" href="/">
+                Home
+              </Link>
+              <Link underline="hover" color="inherit" href="/exchanges">
+                Exchanges
+              </Link>
+              <Typography color="text.primary">{coin.name}</Typography>
+            </Breadcrumbs>
+          </Grid>
+        </Grid>
+        <Grid container spacing={3.75}>
           <Grid item xs={3}>
             <CurrentMarketCard
               subheader={"Today's Volume USD"}
@@ -70,21 +82,21 @@ export default async function ExchangeDetailedPage({ params }) {
               roundedDigit={0}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <PercentChngCard
               title={`24hr Change`}
               value={parseFloat(volChng.one_day_chng)}
               period={"day"}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <PercentChngCard
               title={`7 Day Change`}
               value={parseFloat(volChng.seven_day_chng)}
               period={"week"}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <PercentChngCard
               title={`30 Day Change`}
               value={parseFloat(volChng.thirty_day_chng)}
@@ -100,7 +112,7 @@ export default async function ExchangeDetailedPage({ params }) {
             <Typography variant="h2">{`${coin.name} Market Cap (USD)`}</Typography>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <CurrentMarketCard
               subheader={"Today's Market Cap USD"}
               value={mktcapChng.market_cap}
@@ -108,21 +120,21 @@ export default async function ExchangeDetailedPage({ params }) {
               roundedDigit={0}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <PercentChngCard
               title={`24hr Change`}
               value={parseFloat(mktcapChng.one_day_chng)}
               period={"day"}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <PercentChngCard
               title={`7 Day Change`}
               value={parseFloat(mktcapChng.seven_day_chng)}
               period={"week"}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <PercentChngCard
               title={`30 Day Change`}
               value={parseFloat(mktcapChng.thirty_day_chng)}
@@ -137,7 +149,7 @@ export default async function ExchangeDetailedPage({ params }) {
           <Grid item xs={12}>
             <Typography variant="h2">{`${coin.name} TVEV Ratio`}</Typography>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <CurrentMarketCard
               subheader={"Today's Ratio"}
               value={tvevChng.ratio}
@@ -145,21 +157,21 @@ export default async function ExchangeDetailedPage({ params }) {
               roundedDigit={2}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <PercentChngCard
               title={`24hr Change`}
               value={parseFloat(tvevChng.one_day_chng)}
               period={"day"}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <PercentChngCard
               title={`7 Day Change`}
               value={parseFloat(tvevChng.seven_day_chng)}
               period={"week"}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <PercentChngCard
               title={`30 Day Change`}
               value={parseFloat(tvevChng.thirty_day_chng)}
