@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 }
 export const metadata = {
   title: 'Jumbo - Admin Dashboard',
-  icons: '/assets/images/favicon.ico',
+  icons: '/assets/images/tc-favicon.ico',
 };
 
 export default async function RootLayout({ children, params: { lang } }) {
