@@ -1,13 +1,26 @@
-import { getDictionary } from '@app/[lang]/dictionaries';
-import { CONTAINER_MAX_WIDTH } from '@app/_config/layouts';
-import { ASSET_IMAGES } from '@app/_utilities/constants/paths';
-import { getAssetPath } from '@app/_utilities/helpers';
-import { JumboCard } from '@jumbo/components';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import { Box, List, ListItem, ListItemText, Button, CardMedia, Container, Grid, Typography } from '@mui/material';
-// interface AboutUsProps {
-//   params: { lang: string };
-// }
+import { getDictionary } from "@app/[lang]/dictionaries";
+import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
+import { ASSET_IMAGES } from "@app/_utilities/constants/paths";
+import { getAssetPath } from "@app/_utilities/helpers";
+import { JumboCard } from "@jumbo/components";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+  Button,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
+
+export const metadata = {
+  title: "Terms and Conditions Page | TokenClan",
+  description: "TokenClan Terms Page",
+};
+
 export default function Terms() {
   // const { extraPages } = await getDictionary(lang);
   return (
@@ -15,14 +28,14 @@ export default function Terms() {
       maxWidth={false}
       sx={{
         maxWidth: CONTAINER_MAX_WIDTH,
-        display: 'flex',
+        display: "flex",
         minWidth: 0,
         flex: 1,
-        flexDirection: 'column',
+        flexDirection: "column",
       }}
       disableGutters
     >
-      <Typography variant='h1' align='center' mb={3}>
+      <Typography variant="h1" align="center" mb={3}>
         TokenClan.io Web Site Terms and Conditions
       </Typography>
       <JumboCard
@@ -70,8 +83,8 @@ export default function Terms() {
             >
               <PlayCircleIcon sx={{ fontSize: '3rem', mr: 1 }} /> Watch Intro
             </Button> */}
-            <Box sx={{ maxWidth: '1000px', margin: 'auto' }}>
-              <Typography variant={'h3'} mt={5} mb={3}>
+            <Box sx={{ maxWidth: "1000px", margin: "auto" }}>
+              <Typography variant={"h3"} mt={5} mb={3}>
                 Latest Version: 29 July 2024
               </Typography>
               <Typography variant="h3" mb={3} gutterBottom>
@@ -79,16 +92,51 @@ export default function Terms() {
               </Typography>
               <Box mb={3}>
                 <Typography paragraph>
-                  Flag One Pte Ltd ("Tokenclan", “we”, “our”, “us” or “Company”), a private limited company incorporated under the laws of Singapore, UEN 200721476H, operates a website, www.tokenclan.io (the "Website") which Tokenclan aggregates and provides information on cryptocurrency, utility tokens, digital coins/currency, initial coin offerings that do not amount to an offering of securities or securities-tokens (“ICO”), and other related digital currency information, features for online subscription, registration of account, registration of interest for any of our services or events and/or any other services and products provided by our Company whether by itself or in conjunction with other third parties (individually and collectively, our “Site Services”).
+                  Flag One Pte Ltd ("Tokenclan", “we”, “our”, “us” or
+                  “Company”), a private limited company incorporated under the
+                  laws of Singapore, UEN 200721476H, operates a website,
+                  www.tokenclan.io (the "Website") which Tokenclan aggregates
+                  and provides information on cryptocurrency, utility tokens,
+                  digital coins/currency, initial coin offerings that do not
+                  amount to an offering of securities or securities-tokens
+                  (“ICO”), and other related digital currency information,
+                  features for online subscription, registration of account,
+                  registration of interest for any of our services or events
+                  and/or any other services and products provided by our Company
+                  whether by itself or in conjunction with other third parties
+                  (individually and collectively, our “Site Services”).
                 </Typography>
                 <Typography paragraph>
-                  The Website, our Site Services, as well as any related forums, blogs, social media pages and other relevant platforms operated or maintained by Tokenclan shall hereinafter be severally and collectively referred to as the “Site”. For the avoidance of doubt, the Site pertains only to cryptocurrency, and not any products or instruments that can be classified as “securities” thereunder the Securities and Futures Act (Cap. 289).
+                  The Website, our Site Services, as well as any related forums,
+                  blogs, social media pages and other relevant platforms
+                  operated or maintained by Tokenclan shall hereinafter be
+                  severally and collectively referred to as the “Site”. For the
+                  avoidance of doubt, the Site pertains only to cryptocurrency,
+                  and not any products or instruments that can be classified as
+                  “securities” thereunder the Securities and Futures Act (Cap.
+                  289).
                 </Typography>
                 <Typography paragraph>
-                  By accessing or using our Site (or any of our Site Services), signing up for any of our services or products in any way, you hereby accept these Website Terms of Use, our Privacy Policy, Disclaimer, as well as any other terms of service (including rules and guidelines) that may be implemented from time to time in relation to our Site (collectively, the "Agreement").
+                  By accessing or using our Site (or any of our Site Services),
+                  signing up for any of our services or products in any way, you
+                  hereby accept these Website Terms of Use, our Privacy Policy,
+                  Disclaimer, as well as any other terms of service (including
+                  rules and guidelines) that may be implemented from time to
+                  time in relation to our Site (collectively, the "Agreement").
                 </Typography>
                 <Typography paragraph>
-                  Tokenclan reserves the right at its sole discretion to amend any provision of the Agreement (including this Terms of Use) at any time in our sole discretion without any prior notice to you, and you agree that it is your responsibility to check for the updated terms of the Agreement on our Website regularly. In any event, by continuing to use any aspect of our Site and/or any of our Site Services you will be deemed to have accepted all amendments to the Agreement as may be implemented by Tokenclan from time to time. If you do not wish to be bound by the Agreement, do not use any aspect of the Site or Site Services, cease all access to and use of our Site, our Site Services, our products and services immediately.
+                  Tokenclan reserves the right at its sole discretion to amend
+                  any provision of the Agreement (including this Terms of Use)
+                  at any time in our sole discretion without any prior notice to
+                  you, and you agree that it is your responsibility to check for
+                  the updated terms of the Agreement on our Website regularly.
+                  In any event, by continuing to use any aspect of our Site
+                  and/or any of our Site Services you will be deemed to have
+                  accepted all amendments to the Agreement as may be implemented
+                  by Tokenclan from time to time. If you do not wish to be bound
+                  by the Agreement, do not use any aspect of the Site or Site
+                  Services, cease all access to and use of our Site, our Site
+                  Services, our products and services immediately.
                 </Typography>
               </Box>
               <Typography variant="h4" gutterBottom>
@@ -189,14 +237,16 @@ export default function Terms() {
                   <ListItemText primary="4.5 'Personal Use' shall refer to your non-commercial review and republication (on a non-commercial site) of some or part of our Site Content (as screenshots or screen captures without any modification thereto and with due attribution to Tokenclan), and the linking of our Website, subject to Clause 4.6 below." />
                 </ListItem>
                 <ListItem>
-                  <ListItemText primary="4.6 You may republish some or part of our Site Content (individually and collectively, the 'ScreenCaptures'), and/or place one or more links to the Website (individually and collectively, the 'Link') on your own non-commercial website, blog or other platform (individually and collectively, 'Your Platform'), provided that:
+                  <ListItemText
+                    primary="4.6 You may republish some or part of our Site Content (individually and collectively, the 'ScreenCaptures'), and/or place one or more links to the Website (individually and collectively, the 'Link') on your own non-commercial website, blog or other platform (individually and collectively, 'Your Platform'), provided that:
                     Any Link shall be titled only as 'Link to Tokenclan.io';
                     Any ScreenCaptures shall be duly attributed with the phrase 'Screenshot from Tokenclan.io';
                     No ScreenCaptures shall contain third party information, write-ups or feedback (i.e. information from an user of Tokenclan or information regarding other entities, which are not information from or about Tokenclan itself), nor any personal data (i.e. information that can be used singly or in conjunction with other available information to identify an individual);
                     Your Platform shall not contain any content that is unlawful, threatening, scandalous, seditious, abusive, libellous, defamatory or otherwise inappropriate to the image of Tokenclan (as may be determined by our Company in our sole discretion);
                     The look and feel of all content that accompanies the ScreenCaptures and/or Link or is on the same page as any ScreenCaptures or the Link shall not (as determined in the sole discretion of Tokenclan) bear any write-ups, pictures, content, insinuations, or implications that may lower the reputation of Tokenclan, damage or dilute the goodwill associated with Tokenclan, the reputation or any Branding
                     No content on Your Platform shall contain any information that (in Tokenclan’s sole discretion) may create any false impression that you, Your Platform, services, products or any other website, services, products, person or entity is endorsed by, sponsored by or otherwise associated with Tokenclan or any of its business partners (as reflected by their names, logos, or branding on the Website), or that any activity engaged in by you or anyone else has been howsoever endorsed by Tokenclan.
-                    You agree that our Company retains full rights to revoke our consent granted herein to permit your Link or ScreenCaptures at any time in our sole discretion without any prior notice or liability to you. Upon our email notification to you that you may no longer provide a Link or ScreenCaptures on Your Platform, you undertake to promptly (in no event later than two days after our notice to you) remove all such objectionable Link or ScreenCaptures from Your Platform." />
+                    You agree that our Company retains full rights to revoke our consent granted herein to permit your Link or ScreenCaptures at any time in our sole discretion without any prior notice or liability to you. Upon our email notification to you that you may no longer provide a Link or ScreenCaptures on Your Platform, you undertake to promptly (in no event later than two days after our notice to you) remove all such objectionable Link or ScreenCaptures from Your Platform."
+                  />
                 </ListItem>
               </List>
               <Typography variant="h4" gutterBottom>
@@ -310,7 +360,7 @@ export default function Terms() {
                 <ListItem>
                   <ListItemText primary="12.4 A person who is not a party to this Agreement shall have no right under the Contracts (Rights of Third Parties) Act (Cap. 53B) to enforce any of its terms." />
                 </ListItem>
-              </List>      
+              </List>
             </Box>
           </Grid>
         </Grid>
