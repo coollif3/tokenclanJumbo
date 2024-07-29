@@ -23,6 +23,11 @@ export async function generateMetadata({ params, searchParams }) {
   };
 }
 
+// export async function generateStaticParams() {
+//   const rows = await getBlockchains();
+//   return rows.map((row) => ({ slug: row.slug }));
+// }
+
 const tvlChartConfig = {
   chartTitle: "Blockchain TVL",
   tooltipSeries: "TVL",

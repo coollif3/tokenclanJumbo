@@ -8,10 +8,16 @@ import {
   getExchangeTvevFor,
   getExchangeTvevChngFor,
   getExchangeNameFor,
+  getExchanges,
 } from "@app/_services/exchange";
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
+
+export async function generateStaticParams() {
+  const rows = await getExchanges();
+  return rows.map((row) => ({ slug: row.slug }));
+}
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
