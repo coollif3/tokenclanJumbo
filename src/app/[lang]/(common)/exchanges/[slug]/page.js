@@ -13,6 +13,16 @@ import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
+export async function generateMetadata({ params, searchParams }) {
+  const slug = params.slug;
+  const coin = await getExchangeNameFor(slug);
+
+  return {
+    title: `${coin.name} Data on Market Cap, Exchange Volume and TVEV Ratio `,
+    description: `TVEV ratio offers a way to value crypto exchange tokens like ${coin.name}`,
+  };
+}
+
 const volumeChartConfig = {
   chartTitle: "Exchange Volume USD",
   tooltipSeries: "Volume",

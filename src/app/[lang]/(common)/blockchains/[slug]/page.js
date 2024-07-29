@@ -13,6 +13,16 @@ import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
+export async function generateMetadata({ params, searchParams }) {
+  const slug = params.slug;
+  const coin = await getBlockchainNameForSlug(slug);
+
+  return {
+    title: `${coin.name} Data on Market Cap, TVL and MCap/TVL Ratio `,
+    description: `MCap/TVL ratio offers a way to value blockchain tokens like ${coin.name}`,
+  };
+}
+
 const tvlChartConfig = {
   chartTitle: "Blockchain TVL",
   tooltipSeries: "TVL",

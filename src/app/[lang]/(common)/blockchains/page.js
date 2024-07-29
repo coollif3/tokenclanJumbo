@@ -16,6 +16,12 @@ const chartConfig = {
   yaxisTitle: "TVL in USD (Billion)",
 };
 
+export const metadata = {
+  title: "Blockchain Market Cap / Total Value Lock (TVL) Data",
+  description:
+    "Explore the latest trends and get insights into blockchains where crypto investors park their digital assets.",
+};
+
 const BlockchainsPage = async () => {
   const listingRows = await getBlockchains();
   const chartSeries = await getBlockchainMktOverview();

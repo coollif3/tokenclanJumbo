@@ -16,6 +16,12 @@ const chartConfig = {
   yaxisTitle: "24hr Volume USD (Billions)",
 };
 
+export const metadata = {
+  title: "Crypto Exchange TVEV Data",
+  description:
+    "Token value to exchange volume (TVEV) ratio offers a way to value crypto exchange coins.",
+};
+
 const ExchangesPage = async () => {
   const results = await getExchanges();
   const chartSeries = await getVolumeMktOverview();
