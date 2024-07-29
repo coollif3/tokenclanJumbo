@@ -19,7 +19,7 @@ async function getMenus(locale: string) {
           label: sidebar.menuItem.exchanges,
           icon: "exchanges",
         },
-      ]
+      ],
     },
     {
       label: sidebar.menu.main,
@@ -45,12 +45,12 @@ async function getMenus(locale: string) {
           icon: "terms",
         },
         {
-          path: `/${locale}/contact`,
+          path: `https://support.tokenclan.io`,
           label: sidebar.menuItem.contact,
           icon: "contact",
         },
       ],
-    }
+    },
   ];
 
   return menuItems;
