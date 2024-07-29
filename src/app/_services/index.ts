@@ -1,4 +1,3 @@
-import { MenuItem } from "@mui/material";
 import { getDictionary } from "@app/[lang]/dictionaries";
 
 async function getMenus(locale: string) {
@@ -18,6 +17,11 @@ async function getMenus(locale: string) {
           path: `/${locale}/exchanges`,
           label: sidebar.menuItem.exchanges,
           icon: "exchanges",
+        },
+        {
+          path: `https://support.tokenclan.io`,
+          label: sidebar.menuItem.support,
+          icon: "support",
         },
       ],
     },

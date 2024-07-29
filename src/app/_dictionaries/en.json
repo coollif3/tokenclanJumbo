@@ -6,7 +6,8 @@
     },
     "menuItem": {
       "blockchains": "Blockchains",
-      "exchanges": "Exchanges"
+      "exchanges": "Exchanges",
+      "support": "Support"
     }
   },
   "footer": {
