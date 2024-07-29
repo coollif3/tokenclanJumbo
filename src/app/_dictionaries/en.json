@@ -6,11 +6,16 @@
     },
     "menuItem": {
       "blockchains": "Blockchains",
-      "exchanges": "Exchanges"
+      "exchanges": "Exchanges",
+      "tvevRatio": "TVEV Ratio",
+      "disclaimer": "Disclaimer",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "contact": "Contact"
     }
   },
   "footer": {
-    "content": "Copyright TokenClan © 2019",
+    "content": "Copyright TokenClan © 2024",
     "buy": "Buy Now",
     "price": "$24 Only"
   }
