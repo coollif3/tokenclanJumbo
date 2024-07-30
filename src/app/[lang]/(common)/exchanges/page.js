@@ -43,7 +43,7 @@ const ExchangesPage = async () => {
         <Grid item xs={12}>
           <Typography variant="h2">Global Volume</Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6} sm={3}>
           <CurrentMarketCard
             subheader={"Today's Volume USD"}
             value={chngData.totalvolume_usd}
@@ -51,14 +51,14 @@ const ExchangesPage = async () => {
             roundedDigit={0}
           />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6} sm={3}>
           <PercentChngCard
             title={`24hr Change`}
             value={parseFloat(chngData.one_day_chng)}
             period={"day"}
           />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6} sm={3}>
           <PercentChngCard
             title={`7 Day Change`}
             value={parseFloat(chngData.seven_day_chng)}
