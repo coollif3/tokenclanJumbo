@@ -43,7 +43,7 @@ const BlockchainsPage = async () => {
         <Grid item xs={12}>
           <Typography variant="h2">Blockchain TVL</Typography>
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <CurrentMarketCard
             subheader={"Today's TVL USD"}
             value={chngData.all_total_usd}
@@ -51,21 +51,21 @@ const BlockchainsPage = async () => {
             roundedDigit={0}
           />
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <PercentChngCard
             title={`24hr Change`}
             value={parseFloat(chngData.one_day_chng)}
             period={"day"}
           />
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <PercentChngCard
             title={`7 Day Change`}
             value={parseFloat(chngData.seven_day_chng)}
             period={"week"}
           />
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <PercentChngCard
             title={`30 Day Change`}
             value={parseFloat(chngData.thirty_day_chng)}
