@@ -1,13 +1,13 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 export function authMiddleware(request) {
-  const token = request.cookies.get('next-auth.session-token');
+  const token = request.cookies.get("next-auth.session-token");
 
-  if (!token) {
-    const url = request.nextUrl.clone();
-    url.pathname = `/auth/login-1`;
-    return NextResponse.redirect(url);
-  }
+  // if (!token) {
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = `/auth/login-1`;
+  //   return NextResponse.redirect(url);
+  // }
 
   //do we need to verify the token?
   //if not verified then redirect to /auth/login-1
@@ -15,7 +15,7 @@ export function authMiddleware(request) {
 }
 
 export function anonymousMiddleware(req) {
-  const accessToken = req.cookies.get('next-auth.session-token');
+  const accessToken = req.cookies.get("next-auth.session-token");
 
   if (accessToken) {
     const url = req.nextUrl.clone();
