@@ -11,12 +11,6 @@ import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChn
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 import { Suspense } from "react";
 
-const chartConfig = {
-  chartTitle: "Total Blockchain TVL",
-  tooltipSeries: "Total TVL",
-  yaxisTitle: "TVL in USD (Billion)",
-};
-
 export const metadata = {
   title: "Blockchain Market Cap / Total Value Lock (TVL) Data",
   description:
@@ -30,6 +24,11 @@ async function DisplayBlockchainTable() {
 
 async function DisplayTVLChart() {
   const chartSeries = await getBlockchainMktOverview();
+  const chartConfig = {
+    chartTitle: "Total Blockchain TVL",
+    tooltipSeries: "Total TVL",
+    yaxisTitle: "TVL in USD (Billion)",
+  };
   return <GlobalCharts series={chartSeries} config={chartConfig} />;
 }
 

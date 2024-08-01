@@ -11,12 +11,6 @@ import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChn
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 import { Suspense } from "react";
 
-const chartConfig = {
-  chartTitle: "Total Volume 24hr",
-  tooltipSeries: "Volume 24hr",
-  yaxisTitle: "24hr Volume USD (Billions)",
-};
-
 export const metadata = {
   title: "Crypto Exchange TVEV Data",
   description:
@@ -30,6 +24,11 @@ async function ListAllExchangesTable() {
 
 async function DisplayTotalVolumeCharts() {
   const chartSeries = await getVolumeMktOverview();
+  const chartConfig = {
+    chartTitle: "Total Volume 24hr",
+    tooltipSeries: "Volume 24hr",
+    yaxisTitle: "24hr Volume USD (Billions)",
+  };
   return <GlobalCharts series={chartSeries} config={chartConfig} />;
 }
 
