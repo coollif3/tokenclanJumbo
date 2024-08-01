@@ -9,6 +9,7 @@ import { Container, Grid, Typography } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
+import { Suspense } from "react";
 
 const chartConfig = {
   chartTitle: "Total Volume 24hr",
@@ -22,11 +23,54 @@ export const metadata = {
     "Token value to exchange volume (TVEV) ratio offers a way to value crypto exchange coins.",
 };
 
-const ExchangesPage = async () => {
+async function ListAllExchangesTable() {
   const results = await getExchanges();
-  const chartSeries = await getVolumeMktOverview();
-  const chngData = await getVolumeMktOverviewChng();
+  return <ExchangeDataTable rows={results} />;
+}
 
+async function DisplayTotalVolumeCharts() {
+  const chartSeries = await getVolumeMktOverview();
+  return <GlobalCharts series={chartSeries} config={chartConfig} />;
+}
+
+async function DisplayMarketStatsCards() {
+  const chngData = await getVolumeMktOverviewChng();
+  return (
+    <>
+      <Grid item xs={12} sm={6} md={3}>
+        <CurrentMarketCard
+          subheader={"Today's Volume USD"}
+          value={chngData.totalvolume_usd}
+          prefixUnit="$"
+          roundedDigit={0}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <PercentChngCard
+          title={`24hr Change`}
+          value={parseFloat(chngData.one_day_chng)}
+          period={"day"}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <PercentChngCard
+          title={`7 Day Change`}
+          value={parseFloat(chngData.seven_day_chng)}
+          period={"week"}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <PercentChngCard
+          title={`30 Day Change`}
+          value={parseFloat(chngData.thirty_day_chng)}
+          period={"month"}
+        />
+      </Grid>
+    </>
+  );
+}
+
+const ExchangesPage = async () => {
   return (
     <Container
       maxWidth={false}
@@ -43,40 +87,18 @@ const ExchangesPage = async () => {
         <Grid item xs={12}>
           <Typography variant="h2">Global Volume</Typography>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <CurrentMarketCard
-            subheader={"Today's Volume USD"}
-            value={chngData.totalvolume_usd}
-            prefixUnit="$"
-            roundedDigit={0}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <PercentChngCard
-            title={`24hr Change`}
-            value={parseFloat(chngData.one_day_chng)}
-            period={"day"}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <PercentChngCard
-            title={`7 Day Change`}
-            value={parseFloat(chngData.seven_day_chng)}
-            period={"week"}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <PercentChngCard
-            title={`30 Day Change`}
-            value={parseFloat(chngData.thirty_day_chng)}
-            period={"month"}
-          />
+        <Suspense fallback={<p>Loading market stats...</p>}>
+          <DisplayMarketStatsCards />
+        </Suspense>
+        <Grid item xs={12}>
+          <Suspense fallback={<p>Loading chart...</p>}>
+            <DisplayTotalVolumeCharts />
+          </Suspense>
         </Grid>
         <Grid item xs={12}>
-          <GlobalCharts series={chartSeries} config={chartConfig} />
-        </Grid>
-        <Grid item xs={12}>
-          <ExchangeDataTable rows={results} />
+          <Suspense fallback={<p>Loading table...</p>}>
+            <ListAllExchangesTable />
+          </Suspense>
         </Grid>
       </Grid>
     </Container>
