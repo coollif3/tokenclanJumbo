@@ -13,6 +13,7 @@ import {
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
+import { Suspense } from "react";
 
 export async function generateStaticParams() {
   const rows = await getExchanges();
@@ -29,36 +30,155 @@ export async function generateMetadata({ params, searchParams }) {
   };
 }
 
-const volumeChartConfig = {
-  chartTitle: "Exchange Volume USD",
-  tooltipSeries: "Volume",
-  yaxisTitle: "24hr Volume USD (Billions)",
-};
+async function DisplayVolumeChart(slug) {
+  const volData = await getExchangeVolumeFor(slug, 30);
+  const volumeChartConfig = {
+    chartTitle: "Exchange Volume USD",
+    tooltipSeries: "Volume",
+    yaxisTitle: "24hr Volume USD (Billions)",
+  };
+  return <ExchangeCharts series={volData} config={volumeChartConfig} />;
+}
 
-const marketcapChartConfig = {
-  chartTitle: "Market Cap",
-  tooltipSeries: "Market Cap",
-  yaxisTitle: "USD",
-};
+async function DisplayVolumeStats(slug) {
+  const volChng = await getExchangeVolumeChngFor(slug);
 
-const tvevChartConfig = {
-  chartTitle: "TVEV",
-  tooltipSeries: "Tvev Ratio",
-  yaxisTitle: "Ratio",
-};
+  return (
+    <>
+      <Grid item xs={12} sm={6} md={3}>
+        <CurrentMarketCard
+          subheader={"Today's Volume USD"}
+          value={volChng.vol_24hr_normalized}
+          prefixUnit="$"
+          roundedDigit={0}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <PercentChngCard
+          title={`24hr Change`}
+          value={parseFloat(volChng.one_day_chng)}
+          period={"day"}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <PercentChngCard
+          title={`7 Day Change`}
+          value={parseFloat(volChng.seven_day_chng)}
+          period={"week"}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <PercentChngCard
+          title={`30 Day Change`}
+          value={parseFloat(volChng.thirty_day_chng)}
+          period={"month"}
+        />
+      </Grid>
+    </>
+  );
+}
+
+async function DisplayMktcapFor(slug) {
+  const mktcapData = await getExchangeMktcapFor(slug, 30);
+  const marketcapChartConfig = {
+    chartTitle: "Market Cap",
+    tooltipSeries: "Market Cap",
+    yaxisTitle: "USD",
+  };
+
+  return <ExchangeCharts series={mktcapData} config={marketcapChartConfig} />;
+}
+
+async function DisplayMktcapStatsFor(slug) {
+  const mktcapChng = await getExchangeMktcapChngFor(slug);
+
+  return (
+    <>
+      <Grid item xs={12} sm={6} md={3}>
+        <CurrentMarketCard
+          subheader={"Today's Market Cap USD"}
+          value={mktcapChng.market_cap}
+          prefixUnit="$"
+          roundedDigit={0}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <PercentChngCard
+          title={`24hr Change`}
+          value={parseFloat(mktcapChng.one_day_chng)}
+          period={"day"}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <PercentChngCard
+          title={`7 Day Change`}
+          value={parseFloat(mktcapChng.seven_day_chng)}
+          period={"week"}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <PercentChngCard
+          title={`30 Day Change`}
+          value={parseFloat(mktcapChng.thirty_day_chng)}
+          period={"month"}
+        />
+      </Grid>
+    </>
+  );
+}
+
+async function DisplayTvevRatioChartFor(slug) {
+  const tvevChartConfig = {
+    chartTitle: "TVEV",
+    tooltipSeries: "Tvev Ratio",
+    yaxisTitle: "Ratio",
+  };
+  const tvevData = await getExchangeTvevFor(slug, 30);
+
+  return <ExchangeCharts series={tvevData} config={tvevChartConfig} />;
+}
+
+async function DisplayTvevStats(slug) {
+  const tvevChng = await getExchangeTvevChngFor(slug);
+
+  return (
+    <>
+      <Grid item xs={12} sm={6} md={3}>
+        <CurrentMarketCard
+          subheader={"Today's Ratio"}
+          value={tvevChng.ratio}
+          prefixUnit=""
+          roundedDigit={2}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <PercentChngCard
+          title={`24hr Change`}
+          value={parseFloat(tvevChng.one_day_chng)}
+          period={"day"}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <PercentChngCard
+          title={`7 Day Change`}
+          value={parseFloat(tvevChng.seven_day_chng)}
+          period={"week"}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={3}>
+        <PercentChngCard
+          title={`30 Day Change`}
+          value={parseFloat(tvevChng.thirty_day_chng)}
+          period={"month"}
+        />
+      </Grid>
+    </>
+  );
+}
 
 export default async function ExchangeDetailedPage({ params }) {
   const slug = params.slug;
   const coin = await getExchangeNameFor(slug);
-
-  const volData = await getExchangeVolumeFor(slug, 30);
-  const volChng = await getExchangeVolumeChngFor(slug);
-
-  const mktcapData = await getExchangeMktcapFor(slug, 30);
-  const mktcapChng = await getExchangeMktcapChngFor(slug);
-
-  const tvevData = await getExchangeTvevFor(slug, 30);
-  const tvevChng = await getExchangeTvevChngFor(slug);
 
   return (
     <>
@@ -90,113 +210,37 @@ export default async function ExchangeDetailedPage({ params }) {
           </Grid>
         </Grid>
         <Grid container spacing={3.75}>
-          <Grid item xs={12} sm={6} md={3}>
-            <CurrentMarketCard
-              subheader={"Today's Volume USD"}
-              value={volChng.vol_24hr_normalized}
-              prefixUnit="$"
-              roundedDigit={0}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <PercentChngCard
-              title={`24hr Change`}
-              value={parseFloat(volChng.one_day_chng)}
-              period={"day"}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <PercentChngCard
-              title={`7 Day Change`}
-              value={parseFloat(volChng.seven_day_chng)}
-              period={"week"}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <PercentChngCard
-              title={`30 Day Change`}
-              value={parseFloat(volChng.thirty_day_chng)}
-              period={"month"}
-            />
-          </Grid>
-
+          <Suspense fallback={<p>Loading Volume Stats...</p>}>
+            {await DisplayVolumeStats(slug)}
+          </Suspense>
           <Grid item xs={12}>
-            <ExchangeCharts series={volData} config={volumeChartConfig} />
+            <Suspense fallback={<p>Loading Volume Chart...</p>}>
+              {await DisplayVolumeChart(slug)}
+            </Suspense>
           </Grid>
 
           <Grid item xs={12}>
             <Typography variant="h2">{`${coin.name} Market Cap (USD)`}</Typography>
           </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <CurrentMarketCard
-              subheader={"Today's Market Cap USD"}
-              value={mktcapChng.market_cap}
-              prefixUnit="$"
-              roundedDigit={0}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <PercentChngCard
-              title={`24hr Change`}
-              value={parseFloat(mktcapChng.one_day_chng)}
-              period={"day"}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <PercentChngCard
-              title={`7 Day Change`}
-              value={parseFloat(mktcapChng.seven_day_chng)}
-              period={"week"}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <PercentChngCard
-              title={`30 Day Change`}
-              value={parseFloat(mktcapChng.thirty_day_chng)}
-              period={"month"}
-            />
-          </Grid>
-
+          <Suspense fallback={<p>Loading Marketcap Stats...</p>}>
+            {await DisplayMktcapStatsFor(slug)}
+          </Suspense>
           <Grid item xs={12}>
-            <ExchangeCharts series={mktcapData} config={marketcapChartConfig} />
+            <Suspense fallback={<p>Loading Marketcap Chart...</p>}>
+              {await DisplayMktcapFor(slug)}
+            </Suspense>
           </Grid>
 
           <Grid item xs={12}>
             <Typography variant="h2">{`${coin.name} TVEV Ratio`}</Typography>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <CurrentMarketCard
-              subheader={"Today's Ratio"}
-              value={tvevChng.ratio}
-              prefixUnit=""
-              roundedDigit={2}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <PercentChngCard
-              title={`24hr Change`}
-              value={parseFloat(tvevChng.one_day_chng)}
-              period={"day"}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <PercentChngCard
-              title={`7 Day Change`}
-              value={parseFloat(tvevChng.seven_day_chng)}
-              period={"week"}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <PercentChngCard
-              title={`30 Day Change`}
-              value={parseFloat(tvevChng.thirty_day_chng)}
-              period={"month"}
-            />
-          </Grid>
-
+          <Suspense fallback={<p>Loading Ratio Stats...</p>}>
+            {await DisplayTvevStats(slug)}
+          </Suspense>
           <Grid item xs={12}>
-            <ExchangeCharts series={tvevData} config={tvevChartConfig} />
+            <Suspense fallback={<p>Loading Ratio Chart...</p>}>
+              {await DisplayTvevRatioChartFor(slug)}
+            </Suspense>
           </Grid>
         </Grid>
       </Container>
