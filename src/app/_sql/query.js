@@ -39,10 +39,10 @@ export const getBlockchainTvlChngForSlug =
   "SELECT usd, 1day_usd_chng AS one_day_chng, 7day_usd_chng AS seven_day_chng, 30day_usd_chng AS thirty_day_chng FROM blockchain_tvl_chng WHERE slug = :slug ORDER BY createdAt DESC LIMIT 1";
 
 export const getBlockchainCoinMktcapForSlug =
-  "SELECT m.createdAt AS x, m.market_cap AS y FROM coin_mkts_usd AS m INNER JOIN coins AS c ON c.id = m.coin_id WHERE c.name_id = :slug ORDER BY m.createdAt DESC LIMIT :periodLimit";
+  "SELECT m.market_cap AS y, m.createdAt AS x FROM `blockchains` AS b INNER JOIN coin_mkts_usd AS m ON b.coin_id = m.coin_id WHERE b.slug = :slug ORDER BY m.`createdAt` DESC LIMIT :periodLimit;";
 
 export const getBlockchainCoinMktcapChngForSlug =
-  "SELECT m.market_cap, m.1day_mktcap_chng AS one_day_chng, m.7day_mktcap_chng AS seven_day_chng, 30day_mktcap_chng AS thirty_day_chng FROM mktcap_usd_chng AS m INNER JOIN coins AS c ON c.id = m.coin_id WHERE c.name_id = :slug ORDER BY m.createdAt DESC LIMIT 1";
+  "SELECT m.market_cap, m.1day_mktcap_chng AS one_day_chng, m.7day_mktcap_chng AS seven_day_chng, 30day_mktcap_chng AS thirty_day_chng FROM blockchains AS b INNER JOIN mktcap_usd_chng AS m ON b.coin_id = m.coin_id WHERE b.slug = :slug ORDER BY m.createdAt DESC LIMIT 1";
 
 export const getBlockchainRatioForSlug =
   "SELECT r.createdAt AS x, r.ratio AS y FROM mktcap_tvl_blkchain AS r INNER JOIN blockchains AS b ON b.id = r.blockchain_id WHERE b.slug = :slug ORDER BY r.createdAt DESC LIMIT :periodLimit";
