@@ -40,7 +40,7 @@ function JumboLayoutProvider({ children, layoutConfig }) {
         }
       }
     }
-  }, [isBelowLg, layoutOptions.sidebar]);
+  }, [isBelowLg]);
 
   React.useEffect(() => {
     if (layoutConfig)
