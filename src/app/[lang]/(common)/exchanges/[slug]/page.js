@@ -15,10 +15,10 @@ import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChn
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 import { Suspense } from "react";
 
-export async function generateStaticParams() {
-  const rows = await getExchanges();
-  return rows.map((row) => ({ slug: row.slug }));
-}
+// export async function generateStaticParams() {
+//   const rows = await getExchanges();
+//   return rows.map((row) => ({ slug: row.slug }));
+// }
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
