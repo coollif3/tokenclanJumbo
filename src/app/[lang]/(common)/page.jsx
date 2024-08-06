@@ -12,6 +12,24 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
+import {CarouselComponent} from '../../_components/_core/CarouselComponent/CarouselComponent';
+
+const items = [
+  {
+    title: 'Exchange Coin TVEV Ratio',
+    description: 'Token value to exchange volume (TVEV) ratio. A way to value crypto exchange coins. Adopted from Willy Woo Bitcoin NVT ratio.',
+    buttonName: 'Go to Charts',
+    image: `${ASSET_IMAGES}/main-page/exchange-coin.jpg`,
+    imagePosition: 'right'
+  },
+  {
+    title: 'DeFi Coin Metrics',
+    description: 'Grow your DeFi coins back up with their platform utility data.Identify the data trend easily which DeFi coins to keep with TVL and market cap aggregated history.',
+    buttonName: 'Go to Charts',
+    image: `${ASSET_IMAGES}/main-page/defi-coin.jpg`,
+    imagePosition: 'left'
+  }
+]
 
 export default function Home() {
   return (
@@ -29,96 +47,7 @@ export default function Home() {
       <Typography variant="h1" align="center" mb={5}>
         Empowering Crypto Investors With Financial Data
       </Typography>
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Grid container spacing={3.75} mb={1}>
-            <Grid item xs={12} md={6}>
-              <Div
-                sx={{ position: "relative", height: 0, paddingBottom: "69.5%" }}
-              >
-                <CardMedia
-                  component="img"
-                  image={getAssetPath(
-                    `${ASSET_IMAGES}/main-page/exchange-coin.jpg`,
-                    "640x640"
-                  )}
-                  alt=""
-                  sx={{
-                    inset: 0,
-                    height: "100%",
-                    position: "absolute",
-                    borderRadius: 2,
-                  }}
-                />
-              </Div>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              md={6}
-              sx={{
-                alignSelf: "center",
-                textAlign: { sm: "left", md: "right" },
-                order: { md: -1 },
-              }}
-            >
-              <Typography variant="h3" mb={2}>
-                Exchange Coin TVEV Ratio
-              </Typography>
-              <Typography variant="body1" mb={5}>
-                Token value to exchange volume (TVEV) ratio. A way to value
-                crypto exchange coins. Adopted from Willy Woo Bitcoin NVT ratio.
-              </Typography>
-              <Button
-                variant={"contained"}
-                href="/blockchains"
-                disableElevation
-                sx={{ bgcolor: "#2D5FB4", ":hover": { bgcolor: "#5DCBA6" } }}
-              >
-                Go to Charts
-              </Button>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Div
-                sx={{ position: "relative", height: 0, paddingBottom: "69.5%" }}
-              >
-                <CardMedia
-                  component="img"
-                  image={getAssetPath(
-                    `${ASSET_IMAGES}/main-page/defi-coin.jpg`,
-                    "640x640"
-                  )}
-                  alt=""
-                  sx={{
-                    inset: 0,
-                    height: "100%",
-                    position: "absolute",
-                    borderRadius: 2,
-                  }}
-                />
-              </Div>
-            </Grid>
-            <Grid item xs={12} md={6} sx={{ alignSelf: "center" }}>
-              <Typography variant="h3" mb={2}>
-                DeFi Coin Metrics
-              </Typography>
-              <Typography variant="body1" mb={5}>
-                Grow your DeFi coins back up with their platform utility data.
-                Identify the data trend easily which DeFi coins to keep with TVL
-                and market cap aggregated history.
-              </Typography>
-              <Button
-                variant={"contained"}
-                href="/exchanges"
-                disableElevation
-                sx={{ bgcolor: "#2D5FB4", ":hover": { bgcolor: "#5DCBA6" } }}
-              >
-                Go to Charts
-              </Button>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
+      <CarouselComponent items={items}></CarouselComponent>
       <Divider />
       <Typography variant="h2" align="center" mt={5} mb={5}>
         Data Aggregated From
