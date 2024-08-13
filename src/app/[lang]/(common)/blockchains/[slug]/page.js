@@ -12,8 +12,6 @@ import {
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
-import { Suspense } from "react";
-import Loading from "@app/[lang]/(common)/loading"
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;

@@ -9,7 +9,6 @@ import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
-import { Suspense } from "react";
 
 export const metadata = {
   title: "Blockchain Market Cap / Total Value Lock (TVL) Data",
@@ -86,18 +85,12 @@ const BlockchainsPage = async () => {
         <Grid item xs={12}>
           <Typography variant="h2">Blockchain TVL</Typography>
         </Grid>
-        <Suspense fallback={<p>Loading Market Stats...</p>}>
-          <DisplayBlockchainCards />
-        </Suspense>
+        <DisplayBlockchainCards />
         <Grid item xs={12}>
-          <Suspense fallback={<p>Loading charts...</p>}>
-            <DisplayTVLChart />
-          </Suspense>
+          <DisplayTVLChart />
         </Grid>
         <Grid item xs={12}>
-          <Suspense fallback={<p>Loading Blockchain Table...</p>}>
-            <DisplayBlockchainTable />
-          </Suspense>
+          <DisplayBlockchainTable />
         </Grid>
       </Grid>
     </Container>
