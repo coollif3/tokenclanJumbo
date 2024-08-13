@@ -9,7 +9,6 @@ import { Container, Grid, Typography } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
-import { Suspense } from "react";
 
 export const metadata = {
   title: "Crypto Exchange TVEV Data",
@@ -86,18 +85,12 @@ const ExchangesPage = async () => {
         <Grid item xs={12}>
           <Typography variant="h2">Global Volume</Typography>
         </Grid>
-        <Suspense fallback={<p>Loading market stats...</p>}>
-          <DisplayMarketStatsCards />
-        </Suspense>
+        <DisplayMarketStatsCards />
         <Grid item xs={12}>
-          <Suspense fallback={<p>Loading chart...</p>}>
-            <DisplayTotalVolumeCharts />
-          </Suspense>
+          <DisplayTotalVolumeCharts />
         </Grid>
         <Grid item xs={12}>
-          <Suspense fallback={<p>Loading table...</p>}>
-            <ListAllExchangesTable />
-          </Suspense>
+          <ListAllExchangesTable />
         </Grid>
       </Grid>
     </Container>

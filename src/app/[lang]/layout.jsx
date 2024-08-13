@@ -7,6 +7,8 @@ import { JumboConfigProvider, JumboTheme } from "@jumbo/components";
 import { CssBaseline } from "@mui/material";
 import Link from "next/link";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Suspense } from "react";
+import Loading from "./(common)/loading";
 
 export async function generateStaticParams() {
   return [{ lang: "en-US" }];
@@ -25,7 +27,9 @@ export default async function RootLayout({ children, params: { lang } }) {
               <JumboTheme init={CONFIG.THEME}>
                 <GoogleAnalytics gaId={process.env.GA_ANALYTICS} />
                 <CssBaseline />
-                {children}
+                <Suspense fallback={<Loading />}>
+                  {children}
+                </Suspense>
               </JumboTheme>
             </JumboConfigProvider>
           </AppRouterCacheProvider>

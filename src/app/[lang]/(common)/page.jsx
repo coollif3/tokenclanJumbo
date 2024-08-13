@@ -12,26 +12,28 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
-import {CarouselComponent} from '../../_components/_core/CarouselComponent/CarouselComponent';
+import { CarouselComponent } from "../../_components/_core/CarouselComponent/CarouselComponent";
 
 const items = [
   {
-    title: 'Exchange Coin TVEV Ratio',
-    description: 'Token value to exchange volume (TVEV) ratio. A way to value crypto exchange coins. Adopted from Willy Woo Bitcoin NVT ratio.',
-    buttonName: 'Go to Charts',
+    title: "Exchange Coin TVEV Ratio",
+    description:
+      "Token value to exchange volume (TVEV) ratio. A way to value crypto exchange coins. Adopted from Willy Woo Bitcoin NVT ratio.",
+    buttonName: "Go to Charts",
     image: `${ASSET_IMAGES}/main-page/exchange-coin.jpg`,
-    imagePosition: 'right'
+    imagePosition: "right",
   },
   {
-    title: 'DeFi Coin Metrics',
-    description: 'Grow your DeFi coins back up with their platform utility data.Identify the data trend easily which DeFi coins to keep with TVL and market cap aggregated history.',
-    buttonName: 'Go to Charts',
+    title: "DeFi Coin Metrics",
+    description:
+      "Grow your DeFi coins back up with their platform utility data.Identify the data trend easily which DeFi coins to keep with TVL and market cap aggregated history.",
+    buttonName: "Go to Charts",
     image: `${ASSET_IMAGES}/main-page/defi-coin.jpg`,
-    imagePosition: 'left'
-  }
-]
+    imagePosition: "left",
+  },
+];
 
-export default function Home() {
+export default async function Home() {
   return (
     <Container
       maxWidth={false}

@@ -13,7 +13,6 @@ import {
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
-import { Suspense } from "react";
 
 // export async function generateStaticParams() {
 //   const rows = await getExchanges();
@@ -210,37 +209,25 @@ export default async function ExchangeDetailedPage({ params }) {
           </Grid>
         </Grid>
         <Grid container spacing={3.75}>
-          <Suspense fallback={<p>Loading Volume Stats...</p>}>
-            {await DisplayVolumeStats(slug)}
-          </Suspense>
+          {await DisplayVolumeStats(slug)}
           <Grid item xs={12}>
-            <Suspense fallback={<p>Loading Volume Chart...</p>}>
-              {await DisplayVolumeChart(slug)}
-            </Suspense>
+            {await DisplayVolumeChart(slug)}
           </Grid>
 
           <Grid item xs={12}>
             <Typography variant="h2">{`${coin.name} Market Cap (USD)`}</Typography>
           </Grid>
-          <Suspense fallback={<p>Loading Marketcap Stats...</p>}>
-            {await DisplayMktcapStatsFor(slug)}
-          </Suspense>
+          {await DisplayMktcapStatsFor(slug)}
           <Grid item xs={12}>
-            <Suspense fallback={<p>Loading Marketcap Chart...</p>}>
-              {await DisplayMktcapFor(slug)}
-            </Suspense>
+            {await DisplayMktcapFor(slug)}
           </Grid>
 
           <Grid item xs={12}>
             <Typography variant="h2">{`${coin.name} TVEV Ratio`}</Typography>
           </Grid>
-          <Suspense fallback={<p>Loading Ratio Stats...</p>}>
-            {await DisplayTvevStats(slug)}
-          </Suspense>
+          {await DisplayTvevStats(slug)}
           <Grid item xs={12}>
-            <Suspense fallback={<p>Loading Ratio Chart...</p>}>
-              {await DisplayTvevRatioChartFor(slug)}
-            </Suspense>
+            {await DisplayTvevRatioChartFor(slug)}
           </Grid>
         </Grid>
       </Container>

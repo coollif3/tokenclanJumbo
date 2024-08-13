@@ -1,19 +1,12 @@
-import { Div } from '@jumbo/shared';
-import { CircularProgress } from '@mui/material';
+// components/Spinner.js
+import React from 'react';
+import styles from "./styles.module.css";
 
 const Spinner = () => {
   return (
-    <Div
-      sx={{
-        display: 'flex',
-        minWidth: 0,
-        alignItems: 'center',
-        alignContent: 'center',
-        flex: 1,
-      }}
-    >
-      <CircularProgress sx={{ m: '-40px auto 0' }} />
-    </Div>
+    <div className={styles.spinnerContainer}>
+      <div className={styles.spinner}></div>
+    </div>
   );
 };
 
