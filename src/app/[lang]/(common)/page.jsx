@@ -12,7 +12,8 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
-import { CarouselComponent } from "../../_components/_core/CarouselComponent/CarouselComponent";
+import { CarouselMain } from "../../_components/_core/CarouselMain/CarouselMain";
+import { CarouselImg } from "../../_components/_core/CarouselImg/CarouselImg";
 
 const items = [
   {
@@ -20,6 +21,7 @@ const items = [
     description:
       "Token value to exchange volume (TVEV) ratio. A way to value crypto exchange coins. Adopted from Willy Woo Bitcoin NVT ratio.",
     buttonName: "Go to Charts",
+    buttonLink: "/exchanges",
     image: `${ASSET_IMAGES}/main-page/exchange-coin.jpg`,
     imagePosition: "right",
   },
@@ -28,9 +30,22 @@ const items = [
     description:
       "Grow your DeFi coins back up with their platform utility data.Identify the data trend easily which DeFi coins to keep with TVL and market cap aggregated history.",
     buttonName: "Go to Charts",
+    buttonLink: "/blockchains",
     image: `${ASSET_IMAGES}/main-page/defi-coin.jpg`,
     imagePosition: "left",
   },
+];
+
+const images = [
+  {
+    image: `${ASSET_IMAGES}/main-page/coingecko-logo.svg`
+  },
+  {
+    image: `${ASSET_IMAGES}/main-page/coinpaprika-logo.svg`
+  },
+  {
+    image: `${ASSET_IMAGES}/main-page/defillama-logo.svg`
+  }
 ];
 
 export default async function Home() {
@@ -46,15 +61,15 @@ export default async function Home() {
       }}
       disableGutters
     >
-      <Typography variant="h1" align="center" mb={5}>
+      <Typography variant="h1" align="center" mb={10}>
         Empowering Crypto Investors With Financial Data
       </Typography>
-      <CarouselComponent items={items}></CarouselComponent>
-      <Divider />
-      <Typography variant="h2" align="center" mt={5} mb={5}>
+      <CarouselMain items={items}></CarouselMain>
+      <Typography variant="h2" align="center" mt={10} mb={10}>
         Data Aggregated From
       </Typography>
-      <Card>
+      <CarouselImg items={images}></CarouselImg>
+      {/* <Card>
         <Grid container>
           <Grid item xs={12} md={6}>
             <Div
@@ -63,7 +78,7 @@ export default async function Home() {
               <CardMedia
                 component="img"
                 image={getAssetPath(
-                  `${ASSET_IMAGES}/main-page/coingecko-logo.png`,
+                  `${ASSET_IMAGES}/main-page/coingecko-logo.svg`,
                   "640x640"
                 )}
                 alt=""
@@ -82,7 +97,7 @@ export default async function Home() {
               <CardMedia
                 component="img"
                 image={getAssetPath(
-                  `${ASSET_IMAGES}/main-page/coinpaprika-logo.png`,
+                  `${ASSET_IMAGES}/main-page/defillama-logo.svg`,
                   "640x640"
                 )}
                 alt=""
@@ -95,7 +110,7 @@ export default async function Home() {
             </Div>
           </Grid>
         </Grid>
-      </Card>
+      </Card> */}
     </Container>
   );
 }
