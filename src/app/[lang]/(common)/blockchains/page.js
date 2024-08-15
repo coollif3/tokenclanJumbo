@@ -83,7 +83,7 @@ const BlockchainsPage = async () => {
     >
       <Grid container spacing={3.75}>
         <Grid item xs={12}>
-          <Typography variant="h2">Blockchain TVL</Typography>
+          <Typography variant="h3">Blockchain TVL</Typography>
         </Grid>
         <DisplayBlockchainCards />
         <Grid item xs={12}>

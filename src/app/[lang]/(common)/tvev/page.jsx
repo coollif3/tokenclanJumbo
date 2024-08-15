@@ -33,7 +33,7 @@ export default function tvevRatio() {
       }}
       disableGutters
     >
-      <Typography variant="h1" align="center" mb={3}>
+      <Typography variant="h3" align="center" mb={3}>
         What Is TVEV Ratio?
       </Typography>
       <JumboCard
@@ -82,30 +82,30 @@ export default function tvevRatio() {
               <PlayCircleIcon sx={{ fontSize: '3rem', mr: 1 }} /> Watch Intro
             </Button> */}
             <Box sx={{ maxWidth: "1000px", margin: "auto" }}>
-              <Typography variant="h3" mt={3} gutterBottom>
+              <Typography variant="h4" mt={3} paragraph>
                 TVEV Ratio Definition
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 A possible and practical way to value such crypto exchanges is
                 via this methodology named Token Value to Exchange Volume (TVEV)
                 ratio.
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 For people who will like to find out more about TVEV ratio; it
                 is adapted from Network Value to Transactions (NVT) ratio first
                 formulated by Willy Woo.
               </Typography>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h5" gutterBottom>
                 Definition
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 Token Value to Exchange Volume (TVEV) ratio serves as a simple
                 model to compare the prices of an exchange token to the traded
                 volume on the underlying exchange. TVEV ratio is adapted from
                 Network Value to Transactions (NVT) ratio first created by Willy
                 Woo.
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 In conventional stock markets, the Price to Earnings (PE) ratio
                 has been a long-standing tool for valuing companies. PE ratio
                 compares the company’s total market capitalization to its total
@@ -113,40 +113,42 @@ export default function tvevRatio() {
                 and shares since earnings are the main indicator most investors
                 are concerned with.
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 In the same way a share investor wants a company with healthy
                 earnings, an exchange token holder wants the exchange to
                 facilitate a healthy amount of transaction activity. TVEV ratio
                 can be viewed in a similar fashion as that of the PE ratio in
                 valuing equities.
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 The TVEV ratio is calculated using the following formula:
               </Typography>
-              <Typography paragraph>
-                TVEV Ratio = (TokenPriceInBTC * TotalTokenSupply) /
-                (24hrExchangeVolumeInBTC)
+              <Typography variant="body1" paragraph>
+                <span style={{ fontWeight: 'bold' }}>
+                  TVEV Ratio = (TokenPriceInBTC * TotalTokenSupply) /
+                  (24hrExchangeVolumeInBTC)
+                </span>
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 While NVT ratio takes into account only data from on-chain
                 transactions, all the transaction volume that happens on the
                 exchanges and is, for the most part, speculative in nature and
                 is not included.
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 TVEV ratio disregards all on-chain transactions while factoring
                 transactional volumes (off-chain transactions) denoted in
                 bitcoin as facilitated through the buying and selling of
                 cryptocurrencies via exchanges.
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 There are certainly people who believe that these exchange
                 trading volume could be fake by the exchange themselves,
                 resulting in the reported trading volume to be way higher than
                 the actual figures. These reported numbers provide starting
                 figures for analysis and valuation to take place.
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 Due to its unregulated nature for most of these crypto exchanges
                 to date, we should not view these numbers in absolute terms but
                 analyze them in relative terms and attempt to extrapolate trend
@@ -156,41 +158,43 @@ export default function tvevRatio() {
                 data is expected to get accurate as the crypto economy matures
                 and progresses through time.
               </Typography>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h5" paragraph>
                 Example of the TVEV Ratio Calculation
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 As an example, let us calculate the TVEV ratio of an exchange
                 coin on a particular day which the:
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 Token price in BTC is 0.00220000
-                <br />
+              </Typography>  
+                <Typography variant="body1" paragraph>
                 The total token supply is 100,000,000
-                <br />
+              </Typography>  
+                <Typography variant="body1" paragraph>
                 The 24-hour Exchange Volume In BTC for the day is 2,500
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 Therefore based on the TVEV ratio formula: (0.00220000 *
                 100,000,000) / 2,500 = 88
               </Typography>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h5" paragraph>
                 Simple Interpretation of TVEV Ratio
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 A high TVEV ratio relative to its typical normal range of the
                 token, may mean that the future growth of the token is bright
                 and investors are expecting high transactional growth, or it can
                 mean overvaluation.
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 A low TVEV ratio relative to its typical normal range of the
                 token, may mean that crypto investors and traders are expecting
                 limited growth prospects and having low expectations on its
                 transactional activity, or it can mean that they might have
                 overlooked this token resulting in the token being undervalued.
               </Typography>
-              <Typography paragraph>
+              <Typography variant="body1" paragraph>
                 This is a simple explanation of what TVEV ratio is about.
               </Typography>
             </Box>

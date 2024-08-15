@@ -35,7 +35,7 @@ export default function Terms() {
       }}
       disableGutters
     >
-      <Typography variant="h1" align="center" mb={3}>
+      <Typography variant="h3" align="center" mb={3}>
         TokenClan.io Web Site Terms and Conditions
       </Typography>
       <JumboCard
@@ -84,14 +84,14 @@ export default function Terms() {
               <PlayCircleIcon sx={{ fontSize: '3rem', mr: 1 }} /> Watch Intro
             </Button> */}
             <Box sx={{ maxWidth: "1000px", margin: "auto" }}>
-              <Typography variant={"h3"} mt={5} mb={3}>
+              <Typography variant={"h6"} mt={5} mb={3}>
                 Latest Version: 29 July 2024
               </Typography>
-              <Typography variant="h3" mb={3} gutterBottom>
+              <Typography variant="h6" mb={3} paragraph>
                 Website Terms of Use
               </Typography>
               <Box mb={3}>
-                <Typography paragraph>
+                <Typography variant="body1" paragraph>
                   Flag One Pte Ltd ("Tokenclan", “we”, “our”, “us” or
                   “Company”), a private limited company incorporated under the
                   laws of Singapore, UEN 200721476H, operates a website,
@@ -106,7 +106,7 @@ export default function Terms() {
                   whether by itself or in conjunction with other third parties
                   (individually and collectively, our “Site Services”).
                 </Typography>
-                <Typography paragraph>
+                <Typography variant="body1" paragraph>
                   The Website, our Site Services, as well as any related forums,
                   blogs, social media pages and other relevant platforms
                   operated or maintained by Tokenclan shall hereinafter be
@@ -116,7 +116,7 @@ export default function Terms() {
                   “securities” thereunder the Securities and Futures Act (Cap.
                   289).
                 </Typography>
-                <Typography paragraph>
+                <Typography variant="body1" paragraph>
                   By accessing or using our Site (or any of our Site Services),
                   signing up for any of our services or products in any way, you
                   hereby accept these Website Terms of Use, our Privacy Policy,
@@ -124,7 +124,7 @@ export default function Terms() {
                   rules and guidelines) that may be implemented from time to
                   time in relation to our Site (collectively, the "Agreement").
                 </Typography>
-                <Typography paragraph>
+                <Typography variant="body1" paragraph>
                   Tokenclan reserves the right at its sole discretion to amend
                   any provision of the Agreement (including this Terms of Use)
                   at any time in our sole discretion without any prior notice to
@@ -139,7 +139,7 @@ export default function Terms() {
                   Services, our products and services immediately.
                 </Typography>
               </Box>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h6" paragraph mt={5}>
                 1. Capacity & Access
               </Typography>
               <List>
@@ -159,7 +159,7 @@ export default function Terms() {
                   <ListItemText primary="1.5 Should you (whether directly by yourself or indirectly via your request to us) upload, post, publish, or transmit any information on or via our Site, or you communicate with any other users of our Site, you agree to be fully responsible for all such posts and communications. Accordingly, you undertake to only use the Site in a legal and considerate manner, not to misuse or abuse the Site or its other users, including but not limited to not causing any defamation, harassment, sedition, collecting data of other users for your own purposes, and introducing virus, trojans or hacks. In the event that you misuse or abuse the Site, we shall be fully entitled to suspend or ban your account, and/or remove your information from our Site without any prior notice or liability to you. Nonetheless, you agree that we shall not be howsoever liable for any posts or communications by third parties that offend you, although we will sincerely look into any complaints in relation to such posts or communications that you communicate to us of in writing." />
                 </ListItem>
               </List>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h6" paragraph mt={3}>
                 2. Updates & Modifications
               </Typography>
               <List>
@@ -176,7 +176,7 @@ export default function Terms() {
                   <ListItemText primary="2.4 Certain of our Site Services incorporate or require the use of third party products and services.. Therefore your use of such third party products and services will be subject to the respective third party’s terms and conditions and privacy policies, which you agree is your responsibility to regularly review from time to time to determine their acceptability to you before you use such third party products and services. For the avoidance of doubt, all coin, token or digital currency swap and exchange functions found on or linked to the Website are provided “as is” received from third parties, and are not the products of Tokenclan, Tokenclan does not process such swaps or exchanges, nor is Tokenclan a custodian to any form of e-money, stored value, digital coins or tokens." />
                 </ListItem>
               </List>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h6" paragraph mt={3}>
                 3. Our Site Content
               </Typography>
               <List>
@@ -211,7 +211,7 @@ export default function Terms() {
                   <ListItemText primary="3.10 Promotions, trial usage, and discounts (if any) as featured on our Site and/or our Updates are for limited time-periods only and subject to specific terms and conditions indicated as may be applicable in order to enjoy such promotions, trial usage, and/or discounts. Once a promotional or trial period expires, you are no longer eligible to participate in such promotions or trial usages, and our Company is not howsoever obligated to provide any such previously offered privileges, trial usage or discounts to you even if you have contacted our Company with queries during the promotional period." />
                 </ListItem>
               </List>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h6" paragraph mt={3}>
                 4. Intellectual Property
               </Typography>
               <List>
@@ -249,7 +249,7 @@ export default function Terms() {
                   />
                 </ListItem>
               </List>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h6" paragraph mt={3}>
                 5. Third Party Sites and Browsing Experience
               </Typography>
               <List>
@@ -263,7 +263,7 @@ export default function Terms() {
                   <ListItemText primary="5.3 You agree that our Company may employ cookies, action tags, dynamic device identifiers, or other legal technological means to record your anonymised accessing of our Site for the purpose of providing better services and enhancing your browsing experience. Further details of such technological means are as set out in our Privacy Policy." />
                 </ListItem>
               </List>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h6" paragraph mt={3}>
                 6. Minors
               </Typography>
               <List>
@@ -271,7 +271,7 @@ export default function Terms() {
                   <ListItemText primary="6.1 Our products and services are targeted for adults and business entities. Our Site, our Site Services, our Content and our Updates are therefore not meant for persons who may be defined as minors under applicable law. However, it is not possible for our Company to determine whether any user of our Site or Site Services is a minor. If you are a minor, please discontinue the use of our Site and all Site Services immediately. It is the responsibility of parents and legal guardians to monitor whether a minor is using our Site or Site Services." />
                 </ListItem>
               </List>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h6" paragraph mt={3}>
                 7. Feedback
               </Typography>
               <List>
@@ -282,7 +282,7 @@ export default function Terms() {
                   <ListItemText primary="7.2 Kindly note that you are responsible for your Feedback, and you should ensure that such Feedback does not contain any libellous, scandalous, defamatory, offensive, seditious, misleading, misrepresentative, abusive or infringing contents, particularly if such Feedback will be published to the public whether via our Site, or our Updates, or other means (even if you were not aware that your Feedback would be published). You agree to fully hold harmless and indemnify our Company for all losses and costs suffered or incurred by our Company due to your Feedback, including but not limited to third party claims, legal fees on a solicitor-client basis, settlement amounts, fines, penalties, and law enforcement actions. Accordingly, and without prejudice to the aforegoing, you also hereby undertake to fully indemnify, defend and hold harmless our Company, our employees, agents, officers, shareholders, and directors from claims, demands, direct damages, indirect damages, consequential damages, loss of opportunities, loss of reputation, legal costs (on a client-solicitor basis) and other losses of any kind that may arise in relation to any dispute that you may howsoever have with another user of our Site." />
                 </ListItem>
               </List>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h6" paragraph mt={3}>
                 8. Disclaimers and Limitation of Liability
               </Typography>
               <List>
@@ -314,7 +314,7 @@ export default function Terms() {
                   <ListItemText primary="8.9 In the event that our Company’s liability to you in relation to our Site, our Site Services, our Content, our Updates, products and/or services featured on our Site and/or Updates, cannot be fully disclaimed, you agree that our Company’s total liability to you shall not exceed S$20, which you agree is a reasonable compensation amount taking into consideration the limited nature of our Company’s services. Accordingly, you agree that upon receipt of S$20 from the Company, you will waive all rights against the Company and will make no further claims whatsoever against the Company." />
                 </ListItem>
               </List>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h6" paragraph mt={3}>
                 9. Non-Interference
               </Typography>
               <List>
@@ -322,7 +322,7 @@ export default function Terms() {
                   <ListItemText primary="9.1 You undertake that you shall not howsoever mine data from, scrape, interfere or attempt to interfere with any part of our Site or Site Services, disrupt accessibility to our Site (or any part thereof), or bypass any security measures that we may include with our Site and/or Site Services, including but not limited to the utilization of any screen-scraper, hacks, spider, robot, virus, worms or other means to access or attack our Site or Site Services for any purpose without our prior written consent." />
                 </ListItem>
               </List>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h6" paragraph mt={3}>
                 10. Indemnification
               </Typography>
               <List>
@@ -333,7 +333,7 @@ export default function Terms() {
                   <ListItemText primary="10.2 For the avoidance of doubt, regardless of the indemnification received by the Company from you, the Company shall have full authority and charge over its own defence, legal actions, and settlement proceedings in relation to any third party claims without any reference to you." />
                 </ListItem>
               </List>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h6" paragraph mt={3}>
                 11. Governing Law and Jurisdiction
               </Typography>
               <List>
@@ -344,7 +344,7 @@ export default function Terms() {
                   <ListItemText primary="11.2 In the event of any disputes arising from this Website Terms of Use or any of the other provisions of the Agreement, your use of our Site, our Site Services and/or Content, you must first contact our Company’s officer at tokenclan.io regarding your dispute, and use your best endeavours to amicably settle any dispute in good faith. We on our part will also use our best endeavours to amicably settle your concerns in good faith. However, if no amicable resolution is reached within 30 days, both parties agree to submit to the exclusive jurisdiction of the Courts of Singapore." />
                 </ListItem>
               </List>
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h6" paragraph mt={3}>
                 12. Miscellaneous
               </Typography>
               <List>

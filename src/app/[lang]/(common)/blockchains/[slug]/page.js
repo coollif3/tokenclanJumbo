@@ -71,7 +71,7 @@ export default async function BlockchainDetailedPage({ params }) {
     >
       <Grid container spacing={3.75} sx={{ my: 3 }}>
         <Grid item xs={12} sm={4}>
-          <Typography variant="h2">{`${coin.name} Blockchain TVL USD`}</Typography>
+          <Typography variant="h3">{`${coin.name} Blockchain TVL USD`}</Typography>
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
@@ -122,8 +122,8 @@ export default async function BlockchainDetailedPage({ params }) {
         <Grid item xs={12}>
           <ExchangeCharts series={tvlData} config={tvlChartConfig} />
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h2">{`${coin.name} Market Cap (USD)`}</Typography>
+        <Grid item xs={12} mt={5}>
+          <Typography variant="h3">{`${coin.name} Market Cap (USD)`}</Typography>
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
@@ -159,8 +159,8 @@ export default async function BlockchainDetailedPage({ params }) {
         <Grid item xs={12}>
           <ExchangeCharts series={mktcapData} config={mktcapChartConfig} />
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h2">{`${coin.name} MarketCap/TVL Ratio`}</Typography>
+        <Grid item xs={12} mt={5}>
+          <Typography variant="h3">{`${coin.name} MarketCap/TVL Ratio`}</Typography>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <CurrentMarketCard

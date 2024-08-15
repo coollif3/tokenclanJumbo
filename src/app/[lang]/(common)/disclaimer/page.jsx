@@ -32,7 +32,7 @@ export default function Disclaimer() {
       }}
       disableGutters
     >
-      <Typography variant="h1" align="center" mb={3}>
+      <Typography variant="h3" align="center" mb={3}>
         Disclaimer
       </Typography>
       <JumboCard
@@ -81,10 +81,10 @@ export default function Disclaimer() {
               <PlayCircleIcon sx={{ fontSize: '3rem', mr: 1 }} /> Watch Intro
             </Button> */}
             <Box sx={{ maxWidth: "1000px", margin: "auto" }}>
-              <Typography variant={"h3"} color={"text.primary"} mt={5} mb={3}>
+              <Typography variant={"h6"} color={"text.primary"} mt={5} mb={3}>
                 Latest Version: 29 July 2024
               </Typography>
-              <Typography variant={"body1"} mb={3}>
+              <Typography variant="body1" paragraph>
                 All content provided herein our website, hyperlinked sites,
                 associated applications, forums, blogs, social media accounts
                 and other platforms (“Site”) is for your general information
@@ -92,8 +92,8 @@ export default function Disclaimer() {
                 constitute as a form of endorsement, guarantee, warranty, or
                 recommendation by Tokenclan.io. Please do conduct your own due
                 diligence before using any third party services.
-                <br />
-                <br />
+              </Typography>
+              <Typography variant="body1" paragraph>
                 The information provided on this website does not constitute
                 investment advice, financial advice, trading advice, or any
                 other sort of advice and you should not treat any of the
@@ -104,8 +104,8 @@ export default function Disclaimer() {
                 investment related activities constitute as highly risky
                 activities that can lead to major losses, please consult your
                 financial advisor before making any investment decision.
-                <br />
-                <br />
+              </Typography>
+              <Typography variant="body1" paragraph>
                 Tokenclan.io will strive to ensure accuracy of information
                 listed on this website but we make no warranties of any kind nor
                 hold any responsibility for any missing or inaccurate

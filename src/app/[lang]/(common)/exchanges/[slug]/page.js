@@ -194,7 +194,7 @@ export default async function ExchangeDetailedPage({ params }) {
       >
         <Grid container spacing={3.75} sx={{ my: 3 }}>
           <Grid item xs={12} sm={4}>
-            <Typography variant="h2">{`${coin.name} Exchange Volume USD`}</Typography>
+            <Typography variant="h3">{`${coin.name} Exchange Volume USD`}</Typography>
           </Grid>
           <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
             <Breadcrumbs aria-label="breadcrumb">
@@ -214,16 +214,16 @@ export default async function ExchangeDetailedPage({ params }) {
             {await DisplayVolumeChart(slug)}
           </Grid>
 
-          <Grid item xs={12}>
-            <Typography variant="h2">{`${coin.name} Market Cap (USD)`}</Typography>
+          <Grid item xs={12} mt={5}>
+            <Typography variant="h3">{`${coin.name} Market Cap (USD)`}</Typography>
           </Grid>
           {await DisplayMktcapStatsFor(slug)}
           <Grid item xs={12}>
             {await DisplayMktcapFor(slug)}
           </Grid>
 
-          <Grid item xs={12}>
-            <Typography variant="h2">{`${coin.name} TVEV Ratio`}</Typography>
+          <Grid item xs={12} mt={5}>
+            <Typography variant="h3">{`${coin.name} TVEV Ratio`}</Typography>
           </Grid>
           {await DisplayTvevStats(slug)}
           <Grid item xs={12}>

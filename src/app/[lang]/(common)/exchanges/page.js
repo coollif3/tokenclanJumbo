@@ -83,7 +83,7 @@ const ExchangesPage = async () => {
     >
       <Grid container spacing={3.75}>
         <Grid item xs={12}>
-          <Typography variant="h2">Global Volume</Typography>
+          <Typography variant="h3">Global Volume</Typography>
         </Grid>
         <DisplayMarketStatsCards />
         <Grid item xs={12}>
