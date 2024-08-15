@@ -18,7 +18,7 @@ export default function ExchangeDataTable({ rows }) {
             <TableCell>Exchange ID</TableCell>
             <TableCell>Exchange</TableCell>
             <TableCell align="right">Type</TableCell>
-            <TableCell align="right">Volume 24hr (USD)</TableCell>
+            <TableCell align="right">Volume 24hr (BTC)</TableCell>
             <TableCell align="right">24h</TableCell>
             <TableCell align="right">7d</TableCell>
             <TableCell align="right">30d</TableCell>
