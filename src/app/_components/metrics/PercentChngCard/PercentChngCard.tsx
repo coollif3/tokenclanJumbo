@@ -33,7 +33,7 @@ const PercentChngCard = ({
         <Typography
           variant={"h6"}
           mb={0}
-          sx={{ fontSize: 12, color: "common.white", letterSpacing: 1.5 }}
+          sx={{ color: "common.white" }}
         >
           {title}
         </Typography>
@@ -51,7 +51,7 @@ const PercentChngCard = ({
           position: "absolute",
         }}
       >
-        <Typography variant={"h2"} color={"common.white"}>
+        <Typography variant={"h5"} color={"common.white"}>
           {`${value.toFixed(2)}%`}
         </Typography>
         <Typography variant={"h6"} color={"common.white"} mb={0}>

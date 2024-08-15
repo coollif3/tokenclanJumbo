@@ -33,10 +33,10 @@ const CurrentMarketCard = ({
           src={`${ASSET_IMAGES}/dashboard/filesIcon.svg`}
         />
         <Div sx={{ ml: 2, flex: 1 }}>
-          <Typography color={"common.white"} variant={"h2"} mb={0.5}>
+          <Typography color={"common.white"} variant={"h5"} mb={0.5}>
             {`${prefixUnit} ${formattedValue} `}
           </Typography>
-          <Typography color={"common.white"} variant={"h5"} mb={0}>
+          <Typography color={"common.white"} variant={"h6"} mb={0}>
             {subheader}
           </Typography>
         </Div>
