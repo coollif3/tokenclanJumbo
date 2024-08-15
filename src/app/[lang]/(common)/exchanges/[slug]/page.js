@@ -194,7 +194,7 @@ export default async function ExchangeDetailedPage({ params }) {
       >
         <Grid container spacing={3.75} sx={{ my: 3 }}>
           <Grid item xs={12} sm={4}>
-            <Typography variant="h3">{`${coin.name} Exchange Volume USD`}</Typography>
+            <Typography variant="h3">{`${coin.name} Exchange Volume BTC`}</Typography>
           </Grid>
           <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
             <Breadcrumbs aria-label="breadcrumb">
