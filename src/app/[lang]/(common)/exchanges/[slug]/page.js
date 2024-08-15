@@ -32,9 +32,9 @@ export async function generateMetadata({ params, searchParams }) {
 async function DisplayVolumeChart(slug) {
   const volData = await getExchangeVolumeFor(slug, 30);
   const volumeChartConfig = {
-    chartTitle: "Exchange Volume USD",
+    chartTitle: "Exchange Volume Btc",
     tooltipSeries: "Volume",
-    yaxisTitle: "24hr Volume USD (Billions)",
+    yaxisTitle: "24hr Volume Btc",
   };
   return <ExchangeCharts series={volData} config={volumeChartConfig} />;
 }
@@ -46,9 +46,9 @@ async function DisplayVolumeStats(slug) {
     <>
       <Grid item xs={12} sm={6} md={3}>
         <CurrentMarketCard
-          subheader={"Today's Volume USD"}
+          subheader={"Today's Volume BTC"}
           value={volChng.vol_24hr_normalized}
-          prefixUnit="$"
+          prefixUnit=""
           roundedDigit={0}
         />
       </Grid>
@@ -95,7 +95,7 @@ async function DisplayMktcapStatsFor(slug) {
     <>
       <Grid item xs={12} sm={6} md={3}>
         <CurrentMarketCard
-          subheader={"Today's Market Cap USD"}
+          subheader={"Today's Market Cap Btc"}
           value={mktcapChng.market_cap}
           prefixUnit="$"
           roundedDigit={0}
