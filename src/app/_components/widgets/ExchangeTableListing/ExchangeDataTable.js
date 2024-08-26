@@ -45,7 +45,7 @@ export default function ExchangeDataTable({ rows }) {
               {displayRedGreenColumn(row.seven_day_chng)}
               {displayRedGreenColumn(row.thirty_day_chng)}
               <TableCell align="right" sx={{ pr: 4 }}>
-                <Link href={`/exchanges/${row.slug}`}>{row.coin}</Link>
+                <Link href={`/coins/${row.slug}`}>{row.coin}</Link>
               </TableCell>
             </TableRow>
           ))}
