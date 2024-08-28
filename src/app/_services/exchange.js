@@ -16,6 +16,7 @@ import {
   getExchangeProfileBySlug,
   globalVolumeOverviewChng as globalVolumeOverviewChngSql,
   getExchangeName as getExchangeNameSql,
+  getAllExchangeCoinSlug as getAllExchangeCoinSlugSql,
 } from "../_sql/query";
 
 import { formatToTimestampArray } from "@app/_utilities/helpers";
@@ -238,14 +239,16 @@ export const getExchangeProfileFor = async (slug) => {
         return results[0];
       } catch (error) {
         console.log(error);
-        throw new Error(`Error fetching exchange profile for slug ${slug}`);
+        throw new Error(
+          `Error fetching exchange profile for coin slug ${slug}`
+        );
       }
     }),
     [`getExchangeProfileForSlug-${slug}`],
-    { revalidate: 28800, tags: [`exchange-${slug}`] }
+    { revalidate: 86400, tags: [`exchange-${slug}`] }
   );
   return await getData(slug);
-}
+};
 
 // Get coin profile data for a given slug
 export const getCoinProfileFor = async (slug) => {
@@ -259,11 +262,28 @@ export const getCoinProfileFor = async (slug) => {
         return results[0];
       } catch (error) {
         console.log(error);
-        throw new Error(`Error fetching coin profile for slug ${slug}`);
+        throw new Error(
+          `Error fetching exchange coin profile for slug ${slug}`
+        );
       }
     }),
     [`getCoinProfileForSlug-${slug}`],
-    { revalidate: 28800, tags: [`coin-${slug}`] }
+    { revalidate: 86400, tags: [`coin-${slug}`] }
   );
   return await getData(slug);
-}
+};
+
+export const getAllExchangeCoinSlug = nextCache(
+  cache(async () => {
+    try {
+      const [results, metadata] = await db.query(getAllExchangeCoinSlugSql);
+
+      return results;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error fetching all exchange coin slug data");
+    }
+  }),
+  ["getAllExchangeCoinSlug"],
+  { revalidate: 86400 }
+);

@@ -1,5 +1,4 @@
-export const listAllBlockchains =
-  `SELECT 
+export const listAllBlockchains = `SELECT 
     blockchain_id, 
     slug, 
     name, 
@@ -24,8 +23,7 @@ export const listAllBlockchains =
   ORDER BY 
     blockchain_tvl_chng.dominance DESC;`;
 
-export const listAllExchanges =
-  `SELECT 
+export const listAllExchanges = `SELECT 
     v.exchange_id, 
     e.full_name AS exchange, 
     c.name_id AS slug, 
@@ -54,8 +52,7 @@ export const listAllExchanges =
   ORDER BY 
     vol_24hr DESC;`;
 
-export const getDefiMktOverview =
-  `SELECT 
+export const getDefiMktOverview = `SELECT 
     all_total_usd AS y, 
     createdAt AS x 
   FROM 
@@ -64,8 +61,7 @@ export const getDefiMktOverview =
     createdAt DESC 
   LIMIT 30;`;
 
-export const getDefiMktOverviewChng =
-  `SELECT 
+export const getDefiMktOverviewChng = `SELECT 
     all_total_usd, 
     1day_usd_chng AS one_day_chng, 
     7day_usd_chng AS seven_day_chng, 
@@ -76,8 +72,7 @@ export const getDefiMktOverviewChng =
     createdAt DESC 
   LIMIT 1`;
 
-export const globalVolumeOverview =
-  `SELECT 
+export const globalVolumeOverview = `SELECT 
     totalvolume_usd AS y, 
     updated_at AS x 
   FROM 
@@ -86,8 +81,7 @@ export const globalVolumeOverview =
     updated_at DESC 
   LIMIT 30;`;
 
-export const globalVolumeOverviewChng =
-  `SELECT 
+export const globalVolumeOverviewChng = `SELECT 
     totalvolume_usd, 
     1day_volume_usd_chng AS one_day_chng, 
     7day_volume_usd_chng AS seven_day_chng, 
@@ -98,8 +92,7 @@ export const globalVolumeOverviewChng =
     updated_at DESC 
   LIMIT 1`;
 
-export const getExchangeVolumeBySlug =
-  `SELECT 
+export const getExchangeVolumeBySlug = `SELECT 
     v.created_on AS x, 
     v.vol_24hr_normalized AS y 
   FROM 
@@ -112,8 +105,7 @@ export const getExchangeVolumeBySlug =
     v.created_on DESC 
   LIMIT :periodLimit`;
 
-export const getExchangeMktcapBySlug =
-  `SELECT 
+export const getExchangeMktcapBySlug = `SELECT 
     m.created_on AS x, 
     m.market_cap AS y 
   FROM 
@@ -125,8 +117,7 @@ export const getExchangeMktcapBySlug =
     m.created_on DESC 
   LIMIT :periodLimit`;
 
-export const getExchangeVolumeChngBySlug =
-  `SELECT 
+export const getExchangeVolumeChngBySlug = `SELECT 
     v.vol_24hr_normalized, 
     v.1day_vol_norm_chng AS one_day_chng, 
     v.7day_vol_norm_chng AS seven_day_chng, 
@@ -141,8 +132,7 @@ export const getExchangeVolumeChngBySlug =
     v.created_on DESC 
   LIMIT 1;`;
 
-export const getExchangeMktcapChngBySlug =
-  `SELECT 
+export const getExchangeMktcapChngBySlug = `SELECT 
     m.market_cap, 
     m.1day_mktcap_chng AS one_day_chng, 
     m.7day_mktcap_chng AS seven_day_chng, 
@@ -156,8 +146,7 @@ export const getExchangeMktcapChngBySlug =
     m.created_on DESC 
   LIMIT 1;`;
 
-export const getExchangeTvevBySlug =
-  `SELECT 
+export const getExchangeTvevBySlug = `SELECT 
     t.created_on AS x, 
     t.ratio AS y 
   FROM 
@@ -169,8 +158,7 @@ export const getExchangeTvevBySlug =
     t.created_on DESC 
   LIMIT :periodLimit`;
 
-export const getExchangeTvevChngBySlug =
-  `SELECT 
+export const getExchangeTvevChngBySlug = `SELECT 
     t.ratio, 
     t.1day_ratio_chng AS one_day_chng, 
     t.7day_ratio_chng AS seven_day_chng, 
@@ -184,8 +172,7 @@ export const getExchangeTvevChngBySlug =
     t.created_on DESC 
   LIMIT 1`;
 
-export const getBlockchainTvlForSlug =
-  `SELECT 
+export const getBlockchainTvlForSlug = `SELECT 
     t.createdAt AS x, 
     t.usd AS y 
   FROM 
@@ -197,8 +184,7 @@ export const getBlockchainTvlForSlug =
     t.createdAt DESC 
   LIMIT :periodLimit`;
 
-export const getBlockchainTvlChngForSlug =
-  `SELECT 
+export const getBlockchainTvlChngForSlug = `SELECT 
     usd, 
     1day_usd_chng AS one_day_chng, 
     7day_usd_chng AS seven_day_chng, 
@@ -211,8 +197,7 @@ export const getBlockchainTvlChngForSlug =
     createdAt DESC 
   LIMIT 1`;
 
-export const getBlockchainCoinMktcapForSlug =
-  `SELECT 
+export const getBlockchainCoinMktcapForSlug = `SELECT 
     m.market_cap AS y, 
     m.createdAt AS x 
   FROM 
@@ -224,8 +209,7 @@ export const getBlockchainCoinMktcapForSlug =
     m.createdAt DESC 
   LIMIT :periodLimit;`;
 
-export const getBlockchainCoinMktcapChngForSlug =
-  `SELECT 
+export const getBlockchainCoinMktcapChngForSlug = `SELECT 
     m.market_cap, 
     m.1day_mktcap_chng AS one_day_chng, 
     m.7day_mktcap_chng AS seven_day_chng, 
@@ -239,8 +223,7 @@ export const getBlockchainCoinMktcapChngForSlug =
     m.createdAt DESC 
   LIMIT 1`;
 
-export const getBlockchainRatioForSlug =
-  `SELECT 
+export const getBlockchainRatioForSlug = `SELECT 
     r.createdAt AS x, 
     r.ratio AS y 
   FROM 
@@ -252,8 +235,7 @@ export const getBlockchainRatioForSlug =
     r.createdAt DESC 
   LIMIT :periodLimit`;
 
-export const getBlockchainRatioChngForSlug =
-  `SELECT 
+export const getBlockchainRatioChngForSlug = `SELECT 
     m.ratio, 
     m.1day_ratio_chng AS one_day_chng, 
     m.7day_ratio_chng AS seven_day_chng, 
@@ -267,24 +249,21 @@ export const getBlockchainRatioChngForSlug =
     m.createdAt DESC 
   LIMIT 1`;
 
-export const getExchangeName =
-  `SELECT 
+export const getExchangeName = `SELECT 
     name 
   FROM 
     coins 
   WHERE 
     name_id = :slug`;
 
-export const getBlockchainName =
-  `SELECT 
+export const getBlockchainName = `SELECT 
     name 
   FROM 
     blockchains 
   WHERE 
     slug = :slug`;
 
-export const getExchangeProfileBySlug =
-  `SELECT 
+export const getExchangeProfileBySlug = `SELECT 
     ep.name AS exchange_name,
     ep.year_established,
     ep.description,
@@ -302,8 +281,10 @@ export const getExchangeProfileBySlug =
   WHERE 
     c.name_id = :slug;`;
 
-export const getCoinProfileBySlug =
-  `SELECT
+export const getAllExchangeCoinSlug =
+  "SELECT c.name_id AS slug FROM `exchanges` AS e INNER JOIN coins as c ON e.coin_id = c.id WHERE e.active = TRUE AND e.display = TRUE;";
+
+export const getCoinProfileBySlug = `SELECT
     cp.symbol,
     cp.name AS coin_profile_name,
     cp.description,
