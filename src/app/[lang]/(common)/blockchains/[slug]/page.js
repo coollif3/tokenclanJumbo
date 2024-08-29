@@ -19,7 +19,7 @@ export async function generateMetadata({ params, searchParams }) {
   const coin = await getBlockchainNameForSlug(slug);
 
   return {
-    title: `${coin.name} Data on Market Cap, TVL and MCap/TVL Ratio `,
+    title: `${coin.name} Data on Market Cap, TVL and MCap/TVL Ratio | TokenClan`,
     description: `MCap/TVL ratio offers a way to value blockchain tokens like ${coin.name}`,
   };
 }
@@ -71,8 +71,8 @@ export default async function BlockchainDetailedPage({ params }) {
       disableGutters
     >
       <Grid container spacing={3.75} sx={{ my: 3 }}>
-        <Grid item xs={12} sm={4}>
-          <Typography variant="h3">{`${coin.name} Blockchain TVL USD`}</Typography>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h3">{`${coin.name} Blockchain TVL (USD)`}</Typography>
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">

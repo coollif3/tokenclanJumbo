@@ -11,7 +11,7 @@ import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChn
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
 export const metadata = {
-  title: "Blockchain Market Cap / Total Value Lock (TVL) Data",
+  title: "Blockchain Market Cap / Total Value Lock (TVL) Data | TokenClan",
   description:
     "Explore the latest trends and get insights into blockchains where crypto investors park their digital assets.",
 };

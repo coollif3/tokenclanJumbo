@@ -4,8 +4,6 @@ import {
   Typography,
   Breadcrumbs,
   Link,
-  Box,
-  Paper,
   Card,
   CardContent,
 } from "@mui/material";
@@ -26,7 +24,7 @@ export async function generateMetadata({ params, searchParams }) {
   const coin = await getExchangeNameFor(slug);
 
   return {
-    title: `${coin.name} Profile`,
+    title: `${coin.name} Profile | TokenClan`,
     description: `Details on ${coin.name} including socials and urls`,
   };
 }
@@ -68,13 +66,13 @@ async function DisplayCoinProfile(slug) {
               xs={12}
               sm={
                 displayKey === `About ${coinProfile.coin_profile_name}` &&
-                value !== "N.A"
+                  value !== "N.A"
                   ? 12
                   : 6
               }
               md={
                 displayKey === `About ${coinProfile.coin_profile_name}` &&
-                value !== "N.A"
+                  value !== "N.A"
                   ? 12
                   : 4
               }
@@ -95,7 +93,7 @@ async function DisplayCoinProfile(slug) {
                   ) : (
                     <Typography variant="body1">
                       {["homepage", "subreddit_url"].includes(key) &&
-                      value !== "N.A" ? (
+                        value !== "N.A" ? (
                         <Link
                           href={value}
                           target="_blank"

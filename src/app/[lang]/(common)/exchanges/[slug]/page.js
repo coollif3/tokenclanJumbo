@@ -4,8 +4,6 @@ import {
   Typography,
   Breadcrumbs,
   Link,
-  Box,
-  Paper,
   Card,
   CardContent,
 } from "@mui/material";
@@ -39,7 +37,7 @@ export async function generateMetadata({ params, searchParams }) {
   const coin = await getExchangeNameFor(slug);
 
   return {
-    title: `${coin.name} Data on Market Cap, Exchange Volume and TVEV Ratio `,
+    title: `${coin.name} Data on Market Cap, Exchange Volume and TVEV Ratio | TokenClan`,
     description: `TVEV ratio offers a way to value crypto exchange tokens like ${coin.name}`,
   };
 }

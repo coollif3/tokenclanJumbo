@@ -1,23 +1,15 @@
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import { ASSET_IMAGES } from "@app/_utilities/constants/paths";
-import { getAssetPath } from "@app/_utilities/helpers";
-import { Div } from "@jumbo/shared";
 import {
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
   Container,
-  Grid,
   Typography,
-  Divider,
 } from "@mui/material";
 import { CarouselMain } from "../../_components/_core/CarouselMain/CarouselMain";
 import { CarouselImg } from "../../_components/_core/CarouselImg/CarouselImg";
 
 const items = [
   {
-    title: "Exchange Coin TVEV Ratio",
+    title: "Exchange Coin TVEV Ratio | TokenClan",
     description:
       "Token value to exchange volume (TVEV) ratio. A way to value crypto exchange coins. Adopted from Willy Woo Bitcoin NVT ratio.",
     buttonName: "Go to Charts",
@@ -26,7 +18,7 @@ const items = [
     imagePosition: "right",
   },
   {
-    title: "DeFi Coin Metrics",
+    title: "DeFi Coin Metrics | TokenClan",
     description:
       "Grow your DeFi coins back up with their platform utility data.Identify the data trend easily which DeFi coins to keep with TVL and market cap aggregated history.",
     buttonName: "Go to Charts",
@@ -69,48 +61,6 @@ export default async function Home() {
         Data Aggregated From
       </Typography>
       <CarouselImg items={images}></CarouselImg>
-      {/* <Card>
-        <Grid container>
-          <Grid item xs={12} md={6}>
-            <Div
-              sx={{ position: "relative", height: 0, paddingBottom: "69.5%" }}
-            >
-              <CardMedia
-                component="img"
-                image={getAssetPath(
-                  `${ASSET_IMAGES}/main-page/coingecko-logo.svg`,
-                  "640x640"
-                )}
-                alt=""
-                sx={{
-                  inset: 0,
-                  height: "100%",
-                  position: "absolute",
-                }}
-              />
-            </Div>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Div
-              sx={{ position: "relative", height: 0, paddingBottom: "69.5%" }}
-            >
-              <CardMedia
-                component="img"
-                image={getAssetPath(
-                  `${ASSET_IMAGES}/main-page/defillama-logo.svg`,
-                  "640x640"
-                )}
-                alt=""
-                sx={{
-                  inset: 0,
-                  height: "100%",
-                  position: "absolute",
-                }}
-              />
-            </Div>
-          </Grid>
-        </Grid>
-      </Card> */}
     </Container>
   );
 }

@@ -14,13 +14,12 @@ import {
 } from "@mui/material";
 
 export const metadata = {
-  title: "TVEV Ratio | Valuing Crypto Exchange Coins",
+  title: "TVEV Ratio - Valuing Crypto Exchange Coins | TokenClan",
   description:
     "The Token Value to Exchange Volume (TVEV) ratio is a method for valuing cryptocurrency exchange tokens by comparing the token’s price to the trading volume on the exchange.",
 };
 
 export default function tvevRatio() {
-  // const { extraPages } = await getDictionary(lang);
   return (
     <Container
       maxWidth={false}
@@ -37,50 +36,11 @@ export default function tvevRatio() {
         What Is TVEV Ratio?
       </Typography>
       <JumboCard
-        // title={
-        //   <Typography variant='h6' color={'text.secondary'}>
-        //     About Us
-        //   </Typography>
-        // }
-        // subheader={
-        //   <Typography component={'h2'} variant={'h1'}>
-        //     A biggest digital marketing agency in the world
-        //   </Typography>
-        // }
         contentWrapper
         contentSx={{ pt: 0 }}
       >
         <Grid>
-          {/* <Grid item xs={12} md={6}>
-            <CardMedia
-              component={'img'}
-              sx={{ borderRadius: 2 }}
-              image={getAssetPath(
-                `${ASSET_IMAGES}/pages/cherrydeck.jpg`,
-                '640x820'
-              )}
-              alt={'About Us'}
-            />
-          </Grid> */}
           <Grid item xs={12} md={6}>
-            {/* <Button
-              disableRipple
-              variant={'text'}
-              sx={{
-                px: 0,
-                ml: '-5px',
-                mt: { md: 2 },
-                mb: 2,
-                textTransform: 'none',
-                color: 'text.primary',
-
-                '&:hover': {
-                  bgcolor: 'transparent',
-                },
-              }}
-            >
-              <PlayCircleIcon sx={{ fontSize: '3rem', mr: 1 }} /> Watch Intro
-            </Button> */}
             <Box sx={{ maxWidth: "1000px", margin: "auto" }}>
               <Typography variant="h4" mt={3} paragraph>
                 TVEV Ratio Definition
@@ -167,11 +127,11 @@ export default function tvevRatio() {
               </Typography>
               <Typography variant="body1" paragraph>
                 Token price in BTC is 0.00220000
-              </Typography>  
-                <Typography variant="body1" paragraph>
+              </Typography>
+              <Typography variant="body1" paragraph>
                 The total token supply is 100,000,000
-              </Typography>  
-                <Typography variant="body1" paragraph>
+              </Typography>
+              <Typography variant="body1" paragraph>
                 The 24-hour Exchange Volume In BTC for the day is 2,500
               </Typography>
               <Typography variant="body1" paragraph>

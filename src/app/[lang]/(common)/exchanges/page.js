@@ -11,7 +11,7 @@ import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChn
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
 export const metadata = {
-  title: "Crypto Exchange TVEV Data",
+  title: "Crypto Exchange TVEV Data | TokenClan",
   description:
     "Token value to exchange volume (TVEV) ratio offers a way to value crypto exchange coins.",
 };
