@@ -8,6 +8,7 @@ import {
   getBlockchainRatioForSlug,
   getBlockchainRatioChngForSlug,
   getBlockchainNameForSlug,
+  getBlockchains,
 } from "@app/_services/blockchain";
 import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
@@ -23,10 +24,10 @@ export async function generateMetadata({ params, searchParams }) {
   };
 }
 
-// export async function generateStaticParams() {
-//   const rows = await getBlockchains();
-//   return rows.map((row) => ({ slug: row.slug }));
-// }
+export async function generateStaticParams() {
+  const rows = await getBlockchains();
+  return rows.map((row) => ({ slug: row.slug }));
+}
 
 const tvlChartConfig = {
   chartTitle: "Blockchain TVL",
