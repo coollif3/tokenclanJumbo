@@ -1,12 +1,14 @@
 import { useJumboTheme } from '@jumbo/components/JumboTheme/hooks';
 import { isNavSection } from '@jumbo/utilities/helpers';
-import { List } from '@mui/material';
+import { Box, List } from '@mui/material';
 import PropTypes from 'prop-types';
 import { JumboNavIdentifier } from '..';
 import { JumboNavbarContext } from './JumboNavbarContext';
+import { NewsLetterSubscriptionSmall } from "@app/_components/widgets/NewsLetterSubscriptionSmall/NewsLetterSubscriptionSmall";
+
 
 function JumboNavbarProvider({
-  items = [],
+  items = {},
   mini = false,
   open = true,
   groupBehaviour = 'collapsible',
@@ -33,7 +35,7 @@ function JumboNavbarProvider({
           pb: 2,
         }}
       >
-        {items.map((item, index) => {
+        {items.menuItems.map((item, index) => {
           if (isNavSection(item) && isFirstSection === true) {
             isFirstSection = false;
             return (
@@ -47,6 +49,9 @@ function JumboNavbarProvider({
           return <JumboNavIdentifier item={item} key={index} />;
         })}
       </List>
+      <Box sx={{ marginLeft: '8px',marginRight:'8px',position:'absolute',bottom:'10px'}}>
+        <NewsLetterSubscriptionSmall title={items.widgets.title} subheader={items.widgets.subheader} />
+      </Box>
     </JumboNavbarContext.Provider>
   );
 }
