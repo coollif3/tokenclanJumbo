@@ -2,9 +2,10 @@
 import { isValidEmail } from "@app/_utilities/helpers";
 import { JumboCard } from "@jumbo/components";
 import { ErrorOutlineSharp } from "@mui/icons-material";
-import { Button, Collapse, TextField, Typography } from "@mui/material";
+import { Button, Collapse, TextField, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
 import { addSubscriber } from "@app/_lib/sendfox";
+import Image from "next/image";
 
 interface NewsLetterSubscriptionProps {
   title: React.ReactNode;
@@ -43,6 +44,16 @@ export function NewsLetterSubscription({
       contentWrapper
       contentSx={{ pt: 0 }}
     >
+      <div style={{ position: "relative", width: "100%", height: "320px" }}>
+        <Image
+          src="/assets/images/mailingListIllustration.png" // Adjust the path to your image
+          alt="Newsletter Subscription"
+          fill // Makes the image responsive
+          quality={100} // Ensures the best quality
+          style={{ objectFit: "cover" }} // Adjust the object fit as needed
+        />
+      </div>
+
       <Collapse in={!subscribed}>
         <TextField
           label="First Name"
@@ -60,9 +71,11 @@ export function NewsLetterSubscription({
           fullWidth
           margin="normal"
         />
-        <Button variant="contained" color="primary" onClick={handleSubscribe}>
-          Subscribe
-        </Button>
+        <Box display="flex" justifyContent="center" mt={2}>
+          <Button variant="contained" color="primary" onClick={handleSubscribe}>
+            Subscribe
+          </Button>
+        </Box>
       </Collapse>
       <Collapse in={subscribed}>
         <Typography variant="h5" color="success.main">
