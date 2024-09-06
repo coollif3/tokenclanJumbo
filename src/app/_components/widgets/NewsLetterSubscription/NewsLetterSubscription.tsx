@@ -1,6 +1,6 @@
 "use client";
 import { isValidEmail } from "@app/_utilities/helpers";
-import { JumboCard } from "@jumbo/components";
+import { MailingListJumboCard } from "@app/_components/widgets/NewsLetterSubscription/MailingListJumboCard";
 import { ErrorOutlineSharp } from "@mui/icons-material";
 import { Button, Collapse, TextField, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
@@ -38,7 +38,7 @@ export function NewsLetterSubscription({
   };
 
   return (
-    <JumboCard
+    <MailingListJumboCard
       title={title}
       subheader={subheader}
       contentWrapper
@@ -76,9 +76,21 @@ export function NewsLetterSubscription({
             Subscribe
           </Button>
         </Box>
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          sx={{ fontStyle: "italic", textAlign: "center" }}
+          m={2}
+        >
+          {`Your email is safe with us, we don't spam.`}
+        </Typography>
       </Collapse>
       <Collapse in={subscribed}>
-        <Typography variant="h5" color="success.main">
+        <Typography
+          variant="h6"
+          color="success.main"
+          sx={{ textAlign: "center", m: 2 }}
+        >
           Please check your email/spam folder to confirm your subscription.
         </Typography>
       </Collapse>
@@ -87,6 +99,6 @@ export function NewsLetterSubscription({
           {errorMessage}
         </Typography>
       </Collapse>
-    </JumboCard>
+    </MailingListJumboCard>
   );
 }
