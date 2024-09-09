@@ -1,11 +1,14 @@
 import { Container, Grid, Typography, Breadcrumbs, Link } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
-  getBlockchainDomForSlug,
+  getBlockchainTvlForSlug,
   getBlockchainNameForSlug,
+  getBlockchainTvlChngForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
 import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
+import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
+import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -22,19 +25,20 @@ export async function generateStaticParams() {
   return rows.map((row) => ({ slug: row.slug }));
 }
 
-const dominanceChartConfig = {
-  chartTitle: "Dominance",
-  tooltipSeries: "Dominance",
-  yaxisTitle: "%",
-  yaxisFormatter: "",
-  yaxisTooltipFormatterLabel: "PERCENTAGE",
+const tvlChartConfig = {
+  chartTitle: "TVL",
+  tooltipSeries: "TVL",
+  yaxisTitle: "USD",
+  yaxisFormatter: "THOUSAND_SEPARATOR",
+  yaxisTooltipFormatterLabel: "DOLLAR",
 };
 
-export default async function SlugDominancePage({ params }) {
+export default async function SlugTvlPage({ params }) {
   const slug = params.slug;
 
   const coin = await getBlockchainNameForSlug(slug);
-  const dominanceData = await getBlockchainDomForSlug(slug, 30);
+  const tvlData = await getBlockchainTvlForSlug(slug, 30);
+  const tvlChng = await getBlockchainTvlChngForSlug(slug);
 
   return (
     <Container
@@ -50,7 +54,7 @@ export default async function SlugDominancePage({ params }) {
     >
       <Grid container spacing={3.75} sx={{ my: 3 }}>
         <Grid item xs={12} sm={4}>
-          <Typography variant="h3">{`${coin.name} Dominance`}</Typography>
+          <Typography variant="h3">{`${coin.name} TVL`}</Typography>
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
@@ -67,14 +71,46 @@ export default async function SlugDominancePage({ params }) {
             >
               {coin.name}
             </Link>
-            <Typography color="text.primary">Dominance</Typography>
+            <Typography color="text.primary">TVL</Typography>
           </Breadcrumbs>
         </Grid>
       </Grid>
 
       <Grid container spacing={3.75}>
+        <Grid item xs={12} sm={6} md={3}>
+          <CurrentMarketCard
+            subheader={"Today's TVL USD"}
+            value={tvlChng.usd}
+            prefixUnit={"$"}
+            roundedDigit={0}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <PercentChngCard
+            title={`24hr Change`}
+            value={parseFloat(tvlChng.one_day_chng)}
+            period={"day"}
+            unit={"%"}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <PercentChngCard
+            title={`7 Day Change`}
+            value={parseFloat(tvlChng.seven_day_chng)}
+            period={"week"}
+            unit={"%"}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <PercentChngCard
+            title={`30 Day Change`}
+            value={parseFloat(tvlChng.thirty_day_chng)}
+            period={"month"}
+            unit={"%"}
+          />
+        </Grid>
         <Grid item xs={12}>
-          <GlobalCharts series={dominanceData} config={dominanceChartConfig} />
+          <GlobalCharts series={tvlData} config={tvlChartConfig} />
         </Grid>
       </Grid>
     </Container>
