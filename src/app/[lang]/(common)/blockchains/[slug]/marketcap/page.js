@@ -1,9 +1,9 @@
 import { Container, Grid, Typography, Breadcrumbs, Link } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
-  getBlockchainTvlForSlug,
+  getBlockchainCoinMktcapForSlug,
   getBlockchainNameForSlug,
-  getBlockchainTvlChngForSlug,
+  getBlockchainCoinMktcapChngForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
 import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
@@ -15,8 +15,8 @@ export async function generateMetadata({ params, searchParams }) {
   const coin = await getBlockchainNameForSlug(slug);
 
   return {
-    title: `${coin.name} Blockchain TVL | TokenClan`,
-    description: `${coin.name} TVL data history on chart.`,
+    title: `${coin.name} Blockchain Marketcap | TokenClan`,
+    description: `${coin.name} Marketcap data history on chart.`,
   };
 }
 
@@ -25,20 +25,20 @@ export async function generateStaticParams() {
   return rows.map((row) => ({ slug: row.slug }));
 }
 
-const tvlChartConfig = {
-  chartTitle: "TVL",
-  tooltipSeries: "TVL",
+const mktcapChartConfig = {
+  chartTitle: "Marketcap",
+  tooltipSeries: "Marketcap",
   yaxisTitle: "USD",
   yaxisFormatter: "THOUSAND_SEPARATOR",
   yaxisTooltipFormatterLabel: "DOLLAR",
 };
 
-export default async function SlugTvlPage({ params }) {
+export default async function SlugMktcapPage({ params }) {
   const slug = params.slug;
 
   const coin = await getBlockchainNameForSlug(slug);
-  const tvlData = await getBlockchainTvlForSlug(slug, 30);
-  const tvlChng = await getBlockchainTvlChngForSlug(slug);
+  const mktcapData = await getBlockchainCoinMktcapForSlug(slug, 30);
+  const mktcapChng = await getBlockchainCoinMktcapChngForSlug(slug);
 
   return (
     <Container
@@ -54,7 +54,7 @@ export default async function SlugTvlPage({ params }) {
     >
       <Grid container spacing={3.75} sx={{ my: 3 }}>
         <Grid item xs={12} sm={4}>
-          <Typography variant="h3">{`${coin.name} TVL`}</Typography>
+          <Typography variant="h3">{`${coin.name} Marketcap`}</Typography>
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
@@ -71,7 +71,7 @@ export default async function SlugTvlPage({ params }) {
             >
               {coin.name}
             </Link>
-            <Typography color="text.primary">TVL</Typography>
+            <Typography color="text.primary">Marketcap</Typography>
           </Breadcrumbs>
         </Grid>
       </Grid>
@@ -79,8 +79,8 @@ export default async function SlugTvlPage({ params }) {
       <Grid container spacing={3.75}>
         <Grid item xs={12} sm={6} md={3}>
           <CurrentMarketCard
-            subheader={"Today's TVL USD"}
-            value={tvlChng.usd}
+            subheader={"Today's Marketcap"}
+            value={mktcapChng.market_cap}
             prefixUnit={"$"}
             roundedDigit={0}
           />
@@ -88,7 +88,7 @@ export default async function SlugTvlPage({ params }) {
         <Grid item xs={12} sm={6} md={3}>
           <PercentChngCard
             title={`24hr Change`}
-            value={parseFloat(tvlChng.one_day_chng)}
+            value={parseFloat(mktcapChng.one_day_chng)}
             period={"day"}
             unit={"%"}
           />
@@ -96,7 +96,7 @@ export default async function SlugTvlPage({ params }) {
         <Grid item xs={12} sm={6} md={3}>
           <PercentChngCard
             title={`7 Day Change`}
-            value={parseFloat(tvlChng.seven_day_chng)}
+            value={parseFloat(mktcapChng.seven_day_chng)}
             period={"week"}
             unit={"%"}
           />
@@ -104,13 +104,13 @@ export default async function SlugTvlPage({ params }) {
         <Grid item xs={12} sm={6} md={3}>
           <PercentChngCard
             title={`30 Day Change`}
-            value={parseFloat(tvlChng.thirty_day_chng)}
+            value={parseFloat(mktcapChng.thirty_day_chng)}
             period={"month"}
             unit={"%"}
           />
         </Grid>
         <Grid item xs={12}>
-          <GlobalCharts series={tvlData} config={tvlChartConfig} />
+          <GlobalCharts series={mktcapData} config={mktcapChartConfig} />
         </Grid>
       </Grid>
     </Container>
