@@ -21,7 +21,7 @@ import {
   getExchanges,
   getExchangeProfileFor,
 } from "@app/_services/exchange";
-import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
+import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 import Accordion from "@mui/material/Accordion";
@@ -50,8 +50,10 @@ async function DisplayVolumeChart(slug) {
     chartTitle: "Exchange Volume BTC",
     tooltipSeries: "Volume",
     yaxisTitle: "24hr Volume BTC",
+    yaxisFormatter: "THOUSAND_SEPARATOR",
+    yaxisTooltipFormatterLabel: "BITCOIN",
   };
-  return <ExchangeCharts series={volData} config={volumeChartConfig} />;
+  return <GlobalCharts series={volData} config={volumeChartConfig} />;
 }
 
 async function DisplayVolumeStats(slug) {
@@ -98,9 +100,11 @@ async function DisplayMktcapFor(slug) {
     chartTitle: "Market Cap",
     tooltipSeries: "Market Cap",
     yaxisTitle: "USD",
+    yaxisFormatter: "THOUSAND_SEPARATOR",
+    yaxisTooltipFormatterLabel: "DOLLAR",
   };
 
-  return <ExchangeCharts series={mktcapData} config={marketcapChartConfig} />;
+  return <GlobalCharts series={mktcapData} config={marketcapChartConfig} />;
 }
 
 async function DisplayMktcapStatsFor(slug) {
@@ -146,10 +150,12 @@ async function DisplayTvevRatioChartFor(slug) {
     chartTitle: "TVEV",
     tooltipSeries: "Tvev Ratio",
     yaxisTitle: "Ratio",
+    yaxisFormatter: "THOUSAND_SEPARATOR",
+    yaxisTooltipFormatterLabel: "RATIO",
   };
   const tvevData = await getExchangeTvevFor(slug, 30);
 
-  return <ExchangeCharts series={tvevData} config={tvevChartConfig} />;
+  return <GlobalCharts series={tvevData} config={tvevChartConfig} />;
 }
 
 async function DisplayTvevStats(slug) {

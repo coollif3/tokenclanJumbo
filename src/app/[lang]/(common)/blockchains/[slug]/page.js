@@ -10,7 +10,7 @@ import {
   getBlockchainNameForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
-import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
+import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
@@ -33,16 +33,22 @@ const tvlChartConfig = {
   chartTitle: "Blockchain TVL",
   tooltipSeries: "TVL",
   yaxisTitle: "USD",
+  yaxisFormatter: "THOUSAND_SEPARATOR",
+  yaxisTooltipFormatterLabel: "DOLLAR",
 };
 const mktcapChartConfig = {
   chartTitle: "Market Cap USD",
   tooltipSeries: "MarketCap",
   yaxisTitle: "USD",
+  yaxisFormatter: "THOUSAND_SEPARATOR",
+  yaxisTooltipFormatterLabel: "DOLLAR",
 };
 const ratioChartConfig = {
   chartTitle: "Mktcap/Tvl",
   tooltipSeries: "MarketCap/TVL",
   yaxisTitle: "Ratio",
+  yaxisFormatter: "THOUSAND_SEPARATOR",
+  yaxisTooltipFormatterLabel: "RATIO",
 };
 
 export default async function BlockchainDetailedPage({ params }) {
@@ -121,7 +127,7 @@ export default async function BlockchainDetailedPage({ params }) {
           />
         </Grid>
         <Grid item xs={12}>
-          <ExchangeCharts series={tvlData} config={tvlChartConfig} />
+          <GlobalCharts series={tvlData} config={tvlChartConfig} />
         </Grid>
         <Grid item xs={12} mt={5}>
           <Typography variant="h3">{`${coin.name} Market Cap (USD)`}</Typography>
@@ -158,7 +164,7 @@ export default async function BlockchainDetailedPage({ params }) {
         </Grid>
 
         <Grid item xs={12}>
-          <ExchangeCharts series={mktcapData} config={mktcapChartConfig} />
+          <GlobalCharts series={mktcapData} config={mktcapChartConfig} />
         </Grid>
         <Grid item xs={12} mt={5}>
           <Typography variant="h3">{`${coin.name} MarketCap/TVL Ratio`}</Typography>
@@ -194,7 +200,7 @@ export default async function BlockchainDetailedPage({ params }) {
         </Grid>
 
         <Grid item xs={12}>
-          <ExchangeCharts series={ratioData} config={ratioChartConfig} />
+          <GlobalCharts series={ratioData} config={ratioChartConfig} />
         </Grid>
       </Grid>
     </Container>

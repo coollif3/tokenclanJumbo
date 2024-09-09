@@ -184,6 +184,18 @@ export const getBlockchainTvlForSlug = `SELECT
     t.createdAt DESC 
   LIMIT :periodLimit`;
 
+export const getBlockchainDomForSlug = `SELECT 
+    t.createdAt AS x, 
+    t.dominance * 100 AS y 
+  FROM 
+    blockchain_tvl AS t 
+    INNER JOIN blockchains AS b ON b.id = t.blockchain_id 
+  WHERE 
+    b.slug = :slug 
+  ORDER BY 
+    t.createdAt DESC 
+  LIMIT :periodLimit`;
+
 export const getBlockchainTvlChngForSlug = `SELECT 
     usd, 
     1day_usd_chng AS one_day_chng, 

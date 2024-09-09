@@ -37,7 +37,14 @@ export default function GlobalCharts({ series, config }) {
       yaxis: {
         labels: {
           formatter: function (val) {
-            return `${(val / 1000000000).toFixed(0)}`;
+            switch (config.yaxisFormatter) {
+              case "THOUSAND_SEPARATOR":
+                return `${val.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+              case "BILLION_UNIT":
+                return `${(val / 1000000000).toFixed(0)}`;
+              default:
+                return val;
+            }
           },
         },
         title: {
@@ -56,7 +63,16 @@ export default function GlobalCharts({ series, config }) {
         y: {
           formatter: function (val) {
             const formattedValue = new Intl.NumberFormat("en-US").format(val);
-            return "$ " + formattedValue;
+            switch (config.yaxisTooltipFormatterLabel) {
+              case "DOLLAR":
+                return "$ " + formattedValue;
+              case "PERCENTAGE":
+                return formattedValue + "%";
+              case "BITCOIN":
+                return formattedValue + " BTC";
+              default:
+                return formattedValue;
+            }
           },
         },
       },

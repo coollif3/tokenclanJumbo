@@ -27,6 +27,8 @@ async function DisplayTotalVolumeCharts() {
     chartTitle: "Total Volume 24hr",
     tooltipSeries: "Volume 24hr",
     yaxisTitle: "24hr Volume USD (Billions)",
+    yaxisFormatter: "BILLION_UNIT",
+    yaxisTooltipFormatterLabel: "DOLLAR",
   };
   return <GlobalCharts series={chartSeries} config={chartConfig} />;
 }

@@ -27,6 +27,8 @@ async function DisplayTVLChart() {
     chartTitle: "Total Blockchain TVL",
     tooltipSeries: "Total TVL",
     yaxisTitle: "TVL in USD (Billion)",
+    yaxisFormatter: "BILLION_UNIT",
+    yaxisTooltipFormatterLabel: "DOLLAR",
   };
   return <GlobalCharts series={chartSeries} config={chartConfig} />;
 }

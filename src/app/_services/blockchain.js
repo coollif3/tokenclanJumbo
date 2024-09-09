@@ -14,8 +14,32 @@ import {
   getBlockchainRatioChngForSlug as getBlockchainRatioChngForSlugSql,
   getDefiMktOverviewChng as getDefiMktOverviewChngSql,
   getBlockchainName as getBlockchainNameSql,
+  getBlockchainDomForSlug as getBlockchainDomForSlugSql,
 } from "../_sql/query";
 import { formatToTimestampArray } from "@app/_utilities/helpers";
+
+export const getBlockchainDomForSlug = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await db.query(getBlockchainDomForSlugSql, {
+          replacements: {
+            slug,
+            periodLimit: period,
+          },
+        });
+        const formattedResults = formatToTimestampArray(results);
+        return formattedResults;
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching blockchain dominance data for ${slug}`);
+      }
+    }),
+    [`getBlockchainDomForSlug-${slug}-${period}`],
+    { revalidate: 28800, tags: [`blockchain-${slug}-${period}`] }
+  );
+  return await getData(slug, parseInt(period));
+};
 
 export const getBlockchainRatioChngForSlug = async (slug) => {
   const getData = nextCache(
