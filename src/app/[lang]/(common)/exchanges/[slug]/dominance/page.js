@@ -10,7 +10,6 @@ import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
   const exchange = await getExchangeNameFor(slug);
-  console.log("EXCHANGE: ", exchange);
   return {
     title: `${exchange.name} Exchange Volume Dominance | TokenClan`,
     description: `${exchange.name} Exchange Dominance data history on chart.`,
