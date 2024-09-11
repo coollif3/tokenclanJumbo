@@ -13,11 +13,11 @@ import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
   getCoinProfileFor,
   getCoinNameFor,
-  getAllExchangeCoinSlug,
+  getAllCoinSlug,
 } from "@app/_services/coin";
 
 export async function generateStaticParams() {
-  const rows = await getAllExchangeCoinSlug();
+  const rows = await getAllCoinSlug();
   return rows.map((row) => ({ slug: row.slug }));
 }
 
