@@ -20,8 +20,8 @@ import {
   getExchangeNameFor,
   getExchanges,
   getExchangeProfileFor,
-  getCoinNameFromExchangeSlug,
 } from "@app/_services/exchange";
+import { getCoinNameFromExchangeSlug } from "@app/_services/coin";
 import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
