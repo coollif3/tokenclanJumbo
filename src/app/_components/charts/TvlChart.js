@@ -57,10 +57,12 @@ export default async function TvlChart({ slug }) {
 
   const handleChartTypeChange = (chartType) => {
     setChartType(chartType);
+    setTimeframe(30);
   };
 
   const handleTimeframeChange = (newTimeframe) => {
     setTimeframe(newTimeframe);
+    setChartType("daily");
   };
 
   return (
@@ -81,13 +83,22 @@ export default async function TvlChart({ slug }) {
               size="small"
               aria-label="outlined primary button group"
             >
-              <Button onClick={() => handleChartTypeChange("daily")}>
+              <Button
+                variant={chartType === "daily" ? "contained" : "outlined"}
+                onClick={() => handleChartTypeChange("daily")}
+              >
                 Daily
               </Button>
-              <Button onClick={() => handleChartTypeChange("weekly")}>
+              <Button
+                variant={chartType === "weekly" ? "contained" : "outlined"}
+                onClick={() => handleChartTypeChange("weekly")}
+              >
                 Weekly
               </Button>
-              <Button onClick={() => handleChartTypeChange("monthly")}>
+              <Button
+                variant={chartType === "monthly" ? "contained" : "outlined"}
+                onClick={() => handleChartTypeChange("monthly")}
+              >
                 Monthly
               </Button>
             </ButtonGroup>
@@ -101,9 +112,24 @@ export default async function TvlChart({ slug }) {
               size="small"
               aria-label="outlined primary button group"
             >
-              <Button onClick={() => handleTimeframeChange(30)}>Month</Button>
-              <Button onClick={() => handleTimeframeChange(90)}>Quarter</Button>
-              <Button onClick={() => handleTimeframeChange(365)}>Year</Button>
+              <Button
+                variant={timeframe === 30 ? "contained" : "outlined"}
+                onClick={() => handleTimeframeChange(30)}
+              >
+                Month
+              </Button>
+              <Button
+                variant={timeframe === 90 ? "contained" : "outlined"}
+                onClick={() => handleTimeframeChange(90)}
+              >
+                Quarter
+              </Button>
+              <Button
+                variant={timeframe === 365 ? "contained" : "outlined"}
+                onClick={() => handleTimeframeChange(365)}
+              >
+                Year
+              </Button>
             </ButtonGroup>
           </Box>
         </Box>
