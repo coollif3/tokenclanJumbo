@@ -87,6 +87,6 @@ export const getAllCoinSlug = nextCache(
       throw new Error("Error fetching all exchange coin slug data");
     }
   }),
-  ["getAllExchangeCoinSlug"],
+  ["getAllCoinSlug"],
   { revalidate: 86400 }
 );

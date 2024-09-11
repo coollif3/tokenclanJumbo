@@ -10,8 +10,11 @@ import {
   CardContent,
 } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
-import { getAllExchangeCoinSlug } from "@app/_services/exchange";
-import { getCoinProfileFor, getCoinNameFor } from "@app/_services/coin";
+import {
+  getCoinProfileFor,
+  getCoinNameFor,
+  getAllExchangeCoinSlug,
+} from "@app/_services/coin";
 
 export async function generateStaticParams() {
   const rows = await getAllExchangeCoinSlug();
