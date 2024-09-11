@@ -1,6 +1,10 @@
 "use client";
 import { Grid, ButtonGroup, Button, Box, Typography } from "@mui/material";
-import { getBlockchainTvlForSlug } from "@app/_services/blockchain";
+import {
+  getBlockchainTvlForSlug,
+  getBlockchainTvlForSlugWeek,
+  getBlockchainTvlForSlugMonth,
+} from "@app/_services/blockchain";
 import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
 import { useEffect, useState } from "react";
 
@@ -14,6 +18,7 @@ const tvlChartConfig = {
 
 export default async function TvlChart({ slug }) {
   const [timeframe, setTimeframe] = useState(30);
+  const [chartType, setChartType] = useState("daily");
   const [tvlData, setTvlData] = useState([]);
 
   useEffect(() => {
@@ -24,6 +29,35 @@ export default async function TvlChart({ slug }) {
 
     fetchData();
   }, [slug, timeframe]);
+
+  useEffect(() => {
+    async function fetchData() {
+      let tvlData;
+      switch (chartType) {
+        case "daily":
+          tvlData = await getBlockchainTvlForSlug(slug, 30);
+          setTvlData(tvlData);
+          break;
+        case "weekly":
+          tvlData = await getBlockchainTvlForSlugWeek(slug, 12);
+          setTvlData(tvlData);
+          break;
+
+        case "monthly":
+          tvlData = await getBlockchainTvlForSlugMonth(slug, 6);
+          setTvlData(tvlData);
+          break;
+        default:
+          break;
+      }
+    }
+
+    fetchData();
+  }, [slug, chartType]);
+
+  const handleChartTypeChange = (chartType) => {
+    setChartType(chartType);
+  };
 
   const handleTimeframeChange = (newTimeframe) => {
     setTimeframe(newTimeframe);
@@ -47,9 +81,13 @@ export default async function TvlChart({ slug }) {
               size="small"
               aria-label="outlined primary button group"
             >
-              <Button onClick={() => handleTimeframeChange(30)}>Daily</Button>
-              <Button onClick={() => handleTimeframeChange(90)}>Weekly</Button>
-              <Button onClick={() => handleTimeframeChange(365)}>
+              <Button onClick={() => handleChartTypeChange("daily")}>
+                Daily
+              </Button>
+              <Button onClick={() => handleChartTypeChange("weekly")}>
+                Weekly
+              </Button>
+              <Button onClick={() => handleChartTypeChange("monthly")}>
                 Monthly
               </Button>
             </ButtonGroup>

@@ -75,6 +75,34 @@ export const getDefiMktOverviewChng = `SELECT
     createdAt DESC 
   LIMIT 1`;
 
+export const getBlockchainTvlForSlugMonth = `SELECT 
+  DATE_FORMAT(t.createdAt, '%Y-%m-01') AS x, 
+  TRUNCATE(AVG(t.usd), 0) AS y 
+FROM 
+  blockchain_tvl AS t 
+  INNER JOIN blockchains AS b ON b.id = t.blockchain_id 
+WHERE 
+  b.slug = :slug 
+GROUP BY 
+  x 
+ORDER BY 
+  x DESC 
+LIMIT :periodLimit;`;
+
+export const getBlockchainTvlForSlugWeek = `SELECT 
+  STR_TO_DATE(CONCAT(YEARWEEK(t.createdAt, 1), ' Monday'), '%X%V %W') AS x, 
+  TRUNCATE(AVG(t.usd),0) AS y 
+FROM 
+  blockchain_tvl AS t 
+  INNER JOIN blockchains AS b ON b.id = t.blockchain_id 
+WHERE 
+  b.slug = :slug 
+GROUP BY 
+  x 
+ORDER BY 
+  x DESC 
+LIMIT :periodLimit;`;
+
 export const getBlockchainTvlForSlug = `SELECT 
   t.createdAt AS x, 
   t.usd AS y 
