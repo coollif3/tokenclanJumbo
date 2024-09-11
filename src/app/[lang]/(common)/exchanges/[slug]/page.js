@@ -283,7 +283,7 @@ export default async function ExchangeDetailedPage({ params }) {
   const slug = params.slug;
   const exchange = await getExchangeNameFor(slug);
   const coin = await getCoinNameFromExchangeSlug(slug);
-  console.log(coin);
+
   return (
     <>
       <Container

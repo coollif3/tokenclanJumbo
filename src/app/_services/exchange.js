@@ -34,8 +34,8 @@ export const getExchangeCoinDominanceForSlug = async (slug, period) => {
             replacements: { slug, periodLimit: period },
           }
         );
-
-        return results;
+        const formattedResults = formatToTimestampArray(results);
+        return formattedResults;
       } catch (error) {
         console.log(error);
 
@@ -47,7 +47,7 @@ export const getExchangeCoinDominanceForSlug = async (slug, period) => {
     [`getExchangeCoinDominanceForSlug-${slug}-${period}`],
     { revalidate: 28800, tags: [`exchange-${slug}`] }
   );
-  return await getData(slug);
+  return await getData(slug, parseInt(period));
 };
 
 export const getExchangeTvevChngFor = async (slug) => {
