@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
-  getExchangeNameFor,
+  getCoinNameFor,
   getCoinProfileFor,
   getAllExchangeCoinSlug,
 } from "@app/_services/exchange";
@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
-  const coin = await getExchangeNameFor(slug);
+  const coin = await getCoinNameFor(slug);
 
   return {
     title: `${coin.name} Profile`,
@@ -120,7 +120,7 @@ async function DisplayCoinProfile(slug) {
 
 export default async function CoinProfilePage({ params }) {
   const slug = params.slug;
-  const coin = await getExchangeNameFor(slug);
+  const coin = await getCoinNameFor(slug);
 
   return (
     <>
@@ -144,17 +144,10 @@ export default async function CoinProfilePage({ params }) {
               <Link underline="hover" color="inherit" href="/">
                 Home
               </Link>
-              <Link underline="hover" color="inherit" href="/exchanges">
-                Exchanges
+              <Link underline="hover" color="inherit" href="/coins">
+                Coins
               </Link>
-              <Link
-                underline="hover"
-                color="inherit"
-                href={`/exchanges/${slug}`}
-              >
-                {coin.name}
-              </Link>
-              <Typography color="text.primary">Coin Profile</Typography>
+              <Typography color="text.primary">{coin.name}</Typography>
             </Breadcrumbs>
           </Grid>
         </Grid>

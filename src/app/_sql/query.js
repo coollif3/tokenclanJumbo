@@ -26,7 +26,8 @@ export const listAllBlockchains = `SELECT
 export const listAllExchanges = `SELECT 
     v.exchange_id, 
     e.full_name AS exchange, 
-    c.name_id AS slug, 
+    e.name_id AS slug,
+    c.name_id AS coin_slug, 
     c.symbol AS coin, 
     v.vol_24hr_normalized AS vol_24hr, 
     v.1day_vol_norm_chng AS one_day_chng, 
@@ -98,9 +99,8 @@ export const getExchangeVolumeBySlug = `SELECT
   FROM 
     exchange_vol AS v 
     INNER JOIN exchanges AS e ON e.id = v.exchange_id 
-    INNER JOIN coins AS c ON c.id = e.coin_id 
   WHERE 
-    c.name_id = :slug 
+    e.name_id = :slug 
   ORDER BY 
     v.created_on DESC 
   LIMIT :periodLimit`;
@@ -111,8 +111,9 @@ export const getExchangeMktcapBySlug = `SELECT
   FROM 
     coin_markets_usd AS m 
     INNER JOIN coins AS c ON m.coin_id = c.id 
+    INNER JOIN exchanges AS e ON e.coin_id = c.id
   WHERE 
-    c.name_id = :slug 
+    e.name_id = :slug 
   ORDER BY 
     m.created_on DESC 
   LIMIT :periodLimit`;
@@ -125,9 +126,8 @@ export const getExchangeVolumeChngBySlug = `SELECT
   FROM 
     volume_norm_chng AS v 
     INNER JOIN exchanges AS e ON e.id = v.exchange_id 
-    INNER JOIN coins AS c ON c.id = e.coin_id 
   WHERE 
-    c.name_id = :slug 
+    e.name_id = :slug 
   ORDER BY 
     v.created_on DESC 
   LIMIT 1;`;
@@ -139,9 +139,10 @@ export const getExchangeMktcapChngBySlug = `SELECT
     m.30day_mktcap_chng AS thirty_day_chng 
   FROM 
     mktcap_usd_chng AS m 
-    INNER JOIN coins AS c ON c.id = m.coin_id 
+    INNER JOIN coins AS c ON c.id = m.coin_id
+    INNER JOIN exchanges AS e ON c.id = e.coin_id 
   WHERE 
-    c.name_id = :slug 
+    e.name_id = :slug 
   ORDER BY 
     m.created_on DESC 
   LIMIT 1;`;
@@ -152,8 +153,9 @@ export const getExchangeTvevBySlug = `SELECT
   FROM 
     coin_tvev AS t 
     INNER JOIN coins AS c ON t.coin_id = c.id 
+    INNER JOIN exchanges AS e ON c.id = e.coin_id
   WHERE 
-    c.name_id = :slug 
+    e.name_id = :slug 
   ORDER BY 
     t.created_on DESC 
   LIMIT :periodLimit`;
@@ -166,8 +168,9 @@ export const getExchangeTvevChngBySlug = `SELECT
   FROM 
     coin_tvev_chng AS t 
     INNER JOIN coins AS c ON c.id = t.coin_id 
+    INNER JOIN exchanges AS e ON c.id = e.coin_id
   WHERE 
-    c.name_id = :slug 
+    e.name_id = :slug 
   ORDER BY 
     t.created_on DESC 
   LIMIT 1`;
@@ -261,10 +264,27 @@ export const getBlockchainRatioChngForSlug = `SELECT
     m.createdAt DESC 
   LIMIT 1`;
 
-export const getExchangeName = `SELECT 
+export const getCoinName = `SELECT 
     name 
   FROM 
     coins 
+  WHERE 
+    name_id = :slug`;
+
+export const getCoinNameFromExchangeSlug = `SELECT 
+    c.name_id AS slug,
+    c.name AS name,
+    c.symbol AS symbol
+  FROM 
+    coins AS c 
+    INNER JOIN exchanges AS e ON c.id = e.coin_id 
+  WHERE 
+    e.name_id = :slug`;
+
+export const getExchangeName = `SELECT 
+    full_name AS name 
+  FROM 
+    exchanges 
   WHERE 
     name_id = :slug`;
 
@@ -285,13 +305,11 @@ export const getExchangeProfileBySlug = `SELECT
     ep.telegram,
     ep.centralized
   FROM 
-    coins AS c
-  JOIN 
-    exchanges AS e ON c.id = e.coin_id
+    exchanges AS e 
   JOIN 
     exchange_profile AS ep ON e.id = ep.exchange_id
   WHERE 
-    c.name_id = :slug;`;
+    e.name_id = :slug;`;
 
 export const getAllExchangeCoinSlug =
   "SELECT c.name_id AS slug FROM `exchanges` AS e INNER JOIN coins as c ON e.coin_id = c.id WHERE e.active = TRUE AND e.display = TRUE;";

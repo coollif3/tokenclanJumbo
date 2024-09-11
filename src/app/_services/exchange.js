@@ -17,9 +17,38 @@ import {
   globalVolumeOverviewChng as globalVolumeOverviewChngSql,
   getExchangeName as getExchangeNameSql,
   getAllExchangeCoinSlug as getAllExchangeCoinSlugSql,
+  getExchangeCoinDominanceForSlug as getExchangeCoinDominanceForSlugSql,
+  getCoinName as getCoinNameSql,
+  getCoinNameFromExchangeSlug as getCoinNameFromExchangeSlugSql,
 } from "../_sql/query";
 
 import { formatToTimestampArray } from "@app/_utilities/helpers";
+
+export const getExchangeCoinDominanceForSlug = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await db.query(
+          getExchangeCoinDominanceForSlugSql,
+          {
+            replacements: { slug, periodLimit: period },
+          }
+        );
+
+        return results;
+      } catch (error) {
+        console.log(error);
+
+        throw new Error(
+          `Error fetching exchange coin dominance for slug ${slug} data`
+        );
+      }
+    }),
+    [`getExchangeCoinDominanceForSlug-${slug}-${period}`],
+    { revalidate: 28800, tags: [`exchange-${slug}`] }
+  );
+  return await getData(slug);
+};
 
 export const getExchangeTvevChngFor = async (slug) => {
   const getData = nextCache(
@@ -287,3 +316,46 @@ export const getAllExchangeCoinSlug = nextCache(
   ["getAllExchangeCoinSlug"],
   { revalidate: 86400 }
 );
+
+export const getCoinNameFor = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await db.query(getCoinNameSql, {
+          replacements: { slug },
+        });
+
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching exchange coin name for slug ${slug}`);
+      }
+    }),
+    [`getCoinNameForSlug-${slug}`],
+    { revalidate: 28800, tags: [`coin-${slug}`] }
+  );
+  return await getData(slug);
+};
+
+export const getCoinNameFromExchangeSlug = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await db.query(
+          getCoinNameFromExchangeSlugSql,
+          {
+            replacements: { slug },
+          }
+        );
+
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching coin data from exchange slug ${slug}`);
+      }
+    }),
+    [`getCoinNameFromExchangeSlug-${slug}`],
+    { revalidate: 28800, tags: [`coin-${slug}`] }
+  );
+  return await getData(slug);
+};

@@ -20,6 +20,7 @@ import {
   getExchangeNameFor,
   getExchanges,
   getExchangeProfileFor,
+  getCoinNameFromExchangeSlug,
 } from "@app/_services/exchange";
 import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
@@ -36,11 +37,11 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
-  const coin = await getExchangeNameFor(slug);
+  const exchange = await getExchangeNameFor(slug);
 
   return {
-    title: `${coin.name} Data on Market Cap, Exchange Volume and TVEV Ratio `,
-    description: `TVEV ratio offers a way to value crypto exchange tokens like ${coin.name}`,
+    title: `${exchange.name} Data on Market Cap, Exchange Volume and TVEV Ratio `,
+    description: `TVEV ratio offers a way to value crypto exchange tokens like ${exchange.name}`,
   };
 }
 
@@ -51,7 +52,7 @@ async function DisplayVolumeChart(slug) {
     tooltipSeries: "Volume",
     yaxisTitle: "24hr Volume BTC",
     yaxisFormatter: "THOUSAND_SEPARATOR",
-    yaxisTooltipFormatterLabel: "BITCOIN",
+    yaxisTooltipFormatterLabel: "BITexchange",
   };
   return <GlobalCharts series={volData} config={volumeChartConfig} />;
 }
@@ -280,8 +281,9 @@ async function DisplayExchangeProfile(slug) {
 
 export default async function ExchangeDetailedPage({ params }) {
   const slug = params.slug;
-  const coin = await getExchangeNameFor(slug);
-
+  const exchange = await getExchangeNameFor(slug);
+  const coin = await getCoinNameFromExchangeSlug(slug);
+  console.log(coin);
   return (
     <>
       <Container
@@ -298,11 +300,11 @@ export default async function ExchangeDetailedPage({ params }) {
         <Grid container spacing={3.75} sx={{ my: 3 }}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h3">
-              {`${coin.name} Exchange Volume in BTC `}
+              {`${exchange.name} Exchange Data `}
             </Typography>
             <Typography variant="h5">
-              <Link href={`/coins/${slug}`} underline="none">
-                (Exchange Coin Profile)
+              <Link href={`/coins/${coin.slug}`} underline="none">
+                (Exchange Coin Profile: {coin.symbol})
               </Link>
             </Typography>
           </Grid>
@@ -314,7 +316,7 @@ export default async function ExchangeDetailedPage({ params }) {
               <Link underline="hover" color="inherit" href="/exchanges">
                 Exchanges
               </Link>
-              <Typography color="text.primary">{coin.name}</Typography>
+              <Typography color="text.primary">{exchange.name}</Typography>
             </Breadcrumbs>
           </Grid>
         </Grid>
@@ -328,7 +330,7 @@ export default async function ExchangeDetailedPage({ params }) {
           </Grid>
 
           <Grid item xs={12} mt={5}>
-            <Typography variant="h3">{`${coin.name} Market Cap (USD)`}</Typography>
+            <Typography variant="h3">{`${exchange.name} Market Cap (USD)`}</Typography>
           </Grid>
           {await DisplayMktcapStatsFor(slug)}
           <Grid item xs={12}>
@@ -336,7 +338,7 @@ export default async function ExchangeDetailedPage({ params }) {
           </Grid>
 
           <Grid item xs={12} mt={5}>
-            <Typography variant="h3">{`${coin.name} TVEV Ratio`}</Typography>
+            <Typography variant="h3">{`${exchange.name} TVEV Ratio`}</Typography>
           </Grid>
           {await DisplayTvevStats(slug)}
           <Grid item xs={12}>
