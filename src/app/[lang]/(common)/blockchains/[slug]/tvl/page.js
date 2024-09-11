@@ -1,12 +1,11 @@
-import { Container, Grid, Typography, Breadcrumbs, Link } from "@mui/material";
-import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
+import TvlChart from "@app/_components/charts/TvlChart";
 import {
-  getBlockchainTvlForSlug,
+  getBlockchains,
   getBlockchainNameForSlug,
   getBlockchainTvlChngForSlug,
-  getBlockchains,
 } from "@app/_services/blockchain";
-import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
+import { Container, Grid, Typography, Breadcrumbs, Link } from "@mui/material";
+import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
@@ -25,21 +24,10 @@ export async function generateStaticParams() {
   return rows.map((row) => ({ slug: row.slug }));
 }
 
-const tvlChartConfig = {
-  chartTitle: "TVL",
-  tooltipSeries: "TVL",
-  yaxisTitle: "USD",
-  yaxisFormatter: "THOUSAND_SEPARATOR",
-  yaxisTooltipFormatterLabel: "DOLLAR",
-};
-
 export default async function SlugTvlPage({ params }) {
   const slug = params.slug;
-
   const coin = await getBlockchainNameForSlug(slug);
-  const tvlData = await getBlockchainTvlForSlug(slug, 30);
   const tvlChng = await getBlockchainTvlChngForSlug(slug);
-
   return (
     <Container
       maxWidth={false}
@@ -109,9 +97,7 @@ export default async function SlugTvlPage({ params }) {
             unit={"%"}
           />
         </Grid>
-        <Grid item xs={12}>
-          <GlobalCharts series={tvlData} config={tvlChartConfig} />
-        </Grid>
+        <TvlChart slug={slug} />
       </Grid>
     </Container>
   );
