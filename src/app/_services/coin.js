@@ -7,6 +7,7 @@ import {
   getCoinProfileBySlug,
   getCoinName as getCoinNameSql,
   getCoinNameFromExchangeSlug as getCoinNameFromExchangeSlugSql,
+  getAllExchangeCoinSlug as getAllExchangeCoinSlugSql,
 } from "../_sql/query";
 
 // Get coin profile data for a given slug
@@ -74,3 +75,18 @@ export const getCoinNameFromExchangeSlug = async (slug) => {
   );
   return await getData(slug);
 };
+
+export const getAllCoinSlug = nextCache(
+  cache(async () => {
+    try {
+      const [results, metadata] = await db.query(getAllExchangeCoinSlugSql);
+
+      return results;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error fetching all exchange coin slug data");
+    }
+  }),
+  ["getAllExchangeCoinSlug"],
+  { revalidate: 86400 }
+);

@@ -300,10 +300,10 @@ JOIN
 WHERE 
   e.name_id = :slug;`;
 
+// Coin queries
 export const getAllExchangeCoinSlug =
   "SELECT c.name_id AS slug FROM `exchanges` AS e INNER JOIN coins as c ON e.coin_id = c.id WHERE e.active = TRUE AND e.display = TRUE;";
 
-// Coin queries
 export const getCoinName = `SELECT 
     name 
   FROM 
