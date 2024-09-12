@@ -59,7 +59,11 @@ function JumboNavbarProvider({
           return <JumboNavIdentifier item={item} key={index} />;
         })}
       </List>
-      <Box sx={{ left:'50%',bottom:{xs:"-5%",sm:'10px',md:'10px',lg:'10px',xl:'10px'},transform:'translate(-50%)',position:{xs:'relative',sm: 'absolute',
+      <Box sx={{ left:'50%',
+              bottom:{xs:"-5%",sm:'10px',md:'10px',lg:'10px',xl:'10px'},
+              transform:'translate(-50%)',
+              width: "100%",
+              position:{xs:'relative',sm: 'absolute',
               md: 'absolute',
               lg: 'absolute',
               xl: 'absolute',}}}>
