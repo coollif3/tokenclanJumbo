@@ -36,7 +36,13 @@ export default function BlockchainDataTable({ rows }) {
                 {row.blockchain_id}
               </TableCell>
               <TableCell>
-                <Link href={`/blockchains/${row.slug}`}>{row.name}</Link>
+                <Link
+                  href={`/blockchains/${row.slug}`}
+                  underline="none"
+                  sx={{ textDecoration: "none" }}
+                >
+                  {row.name}
+                </Link>
               </TableCell>
               <TableCell align="right">{row.usd}</TableCell>
               <TableCell align="right">{row.dominance}</TableCell>

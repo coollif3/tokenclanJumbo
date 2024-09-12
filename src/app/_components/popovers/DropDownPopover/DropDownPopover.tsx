@@ -33,7 +33,15 @@ const DropDownPopover = () => {
       <JumboDdPopover
         triggerButton={
           <ThemeProvider theme={headerTheme}>
-            <Button sx={{ color: theme.palette.text.link }}>
+            <Button
+              sx={{
+                color: theme.palette.text.link,
+                "&:hover": {
+                  backgroundColor: theme.palette.primary.main,
+                  color: "#fff", // Change text color on hover
+                },
+              }}
+            >
               <BarChartIcon sx={{ fontSize: "1.5rem" }} />
               Charts
             </Button>
@@ -50,7 +58,13 @@ const DropDownPopover = () => {
           }}
         ></Div>
         <nav>
-          <List disablePadding sx={{ pb: 1, color: theme.palette.text.link }}>
+          <List
+            disablePadding
+            sx={{
+              pb: 1,
+              color: theme.palette.text.link,
+            }}
+          >
             <Link
               href="/blockchains"
               sx={{ my: 0 }}
