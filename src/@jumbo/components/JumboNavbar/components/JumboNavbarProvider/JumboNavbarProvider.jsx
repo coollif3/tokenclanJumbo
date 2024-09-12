@@ -1,10 +1,12 @@
 import { useJumboTheme } from '@jumbo/components/JumboTheme/hooks';
 import { isNavSection } from '@jumbo/utilities/helpers';
-import { Box, List } from '@mui/material';
+import { Box, Button, List, Modal } from '@mui/material';
 import PropTypes from 'prop-types';
 import { JumboNavIdentifier } from '..';
 import { JumboNavbarContext } from './JumboNavbarContext';
-import { NewsLetterSubscriptionSmall } from "@app/_components/widgets/NewsLetterSubscriptionSmall/NewsLetterSubscriptionSmall";
+import { JumboCard } from '@jumbo/components/JumboCard';
+import React from 'react';
+import { NewsLetterSubscription } from '@app/_components/widgets/NewsLetterSubscription';
 
 
 function JumboNavbarProvider({
@@ -24,6 +26,14 @@ function JumboNavbarProvider({
     mini,
     open,
   };
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setIsOpen(true)
+  }
+  const handleClose = () => {
+    setIsOpen(false)
+  }
 
   let isFirstSection = true;
   return (
@@ -49,9 +59,51 @@ function JumboNavbarProvider({
           return <JumboNavIdentifier item={item} key={index} />;
         })}
       </List>
-      <Box sx={{ marginLeft: '8px',marginRight:'8px',position:'absolute',bottom:'10px'}}>
-        <NewsLetterSubscriptionSmall title={items.widgets.title} subheader={items.widgets.subheader} />
+      <Box sx={{ left:'50%',bottom:{xs:"-5%",sm:'10px',md:'10px',lg:'10px',xl:'10px'},transform:'translate(-50%)',position:{xs:'relative',sm: 'absolute',
+              md: 'absolute',
+              lg: 'absolute',
+              xl: 'absolute',}}}>
+        <JumboCard
+          title="Lorem Ipsum"
+          contentWrapper
+          contentSx={{ pt: 0 }}
+        >
+          <Box display="flex" justifyContent="center" mt={2}>
+            <Button variant="contained" color="primary" fullWidth  sx={{ borderRadius: 10 }} onClick={handleOpen}>
+                Click
+            </Button>
+          </Box> 
+        </JumboCard>
       </Box>
+      <Modal
+        open={isOpen}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+          <Box sx={{
+            width: {
+              xs: '90%',
+              sm: '75%',
+              md: '50%',
+              lg: '40%',
+              xl: '30%',
+            },
+            height: {
+              xs: '90%'
+            },
+            maxHeight: '100%',
+            overflowY: 'auto',
+            maxWidth: '100%',
+          }}>
+            <NewsLetterSubscription title={items.widgets.title} subheader={items.widgets.subheader} /> 
+          </Box>
+      </Modal>
     </JumboNavbarContext.Provider>
   );
 }

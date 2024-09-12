@@ -24,7 +24,7 @@ function Item(props) {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} order={{ md: props.item.imagePosition === 'left' ? 1 : 2 }}>
           <Div
-              sx={{ position: "relative", height: 0, paddingBottom: "69.5%" }}
+              sx={{ position: "relative", height: 0, paddingBottom: "69.5%"}}
             >
               <CardMedia
                 component="img"
