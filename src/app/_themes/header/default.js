@@ -70,6 +70,7 @@ export const headerTheme = {
       primary: "#475259",
       secondary: "#8595A6",
       disabled: "#A2B2C3",
+      link: "#2D5FB4",
     },
     divider: "#DEE2E6",
     background: {

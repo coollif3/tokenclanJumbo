@@ -5,6 +5,7 @@ import { Div } from "@jumbo/shared";
 import { Typography } from "@mui/material";
 import Image from "next/image";
 import { numberWithCommas } from "@app/_utilities/helpers";
+import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
 
 const CurrentMarketCard = ({
   subheader,
@@ -17,11 +18,13 @@ const CurrentMarketCard = ({
   prefixUnit?: string;
   roundedDigit: number;
 }) => {
+  const { theme } = useJumboTheme();
   const marketValue = (+value).toFixed(roundedDigit);
   const formattedValue = numberWithCommas(marketValue);
   return (
     <JumboCard
-      bgcolor={["#5DCBA6"]}
+      bgcolor={[theme.palette.primary.main]}
+      // bgcolor={["#5DCBA6"]}
       contentSx={{ p: 3, height: 145 }}
       contentWrapper
     >

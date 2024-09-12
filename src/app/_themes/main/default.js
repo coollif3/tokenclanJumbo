@@ -40,7 +40,7 @@ export const mainTheme = {
 
   palette: {
     primary: {
-      main: "#7352C7",
+      main: "#5DCBA6",
       light: "#A67FFB",
       dark: "#5E3BB7",
       contrastText: "#FFF",
@@ -52,7 +52,7 @@ export const mainTheme = {
       contrastText: "#FFF",
     },
     error: {
-      main: "#E73145",
+      main: "#FF5E5B",
       light: "#FF6A70",
       dark: "#AD001E",
       contrastText: "#FFF",
@@ -70,15 +70,16 @@ export const mainTheme = {
       contrastText: "#FFF",
     },
     success: {
-      main: "#3BD2A2",
+      main: "#5DCBA6", // #
       light: "#78FFD3",
       dark: "#00A073",
       contrastText: "#FFF",
     },
     text: {
-      primary: "#475259",
+      primary: "#4E4B5C",
       secondary: "#8595A6",
       disabled: "#A2B2C3",
+      link: "#2D5FB4",
     },
     divider: "#DEE2E6",
     background: {
