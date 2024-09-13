@@ -15,7 +15,7 @@ export default function ExchangeDataTable({ rows }) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Exchange ID</TableCell>
+            <TableCell>Rank</TableCell>
             <TableCell>Exchange</TableCell>
             <TableCell align="right">Type</TableCell>
             <TableCell align="right">Volume 24hr (BTC)</TableCell>
@@ -28,13 +28,13 @@ export default function ExchangeDataTable({ rows }) {
           </TableRow>
         </TableHead>
         <TableBody className={styles.tokenclan}>
-          {rows.map((row) => (
+          {rows.map((row, index) => (
             <TableRow
               key={row.exchange_id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.exchange_id}
+                {index + 1}
               </TableCell>
               <TableCell>
                 <Link href={`/exchanges/${row.slug}`}>{row.exchange}</Link>

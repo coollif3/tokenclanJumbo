@@ -15,7 +15,7 @@ export default function BlockchainDataTable({ rows }) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Blockchain ID</TableCell>
+            <TableCell>Rank</TableCell>
             <TableCell>Name</TableCell>
             <TableCell align="right">TVL (USD)</TableCell>
             <TableCell align="right">Dominance %</TableCell>
@@ -27,13 +27,13 @@ export default function BlockchainDataTable({ rows }) {
           </TableRow>
         </TableHead>
         <TableBody className={styles.tokenclan}>
-          {rows.map((row) => (
+          {rows.map((row, index) => (
             <TableRow
               key={row.blockchain_id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.blockchain_id}
+                {index + 1}
               </TableCell>
               <TableCell>
                 <Link
