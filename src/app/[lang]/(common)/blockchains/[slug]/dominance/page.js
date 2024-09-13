@@ -42,7 +42,6 @@ export default async function SlugDominancePage({ params }) {
   const slug = params.slug;
 
   const blockchain = await getBlockchainNameForSlug(slug);
-  // const dominanceData = await getBlockchainDomForSlug(slug, 30);
 
   return (
     <Container
@@ -56,9 +55,9 @@ export default async function SlugDominancePage({ params }) {
       }}
       disableGutters
     >
-      <Grid container spacing={3.75} sx={{ my: 3 }}>
-        <Grid item xs={12} sm={4}>
-          <Typography variant="h3">{`${blockchain.name} Dominance`}</Typography>
+      <Grid container spacing={3.75} sx={{ mb: 3 }}>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h3">{`${blockchain.name} TVL Dominance`}</Typography>
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
