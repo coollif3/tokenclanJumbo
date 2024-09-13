@@ -25,7 +25,7 @@ const CurrentMarketCard = ({
     <JumboCard
       bgcolor={[theme.palette.primary.main]}
       // bgcolor={["#5DCBA6"]}
-      contentSx={{ p: 3, height: 145 }}
+      contentSx={{ p: 3, height: 154.03 }}
       contentWrapper
     >
       <Div sx={{ display: "flex", alignItems: "center" }}>
