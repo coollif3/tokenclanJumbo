@@ -22,7 +22,7 @@ import {
   getExchangeProfileFor,
 } from "@app/_services/exchange";
 import { getCoinNameFromExchangeSlug } from "@app/_services/coin";
-import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
+import Chart from "@app/_components/charts/apex/Chart";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 import Accordion from "@mui/material/Accordion";
@@ -54,7 +54,7 @@ async function DisplayVolumeChart(slug) {
     yaxisFormatter: "THOUSAND_SEPARATOR",
     yaxisTooltipFormatterLabel: "BITexchange",
   };
-  return <GlobalCharts series={volData} config={volumeChartConfig} />;
+  return <Chart series={volData} config={volumeChartConfig} />;
 }
 
 async function DisplayVolumeStats(slug) {
@@ -105,7 +105,7 @@ async function DisplayMktcapFor(slug) {
     yaxisTooltipFormatterLabel: "DOLLAR",
   };
 
-  return <GlobalCharts series={mktcapData} config={marketcapChartConfig} />;
+  return <Chart series={mktcapData} config={marketcapChartConfig} />;
 }
 
 async function DisplayMktcapStatsFor(slug) {
@@ -156,7 +156,7 @@ async function DisplayTvevRatioChartFor(slug) {
   };
   const tvevData = await getExchangeTvevFor(slug, 30);
 
-  return <GlobalCharts series={tvevData} config={tvevChartConfig} />;
+  return <Chart series={tvevData} config={tvevChartConfig} />;
 }
 
 async function DisplayTvevStats(slug) {

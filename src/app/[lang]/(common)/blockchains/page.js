@@ -6,7 +6,7 @@ import {
 } from "@app/_services/blockchain";
 import { Container, Grid, Typography } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
-import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
+import Chart from "@app/_components/charts/apex/Chart";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
@@ -30,7 +30,7 @@ async function DisplayTVLChart() {
     yaxisFormatter: "BILLION_UNIT",
     yaxisTooltipFormatterLabel: "DOLLAR",
   };
-  return <GlobalCharts series={chartSeries} config={chartConfig} />;
+  return <Chart series={chartSeries} config={chartConfig} />;
 }
 
 async function DisplayBlockchainCards() {

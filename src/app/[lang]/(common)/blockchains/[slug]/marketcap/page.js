@@ -6,7 +6,7 @@ import {
   getBlockchainCoinMktcapChngForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
-import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
+import Chart from "@app/_components/charts/apex/Chart";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
@@ -110,7 +110,7 @@ export default async function SlugMktcapPage({ params }) {
           />
         </Grid>
         <Grid item xs={12}>
-          <GlobalCharts series={mktcapData} config={mktcapChartConfig} />
+          <Chart series={mktcapData} config={mktcapChartConfig} />
         </Grid>
       </Grid>
     </Container>

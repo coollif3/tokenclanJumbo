@@ -1,6 +1,6 @@
 "use client";
 import { Grid, ButtonGroup, Button, Box, Typography } from "@mui/material";
-import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
+import Chart from "@app/_components/charts/apex/Chart";
 import { useEffect, useState } from "react";
 
 export default async function DataChart({ slug, dataFunc, chartConfig }) {
@@ -119,7 +119,7 @@ export default async function DataChart({ slug, dataFunc, chartConfig }) {
         </Box>
       </Grid>
       <Grid item xs={12}>
-        <GlobalCharts series={tvlData} config={chartConfig} />
+        <Chart series={tvlData} config={chartConfig} />
       </Grid>
     </Grid>
   );

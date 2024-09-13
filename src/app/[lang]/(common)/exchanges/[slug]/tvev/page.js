@@ -6,7 +6,7 @@ import {
   getExchangeNameFor,
   getExchanges,
 } from "@app/_services/exchange";
-import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
+import Chart from "@app/_components/charts/apex/Chart";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
@@ -106,7 +106,7 @@ export default async function SlugMktcapPage({ params }) {
           />
         </Grid>
         <Grid item xs={12}>
-          <GlobalCharts series={tvevData} config={mktcapChartConfig} />
+          <Chart series={tvevData} config={mktcapChartConfig} />
         </Grid>
       </Grid>
     </Container>

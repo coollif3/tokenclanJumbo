@@ -10,7 +10,7 @@ import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 import { Suspense } from "react";
-import DataChart from "@app/_components/charts/DataChart";
+import DataChart from "@app/_components/charts/apex/DataChart";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;

@@ -5,7 +5,7 @@ import {
   getBlockchainNameForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
-import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
+import Chart from "@app/_components/charts/apex/Chart";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -74,7 +74,7 @@ export default async function SlugDominancePage({ params }) {
 
       <Grid container spacing={3.75}>
         <Grid item xs={12}>
-          <GlobalCharts series={dominanceData} config={dominanceChartConfig} />
+          <Chart series={dominanceData} config={dominanceChartConfig} />
         </Grid>
       </Grid>
     </Container>

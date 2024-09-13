@@ -4,7 +4,7 @@ import {
   getVolumeMktOverviewChng,
 } from "@app/_services/exchange";
 import ExchangeDataTable from "@app/_components/widgets/ExchangeTableListing/ExchangeDataTable";
-import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
+import Chart from "@app/_components/charts/apex/Chart";
 import { Container, Grid, Typography } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
@@ -30,7 +30,7 @@ async function DisplayTotalVolumeCharts() {
     yaxisFormatter: "BILLION_UNIT",
     yaxisTooltipFormatterLabel: "DOLLAR",
   };
-  return <GlobalCharts series={chartSeries} config={chartConfig} />;
+  return <Chart series={chartSeries} config={chartConfig} />;
 }
 
 async function DisplayMarketStatsCards() {

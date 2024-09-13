@@ -6,7 +6,7 @@ import {
   getBlockchainRatioChngForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
-import GlobalCharts from "@app/_components/charts/apex/GlobalCharts";
+import Chart from "@app/_components/charts/apex/Chart";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
@@ -110,7 +110,7 @@ export default async function SlugRatioPage({ params }) {
           />
         </Grid>
         <Grid item xs={12}>
-          <GlobalCharts series={ratioData} config={ratioChartConfig} />
+          <Chart series={ratioData} config={ratioChartConfig} />
         </Grid>
       </Grid>
     </Container>
