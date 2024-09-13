@@ -1,4 +1,11 @@
-import { Container, Grid, Typography, Breadcrumbs, Link } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Typography,
+  Breadcrumbs,
+  Link,
+  CircularProgress,
+} from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
   getBlockchainRatioForSlug,
@@ -6,9 +13,10 @@ import {
   getBlockchainRatioChngForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
-import Chart from "@app/_components/charts/apex/Chart";
+import DataChart from "@app/_components/charts/apex/DataChart";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
+import { Suspense } from "react";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -25,7 +33,7 @@ export async function generateStaticParams() {
   return rows.map((row) => ({ slug: row.slug }));
 }
 
-const ratioChartConfig = {
+const chartConfig = {
   chartTitle: "MarketCap/TVL Ratio",
   tooltipSeries: "Ratio",
   yaxisTitle: "Ratio",
@@ -37,7 +45,7 @@ export default async function SlugRatioPage({ params }) {
   const slug = params.slug;
 
   const coin = await getBlockchainNameForSlug(slug);
-  const ratioData = await getBlockchainRatioForSlug(slug, 30);
+  // const ratioData = await getBlockchainRatioForSlug(slug, 30);
   const ratioChng = await getBlockchainRatioChngForSlug(slug);
 
   return (
@@ -110,7 +118,13 @@ export default async function SlugRatioPage({ params }) {
           />
         </Grid>
         <Grid item xs={12}>
-          <Chart series={ratioData} config={ratioChartConfig} />
+          <Suspense fallback={<CircularProgress />}>
+            <DataChart
+              slug={slug}
+              dataFunc={getBlockchainRatioForSlug}
+              chartConfig={chartConfig}
+            />
+          </Suspense>
         </Grid>
       </Grid>
     </Container>

@@ -1,11 +1,19 @@
-import { Container, Grid, Typography, Breadcrumbs, Link } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Typography,
+  Breadcrumbs,
+  Link,
+  CircularProgress,
+} from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
   getBlockchainDomForSlug,
   getBlockchainNameForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
-import Chart from "@app/_components/charts/apex/Chart";
+import DataChart from "@app/_components/charts/apex/DataChart";
+import { Suspense } from "react";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -22,7 +30,7 @@ export async function generateStaticParams() {
   return rows.map((row) => ({ slug: row.slug }));
 }
 
-const dominanceChartConfig = {
+const chartConfig = {
   chartTitle: "Dominance",
   tooltipSeries: "Dominance",
   yaxisTitle: "%",
@@ -34,7 +42,7 @@ export default async function SlugDominancePage({ params }) {
   const slug = params.slug;
 
   const coin = await getBlockchainNameForSlug(slug);
-  const dominanceData = await getBlockchainDomForSlug(slug, 30);
+  // const dominanceData = await getBlockchainDomForSlug(slug, 30);
 
   return (
     <Container
@@ -74,7 +82,13 @@ export default async function SlugDominancePage({ params }) {
 
       <Grid container spacing={3.75}>
         <Grid item xs={12}>
-          <Chart series={dominanceData} config={dominanceChartConfig} />
+          <Suspense fallback={<CircularProgress />}>
+            <DataChart
+              slug={slug}
+              dataFunc={getBlockchainDomForSlug}
+              chartConfig={chartConfig}
+            />
+          </Suspense>
         </Grid>
       </Grid>
     </Container>
