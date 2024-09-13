@@ -1,11 +1,11 @@
 "use client";
 import { isValidEmail } from "@app/_utilities/helpers";
 import { MailingListJumboCard } from "@app/_components/widgets/NewsLetterSubscription/MailingListJumboCard";
-import { ErrorOutlineSharp } from "@mui/icons-material";
 import { Button, Collapse, TextField, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
 import { addSubscriber } from "@app/_lib/sendfox";
 import Image from "next/image";
+import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
 
 interface NewsLetterSubscriptionProps {
   title: React.ReactNode;
@@ -21,6 +21,7 @@ export function NewsLetterSubscription({
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [subscribed, setSubscribed] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const { theme } = useJumboTheme();
 
   const handleSubscribe = async () => {
     setErrorMessage("");
@@ -72,7 +73,14 @@ export function NewsLetterSubscription({
           margin="normal"
         />
         <Box display="flex" justifyContent="center" mt={2}>
-          <Button variant="contained" color="primary" onClick={handleSubscribe}>
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: theme.palette.text.link,
+              "&:hover": { bgcolor: theme.palette.primary.main },
+            }}
+            onClick={handleSubscribe}
+          >
             Subscribe
           </Button>
         </Box>

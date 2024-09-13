@@ -85,7 +85,7 @@ function JumboNavbarProvider({
               color="primary"
               fullWidth
               sx={{
-                bgcolor: theme.palette.info.main,
+                bgcolor: theme.palette.text.link,
                 "&:hover": {
                   bgcolor: theme.palette.primary.main, // Change this to your desired hover color
                 },
