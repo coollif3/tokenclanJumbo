@@ -1,8 +1,8 @@
-import TvlChart from "@app/_components/charts/TvlChart";
 import {
   getBlockchains,
   getBlockchainNameForSlug,
   getBlockchainTvlChngForSlug,
+  getBlockchainTvlForSlug,
 } from "@app/_services/blockchain";
 import CircularProgress from "@mui/material/CircularProgress"; // Assuming you're using Material-UI for the spinner
 import { Container, Grid, Typography, Breadcrumbs, Link } from "@mui/material";
@@ -10,6 +10,7 @@ import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 import { Suspense } from "react";
+import DataChart from "@app/_components/charts/DataChart";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -25,6 +26,14 @@ export async function generateStaticParams() {
   const rows = await getBlockchains();
   return rows.map((row) => ({ slug: row.slug }));
 }
+
+const chartConfig = {
+  chartTitle: "TVL",
+  tooltipSeries: "TVL",
+  yaxisTitle: "USD",
+  yaxisFormatter: "THOUSAND_SEPARATOR",
+  yaxisTooltipFormatterLabel: "DOLLAR",
+};
 
 export default async function SlugTvlPage({ params }) {
   const slug = params.slug;
@@ -100,7 +109,11 @@ export default async function SlugTvlPage({ params }) {
           />
         </Grid>
         <Suspense fallback={<CircularProgress />}>
-          <TvlChart slug={slug} />
+          <DataChart
+            slug={slug}
+            dataFunc={getBlockchainTvlForSlug}
+            chartConfig={chartConfig}
+          />
         </Suspense>
       </Grid>
     </Container>
