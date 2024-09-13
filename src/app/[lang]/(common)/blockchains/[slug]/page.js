@@ -76,8 +76,8 @@ export default async function BlockchainDetailedPage({ params }) {
       }}
       disableGutters
     >
-      <Grid container spacing={3.75} sx={{ my: 3 }}>
-        <Grid item xs={12} sm={4}>
+      <Grid container spacing={3.75} sx={{ mb: 3 }}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="h3">{`${coin.name} Blockchain TVL USD`}</Typography>
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>

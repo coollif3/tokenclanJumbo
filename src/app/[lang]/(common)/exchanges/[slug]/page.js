@@ -297,7 +297,7 @@ export default async function ExchangeDetailedPage({ params }) {
         }}
         disableGutters
       >
-        <Grid container spacing={3.75} sx={{ my: 3 }}>
+        <Grid container spacing={3.75} sx={{ mb: 3 }}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h3">
               {`${exchange.name} Exchange Data `}
