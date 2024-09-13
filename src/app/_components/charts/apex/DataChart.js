@@ -1,9 +1,18 @@
 "use client";
-import { Grid, ButtonGroup, Button, Box, Typography } from "@mui/material";
+import {
+  Grid,
+  ButtonGroup,
+  Button,
+  Box,
+  Typography,
+  colors,
+} from "@mui/material";
 import Chart from "@app/_components/charts/apex/Chart";
 import { useEffect, useState } from "react";
+import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
 
 export default async function DataChart({ slug, dataFunc, chartConfig }) {
+  const { theme } = useJumboTheme();
   const [timeframe, setTimeframe] = useState(30);
   // const [chartType, setChartType] = useState("daily");
   const [tvlData, setTvlData] = useState([]);
@@ -100,18 +109,36 @@ export default async function DataChart({ slug, dataFunc, chartConfig }) {
             <Button
               variant={timeframe === 30 ? "contained" : "outlined"}
               onClick={() => handleTimeframeChange(30)}
+              sx={{
+                "&:hover": {
+                  color: theme.palette.primary.contrastText,
+                  backgroundColor: theme.palette.text.link,
+                },
+              }}
             >
               Month
             </Button>
             <Button
               variant={timeframe === 90 ? "contained" : "outlined"}
               onClick={() => handleTimeframeChange(90)}
+              sx={{
+                "&:hover": {
+                  color: theme.palette.primary.contrastText,
+                  backgroundColor: theme.palette.text.link,
+                },
+              }}
             >
               Quarter
             </Button>
             <Button
               variant={timeframe === 365 ? "contained" : "outlined"}
               onClick={() => handleTimeframeChange(365)}
+              sx={{
+                "&:hover": {
+                  color: theme.palette.primary.contrastText,
+                  backgroundColor: theme.palette.text.link,
+                },
+              }}
             >
               Year
             </Button>
