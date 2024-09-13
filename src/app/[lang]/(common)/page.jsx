@@ -1,8 +1,22 @@
+import { getDictionary } from "@app/[lang]/dictionaries";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import { ASSET_IMAGES } from "@app/_utilities/constants/paths";
-import { Container, Typography } from "@mui/material";
+import { getAssetPath } from "@app/_utilities/helpers";
+import { Div } from "@jumbo/shared";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+  Divider,
+  Box,
+} from "@mui/material";
 import { CarouselMain } from "../../_components/_core/CarouselMain/CarouselMain";
 import { CarouselImg } from "../../_components/_core/CarouselImg/CarouselImg";
+import { NewsLetterSubscription } from "@app/_components/widgets/NewsLetterSubscription/NewsLetterSubscription";
 
 const items = [
   {
@@ -37,7 +51,8 @@ const images = [
   },
 ];
 
-export default async function Home() {
+export default async function Home({ params }) {
+  const { widgets } = await getDictionary(params.lang);
   return (
     <Container
       maxWidth={false}
@@ -54,6 +69,19 @@ export default async function Home() {
         Empowering Crypto Investors With Financial Data
       </Typography>
       <CarouselMain items={items}></CarouselMain>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+      >
+        <Box maxWidth="460px" width="100%" p={2}>
+          <NewsLetterSubscription
+            title="Subscribe to our Newsletter"
+            subheader="Stay updated with our latest news"
+          />
+        </Box>
+      </Box>
       <Typography variant="h2" align="center" mt={10} mb={10}>
         Data Aggregated From
       </Typography>

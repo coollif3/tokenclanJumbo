@@ -2,7 +2,7 @@ import { getDictionary } from "@app/[lang]/dictionaries";
 
 async function getMenus(locale: string) {
   const dictionary = await getDictionary(locale);
-  const { sidebar } = dictionary;
+  const { sidebar, widgets } = dictionary;
 
   const menuItems = [
     {
@@ -49,10 +49,10 @@ async function getMenus(locale: string) {
           icon: "contact",
         },
       ],
-    },
+    }
   ];
 
-  return menuItems;
+  return { menuItems, widgets };
 
   // const res = await fetch('http://localhost:3000/api/menus/'+locale);
   // // The return value is *not* serialized

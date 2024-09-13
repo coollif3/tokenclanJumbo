@@ -5,7 +5,7 @@ import {
 import { Card, CardContent, CardHeader } from "@mui/material";
 import PropTypes from "prop-types";
 
-function JumboCard({
+function MailingListJumboCard({
   avatar,
   title,
   subheader,
@@ -67,9 +67,9 @@ function JumboCard({
   );
 }
 
-export { JumboCard };
+export { MailingListJumboCard };
 
-JumboCard.propTypes = {
+MailingListJumboCard.propTypes = {
   avatar: PropTypes.node,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   subheader: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
