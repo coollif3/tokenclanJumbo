@@ -20,7 +20,7 @@ function Item(props) {
   const { theme } = useJumboTheme();
   return (
     <Paper elevation={0} sx={{ borderRadius: 2 }}>
-      <Grid container spacing={2}>
+      <Grid container sx={{ py: 8 }}>
         <Grid
           item
           xs={12}

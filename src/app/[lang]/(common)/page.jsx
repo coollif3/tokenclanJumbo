@@ -65,24 +65,11 @@ export default async function Home({ params }) {
       }}
       disableGutters
     >
-      <Typography variant="h1" align="center" mb={10}>
+      <Typography variant="h1" align="center" mb={4}>
         Empowering Crypto Investors With Financial Data
       </Typography>
       <CarouselMain items={items}></CarouselMain>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="100vh"
-      >
-        <Box maxWidth="460px" width="100%" p={2}>
-          <NewsLetterSubscription
-            title="Subscribe to our Newsletter"
-            subheader="Stay updated with our latest news"
-          />
-        </Box>
-      </Box>
-      <Typography variant="h2" align="center" mt={10} mb={10}>
+      <Typography variant="h4" align="center" my={4}>
         Data Aggregated From
       </Typography>
       <CarouselImg items={images}></CarouselImg>
