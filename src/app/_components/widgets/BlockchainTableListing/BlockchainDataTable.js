@@ -9,6 +9,11 @@ import Link from "next/link";
 import { displayRedGreenColumn } from "@app/_utilities/helpers";
 import styles from "./styles.module.css";
 
+const colorPalette = {
+  red: "#E73145",
+  green: "#5DCBA6",
+};
+
 export default function BlockchainDataTable({ rows }) {
   return (
     <TableContainer component={Paper}>
@@ -46,9 +51,9 @@ export default function BlockchainDataTable({ rows }) {
               </TableCell>
               <TableCell align="right">{row.usd}</TableCell>
               <TableCell align="right">{row.dominance}</TableCell>
-              {displayRedGreenColumn(row.one_day_chng)}
-              {displayRedGreenColumn(row.seven_day_chng)}
-              {displayRedGreenColumn(row.thirty_day_chng, true)}
+              {displayRedGreenColumn(row.one_day_chng, colorPalette)}
+              {displayRedGreenColumn(row.seven_day_chng, colorPalette)}
+              {displayRedGreenColumn(row.thirty_day_chng, colorPalette, true)}
             </TableRow>
           ))}
         </TableBody>

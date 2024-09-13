@@ -9,6 +9,11 @@ import Link from "next/link";
 import { displayRedGreenColumn } from "@app/_utilities/helpers/";
 import styles from "./styles.module.css";
 
+const colorPalette = {
+  red: "#E73145",
+  green: "#5DCBA6",
+};
+
 export default function ExchangeDataTable({ rows }) {
   return (
     <TableContainer component={Paper}>
@@ -41,9 +46,9 @@ export default function ExchangeDataTable({ rows }) {
               </TableCell>
               <TableCell align="right">{row.category}</TableCell>
               <TableCell align="right">{row.vol_24hr}</TableCell>
-              {displayRedGreenColumn(row.one_day_chng)}
-              {displayRedGreenColumn(row.seven_day_chng)}
-              {displayRedGreenColumn(row.thirty_day_chng)}
+              {displayRedGreenColumn(row.one_day_chng, colorPalette)}
+              {displayRedGreenColumn(row.seven_day_chng, colorPalette)}
+              {displayRedGreenColumn(row.thirty_day_chng, colorPalette)}
               <TableCell align="right" sx={{ pr: 4 }}>
                 <Link href={`/coins/${row.coin_slug}`}>{row.coin}</Link>
               </TableCell>
