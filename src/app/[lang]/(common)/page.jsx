@@ -52,7 +52,7 @@ const images = [
 ];
 
 export default async function Home({ params }) {
-  const { widgets } = await getDictionary(params.lang);
+  // const { widgets } = await getDictionary(params.lang);
   return (
     <Container
       maxWidth={false}
