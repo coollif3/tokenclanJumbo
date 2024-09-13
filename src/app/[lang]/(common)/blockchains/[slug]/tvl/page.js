@@ -4,10 +4,12 @@ import {
   getBlockchainNameForSlug,
   getBlockchainTvlChngForSlug,
 } from "@app/_services/blockchain";
+import CircularProgress from "@mui/material/CircularProgress"; // Assuming you're using Material-UI for the spinner
 import { Container, Grid, Typography, Breadcrumbs, Link } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
+import { Suspense } from "react";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -97,7 +99,9 @@ export default async function SlugTvlPage({ params }) {
             unit={"%"}
           />
         </Grid>
-        <TvlChart slug={slug} />
+        <Suspense fallback={<CircularProgress />}>
+          <TvlChart slug={slug} />
+        </Suspense>
       </Grid>
     </Container>
   );
