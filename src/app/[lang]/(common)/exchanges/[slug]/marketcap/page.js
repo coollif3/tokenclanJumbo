@@ -24,7 +24,7 @@ export async function generateMetadata({ params, searchParams }) {
 
   return {
     title: `${exchange.name} Exchange Marketcap | TokenClan`,
-    description: `${exchange.name} Exchange Marketcap data history on chart.`,
+    description: `${exchange.name} exchange marketcap usd data history with charting values up to 12 months.`,
   };
 }
 
@@ -45,7 +45,6 @@ export default async function SlugMktcapPage({ params }) {
   const slug = params.slug;
 
   const exchange = await getExchangeNameFor(slug);
-  // const mktcapData = await getExchangeMktcapFor(slug, 30);
   const mktcapChng = await getExchangeMktcapChngFor(slug);
 
   return (
@@ -61,7 +60,7 @@ export default async function SlugMktcapPage({ params }) {
       disableGutters
     >
       <Grid container spacing={3.75} sx={{ my: 3 }}>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="h3">{`${exchange.name} Marketcap`}</Typography>
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>

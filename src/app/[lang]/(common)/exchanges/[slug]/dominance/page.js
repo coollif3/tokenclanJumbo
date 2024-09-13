@@ -20,7 +20,7 @@ export async function generateMetadata({ params, searchParams }) {
   const exchange = await getExchangeNameFor(slug);
   return {
     title: `${exchange.name} Exchange Volume Dominance | TokenClan`,
-    description: `${exchange.name} Exchange Dominance data history on chart.`,
+    description: `${exchange.name} offchain transacted volume dominance data history with charting values up to 12 months.`,
   };
 }
 
@@ -55,9 +55,9 @@ export default async function SlugDominancePage({ params }) {
       }}
       disableGutters
     >
-      <Grid container spacing={3.75} sx={{ my: 3 }}>
-        <Grid item xs={12} sm={4}>
-          <Typography variant="h3">{`${exchange.name} Dominance`}</Typography>
+      <Grid container spacing={3.75} sx={{ mb: 3 }}>
+        <Grid item xs={12} sm={6}>
+          <Typography variant="h3">{`${exchange.name} Volume Dominance (Offchain)`}</Typography>
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">

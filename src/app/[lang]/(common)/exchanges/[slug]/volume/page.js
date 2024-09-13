@@ -23,8 +23,8 @@ export async function generateMetadata({ params, searchParams }) {
   const exchange = await getExchangeNameFor(slug);
 
   return {
-    title: `${exchange.name} Blockchain MarketCap/TVL Ratio | TokenClan`,
-    description: `${exchange.name} Ratio data history on chart.`,
+    title: `${exchange.name} Transacted Volume | TokenClan`,
+    description: `${exchange.name} offchain transacted volume in Btc data history with charting values up to 12 months.`,
   };
 }
 
@@ -45,7 +45,6 @@ export default async function SlugVolumePage({ params }) {
   const slug = params.slug;
 
   const exchange = await getExchangeNameFor(slug);
-  // const volumeData = await getExchangeVolumeFor(slug, 30);
   const volumeChng = await getExchangeVolumeChngFor(slug);
 
   return (
@@ -60,8 +59,8 @@ export default async function SlugVolumePage({ params }) {
       }}
       disableGutters
     >
-      <Grid container spacing={3.75} sx={{ my: 3 }}>
-        <Grid item xs={12} sm={4}>
+      <Grid container spacing={3.75} sx={{ mb: 3 }}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="h3">{`${exchange.name} Exchange Volume`}</Typography>
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
