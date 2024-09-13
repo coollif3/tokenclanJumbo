@@ -1,4 +1,11 @@
-import { Container, Grid, Typography, Breadcrumbs, Link } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Typography,
+  Breadcrumbs,
+  Link,
+  CircularProgress,
+} from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
   getExchangeTvevFor,
@@ -6,9 +13,10 @@ import {
   getExchangeNameFor,
   getExchanges,
 } from "@app/_services/exchange";
-import Chart from "@app/_components/charts/apex/Chart";
+import DataTimeframeChart from "@app/_components/charts/apex/DataTimeframeChart";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
+import { Suspense } from "react";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -25,7 +33,7 @@ export async function generateStaticParams() {
   return rows.map((row) => ({ slug: row.slug }));
 }
 
-const mktcapChartConfig = {
+const chartConfig = {
   chartTitle: "Exchange TVEV Ratio",
   tooltipSeries: "Ratio",
   yaxisTitle: "Ratio",
@@ -37,7 +45,7 @@ export default async function SlugMktcapPage({ params }) {
   const slug = params.slug;
 
   const exchange = await getExchangeNameFor(slug);
-  const tvevData = await getExchangeTvevFor(slug, 30);
+  // const tvevData = await getExchangeTvevFor(slug, 30);
   const tvevChng = await getExchangeTvevChngFor(slug);
 
   return (
@@ -106,7 +114,13 @@ export default async function SlugMktcapPage({ params }) {
           />
         </Grid>
         <Grid item xs={12}>
-          <Chart series={tvevData} config={mktcapChartConfig} />
+          <Suspense fallback={<CircularProgress />}>
+            <DataTimeframeChart
+              slug={slug}
+              dataFunc={getExchangeTvevFor}
+              chartConfig={chartConfig}
+            />
+          </Suspense>
         </Grid>
       </Grid>
     </Container>
