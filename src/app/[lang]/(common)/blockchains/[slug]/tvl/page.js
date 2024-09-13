@@ -16,7 +16,7 @@ import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 import { Suspense } from "react";
-import DataChart from "@app/_components/charts/apex/DataChart";
+import DataTimeframeChart from "@app/_components/charts/apex/DataTimeframeChart";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -115,7 +115,7 @@ export default async function SlugTvlPage({ params }) {
           />
         </Grid>
         <Suspense fallback={<CircularProgress />}>
-          <DataChart
+          <DataTimeframeChart
             slug={slug}
             dataFunc={getBlockchainTvlForSlug}
             chartConfig={chartConfig}

@@ -12,7 +12,7 @@ import {
   getBlockchainNameForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
-import DataChart from "@app/_components/charts/apex/DataChart";
+import DataTimeframeChart from "@app/_components/charts/apex/DataTimeframeChart";
 import { Suspense } from "react";
 
 export async function generateMetadata({ params, searchParams }) {
@@ -83,7 +83,7 @@ export default async function SlugDominancePage({ params }) {
       <Grid container spacing={3.75}>
         <Grid item xs={12}>
           <Suspense fallback={<CircularProgress />}>
-            <DataChart
+            <DataTimeframeChart
               slug={slug}
               dataFunc={getBlockchainDomForSlug}
               chartConfig={chartConfig}

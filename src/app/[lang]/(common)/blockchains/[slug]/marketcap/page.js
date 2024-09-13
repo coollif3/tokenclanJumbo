@@ -13,7 +13,7 @@ import {
   getBlockchainCoinMktcapChngForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
-import DataChart from "@app/_components/charts/apex/DataChart";
+import DataTimeframeChart from "@app/_components/charts/apex/DataTimeframeChart";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 import { Suspense } from "react";
@@ -119,7 +119,7 @@ export default async function SlugMktcapPage({ params }) {
         </Grid>
         <Grid item xs={12}>
           <Suspense fallback={<CircularProgress />}>
-            <DataChart
+            <DataTimeframeChart
               slug={slug}
               dataFunc={getBlockchainCoinMktcapForSlug}
               chartConfig={chartConfig}
