@@ -20,11 +20,11 @@ import { Suspense } from "react";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
-  const coin = await getBlockchainNameForSlug(slug);
+  const blockchain = await getBlockchainNameForSlug(slug);
 
   return {
-    title: `${coin.name} Blockchain MarketCap/TVL Ratio | TokenClan`,
-    description: `${coin.name} Ratio data history on chart.`,
+    title: `${blockchain.name} Blockchain MarketCap/TVL Ratio | TokenClan`,
+    description: `${blockchain.name} Ratio data history with charting values up to 12 months.`,
   };
 }
 
@@ -44,8 +44,7 @@ const chartConfig = {
 export default async function SlugRatioPage({ params }) {
   const slug = params.slug;
 
-  const coin = await getBlockchainNameForSlug(slug);
-  // const ratioData = await getBlockchainRatioForSlug(slug, 30);
+  const blockchain = await getBlockchainNameForSlug(slug);
   const ratioChng = await getBlockchainRatioChngForSlug(slug);
 
   return (
@@ -62,7 +61,7 @@ export default async function SlugRatioPage({ params }) {
     >
       <Grid container spacing={3.75} sx={{ my: 3 }}>
         <Grid item xs={12} sm={4}>
-          <Typography variant="h3">{`${coin.name} MarketCap/TVL Ratio`}</Typography>
+          <Typography variant="h3">{`${blockchain.name} MarketCap/TVL Ratio`}</Typography>
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
@@ -77,7 +76,7 @@ export default async function SlugRatioPage({ params }) {
               color="inherit"
               href={`/blockchains/${slug}`}
             >
-              {coin.name}
+              {blockchain.name}
             </Link>
             <Typography color="text.primary">Ratio</Typography>
           </Breadcrumbs>

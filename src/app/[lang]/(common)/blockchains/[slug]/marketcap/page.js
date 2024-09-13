@@ -20,11 +20,11 @@ import { Suspense } from "react";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
-  const coin = await getBlockchainNameForSlug(slug);
+  const blockchain = await getBlockchainNameForSlug(slug);
 
   return {
-    title: `${coin.name} Blockchain Marketcap | TokenClan`,
-    description: `${coin.name} Marketcap data history on chart.`,
+    title: `${blockchain.name} Blockchain Marketcap | TokenClan`,
+    description: `${blockchain.name} Marketcap usd data history with charting values up to 12 months.`,
   };
 }
 
@@ -44,8 +44,7 @@ const chartConfig = {
 export default async function SlugMktcapPage({ params }) {
   const slug = params.slug;
 
-  const coin = await getBlockchainNameForSlug(slug);
-  // const mktcapData = await getBlockchainCoinMktcapForSlug(slug, 30);
+  const blockchain = await getBlockchainNameForSlug(slug);
   const mktcapChng = await getBlockchainCoinMktcapChngForSlug(slug);
 
   return (
@@ -62,7 +61,7 @@ export default async function SlugMktcapPage({ params }) {
     >
       <Grid container spacing={3.75} sx={{ my: 3 }}>
         <Grid item xs={12} sm={4}>
-          <Typography variant="h3">{`${coin.name} Marketcap`}</Typography>
+          <Typography variant="h3">{`${blockchain.name} Marketcap`}</Typography>
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
@@ -77,7 +76,7 @@ export default async function SlugMktcapPage({ params }) {
               color="inherit"
               href={`/blockchains/${slug}`}
             >
-              {coin.name}
+              {blockchain.name}
             </Link>
             <Typography color="text.primary">Marketcap</Typography>
           </Breadcrumbs>
