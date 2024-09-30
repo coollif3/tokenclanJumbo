@@ -17,6 +17,8 @@ import {
   globalVolumeOverviewChng as globalVolumeOverviewChngSql,
   getExchangeName as getExchangeNameSql,
   getAllExchangeCoinSlug as getAllExchangeCoinSlugSql,
+  getCommonCoinProfileBySlug,
+  getCommonCoinSlug as getCommonCoinSlugSql,
 } from "../_sql/query";
 
 import { formatToTimestampArray } from "@app/_utilities/helpers";
@@ -285,5 +287,46 @@ export const getAllExchangeCoinSlug = nextCache(
     }
   }),
   ["getAllExchangeCoinSlug"],
+  { revalidate: 86400 }
+);
+
+// Get common coin profile data for a given slug
+export const getCommonCoinProfileFor = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await db.query(getCommonCoinProfileBySlug, {
+          replacements: { slug },
+        });
+
+        // console.log("results: ", results);
+
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(
+          `Error fetching exchange coin profile for slug ${slug}`
+        );
+      }
+    }),
+    [`getCommonCoinProfileForSlug-${slug}`],
+    { revalidate: 86400, tags: [`coin-${slug}`] }
+  );
+  return await getData(slug);
+};
+
+// Get common coin slug data
+export const getCommonCoinSlug = nextCache(
+  cache(async () => {
+    try {
+      const [results, metadata] = await db.query(getCommonCoinSlugSql);
+
+      return results;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error fetching all common coins slug data");
+    }
+  }),
+  ["getCommonCoinSlug"],
   { revalidate: 86400 }
 );
