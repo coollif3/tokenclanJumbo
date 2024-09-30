@@ -47,8 +47,8 @@ const ratioChartConfig = {
 
 export default async function BlockchainDetailedPage({ params }) {
   const slug = params.slug;
-
   const coin = await getBlockchainNameForSlug(slug);
+
   const tvlData = await getBlockchainTvlForSlug(slug, 30);
   const tvlChng = await getBlockchainTvlChngForSlug(slug);
 
@@ -73,6 +73,11 @@ export default async function BlockchainDetailedPage({ params }) {
       <Grid container spacing={3.75} sx={{ my: 3 }}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h3">{`${coin.name} Blockchain TVL (USD)`}</Typography>
+          <Typography variant="h5">
+            <Link href={`/coins/${slug}`} underline="none">
+              (Blockchain Gas Coin Profile)
+            </Link>
+          </Typography>
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
