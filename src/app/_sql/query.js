@@ -296,3 +296,71 @@ export const getCoinProfileBySlug = `SELECT
     coin_profile AS cp ON c.id = cp.coin_id
   WHERE 
     c.name_id = :slug;`;
+
+export const getCommonCoinSlug = `SELECT
+  dbc.slug AS dcp_slug,
+  ec.name_id AS ecp_slug
+FROM
+  defi_coins_test.coin_profile AS dcp
+LEFT JOIN defi_coins_test.coins AS dc ON dcp.coin_id = dc.id
+LEFT JOIN defi_coins_test.blockchains AS dbc ON dbc.coin_id = dc.id AND dbc.active = 1 AND dbc.display = 1
+LEFT JOIN exchange_data_test.coin_profile AS ecp ON dcp.symbol = ecp.symbol
+LEFT JOIN exchange_data_test.coins AS ec ON ecp.coin_id = ec.id
+LEFT JOIN exchange_data_test.exchanges AS ee ON ec.id = ee.coin_id AND ee.active = 1 AND ee.display = 1
+UNION
+SELECT
+  dbc.slug AS dcp_slug,
+  ec.name_id AS ecp_slug
+FROM
+  defi_coins_test.coin_profile AS dcp
+RIGHT JOIN exchange_data_test.coin_profile AS ecp ON dcp.symbol = ecp.symbol
+LEFT JOIN defi_coins_test.coins AS dc ON dcp.coin_id = dc.id
+LEFT JOIN defi_coins_test.blockchains AS dbc ON dbc.coin_id = dc.id AND dbc.active = 1 AND dbc.display = 1
+LEFT JOIN exchange_data_test.coins AS ec ON ecp.coin_id = ec.id
+LEFT JOIN exchange_data_test.exchanges AS ee ON ec.id = ee.coin_id AND ee.active = 1 AND ee.display = 1;`;
+
+export const getCommonCoinProfileBySlug = `SELECT
+  dcp.symbol AS dcp_symbol,
+  dbc.name AS dcp_name,
+  dcp.description AS dcp_description,
+  dcp.homepage AS dcp_homepage,
+  dcp.subreddit_url AS dcp_subreddit_url,
+  dbc.slug AS dcp_slug,
+  ecp.symbol AS ecp_symbol,
+  ecp.name AS ecp_name,
+  ecp.description AS ecp_description,
+  ecp.homepage AS ecp_homepage,
+  ecp.subreddit_url AS ecp_subreddit_url,
+  ec.name_id AS ecp_slug
+FROM
+  defi_coins_test.coin_profile AS dcp
+LEFT JOIN defi_coins_test.coins AS dc ON dcp.coin_id = dc.id
+LEFT JOIN defi_coins_test.blockchains AS dbc ON dbc.coin_id = dc.id AND dbc.active = 1 AND dbc.display = 1
+LEFT JOIN exchange_data_test.coin_profile AS ecp ON dcp.symbol = ecp.symbol
+LEFT JOIN exchange_data_test.coins AS ec ON ecp.coin_id = ec.id
+LEFT JOIN exchange_data_test.exchanges AS ee ON ec.id = ee.coin_id AND ee.active = 1 AND ee.display = 1
+WHERE
+  dbc.slug = :slug OR ec.name_id = :slug
+UNION
+SELECT
+  dcp.symbol AS dcp_symbol,
+  dbc.name AS dcp_name,
+  dcp.description AS dcp_description,
+  dcp.homepage AS dcp_homepage,
+  dcp.subreddit_url AS dcp_subreddit_url,
+  dbc.slug AS dcp_slug,
+  ecp.symbol AS ecp_symbol,
+  ecp.name AS ecp_name,
+  ecp.description AS ecp_description,
+  ecp.homepage AS ecp_homepage,
+  ecp.subreddit_url AS ecp_subreddit_url,
+  ec.name_id AS ecp_slug
+FROM
+  defi_coins_test.coin_profile AS dcp
+RIGHT JOIN exchange_data_test.coin_profile AS ecp ON dcp.symbol = ecp.symbol
+LEFT JOIN defi_coins_test.coins AS dc ON dcp.coin_id = dc.id
+LEFT JOIN defi_coins_test.blockchains AS dbc ON dbc.coin_id = dc.id AND dbc.active = 1 AND dbc.display = 1
+LEFT JOIN exchange_data_test.coins AS ec ON ecp.coin_id = ec.id
+LEFT JOIN exchange_data_test.exchanges AS ee ON ec.id = ee.coin_id AND ee.active = 1 AND ee.display = 1
+WHERE
+  dbc.slug = :slug OR ec.name_id = :slug;`;
