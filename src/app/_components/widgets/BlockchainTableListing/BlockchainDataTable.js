@@ -10,7 +10,7 @@ import { displayRedGreenColumn } from "@app/_utilities/helpers";
 import styles from "./styles.module.css";
 
 const colorPalette = {
-  red: "#E73145",
+  red: "#FF5E5B",
   green: "#5DCBA6",
 };
 
