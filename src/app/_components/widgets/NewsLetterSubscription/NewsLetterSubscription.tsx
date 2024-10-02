@@ -8,8 +8,8 @@ import Image from "next/image";
 import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
 
 interface NewsLetterSubscriptionProps {
-  title: React.ReactNode;
-  subheader: React.ReactNode;
+  title: string;
+  subheader: string;
 }
 
 export function NewsLetterSubscription({
