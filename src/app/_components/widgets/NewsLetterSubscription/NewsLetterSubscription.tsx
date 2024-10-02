@@ -8,8 +8,8 @@ import { addSubscriber } from "@app/_lib/sendfox";
 import Image from "next/image";
 
 interface NewsLetterSubscriptionProps {
-  title: React.ReactNode;
-  subheader: React.ReactNode;
+  title: string;
+  subheader: string;
 }
 
 export function NewsLetterSubscription({
