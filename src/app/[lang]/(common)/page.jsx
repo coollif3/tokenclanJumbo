@@ -16,7 +16,6 @@ import {
 } from "@mui/material";
 import { CarouselMain } from "../../_components/_core/CarouselMain/CarouselMain";
 import { CarouselImg } from "../../_components/_core/CarouselImg/CarouselImg";
-import { NewsLetterSubscription } from "@app/_components/widgets/NewsLetterSubscription/NewsLetterSubscription";
 
 const items = [
   {
