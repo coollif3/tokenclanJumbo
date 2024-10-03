@@ -29,6 +29,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import styles from "./styles.module.css";
 
 export async function generateStaticParams() {
   const rows = await getExchanges();
@@ -296,6 +297,7 @@ export default async function ExchangeDetailedPage({ params }) {
           flexDirection: "column",
         }}
         disableGutters
+        className={styles.tokenclan}
       >
         <Grid container spacing={3.75} sx={{ mb: 3 }}>
           <Grid item xs={12} sm={6}>
@@ -303,9 +305,11 @@ export default async function ExchangeDetailedPage({ params }) {
               {`${exchange.name} Exchange Data `}
             </Typography>
             <Typography variant="h5">
+              (Exchange Coin Profile:{" "}
               <Link href={`/coins/${coin.slug}`} underline="none">
-                (Exchange Coin Profile: {coin.symbol})
+                {coin.symbol}{" "}
               </Link>
+              )
             </Typography>
           </Grid>
           <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>

@@ -17,6 +17,7 @@ import {
 } from "@app/_services/coin";
 
 import { splitIntoParagraphs } from "@app/_utilities/helpers";
+import classes from "./styles.module.css";
 
 export async function generateStaticParams() {
   const rows = await getAllCoinSlug();
@@ -126,6 +127,7 @@ export default async function CoinProfilePage({ params }) {
           flexDirection: "column",
         }}
         disableGutters
+        className={classes.tokenclan}
       >
         <Grid container spacing={3.75} sx={{ my: 3 }}>
           <Grid item xs={12} sm={4}>
