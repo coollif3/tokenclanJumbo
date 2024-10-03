@@ -16,6 +16,8 @@ import {
   getAllCoinSlug,
 } from "@app/_services/coin";
 
+import { splitIntoParagraphs } from "@app/_utilities/helpers";
+
 export async function generateStaticParams() {
   const rows = await getAllCoinSlug();
   return rows.map((row) => ({ slug: row.slug }));
@@ -43,16 +45,6 @@ async function DisplayCoinProfile(slug) {
     description: `About ${coinProfile.coin_profile_name}`,
     homepage: "Homepage URL",
     subreddit_url: "Reddit",
-  };
-
-  // split the description into readable paragraphs
-  const splitIntoParagraphs = (text) => {
-    const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
-    const paragraphs = [];
-    for (let i = 0; i < sentences.length; i += 4) {
-      paragraphs.push(sentences.slice(i, i + 4).join(" "));
-    }
-    return paragraphs;
   };
 
   return (
