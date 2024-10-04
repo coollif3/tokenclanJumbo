@@ -12,8 +12,11 @@ import {
   getBlockchainNameForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
-import DataTimeframeChart from "@app/_components/charts/apex/DataTimeframeChart";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
+
+const DataTimeframeChart = lazy(
+  () => import("@app/_components/charts/apex/DataTimeframeChart")
+);
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
