@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
-import VolumeChart from "./VolumeChart";
 import VolumeStats from "./VolumeStats";
+import Chart from "@app/_components/charts/apex/Chart";
+import { getExchangeVolumeFor } from "@app/_services/exchange";
 
 const volumeChartConfig = {
   chartTitle: "Exchange Volume BTC",
@@ -10,12 +11,13 @@ const volumeChartConfig = {
   yaxisTooltipFormatterLabel: "BITCOIN",
 };
 
-export default function Volume({ slug }) {
+export default async function Volume({ slug }) {
+  const volData = await getExchangeVolumeFor(slug, 30);
   return (
     <>
       <VolumeStats slug={slug} />
       <Grid item xs={12}>
-        <VolumeChart slug={slug} config={volumeChartConfig} />
+        <Chart series={volData} config={volumeChartConfig} />
       </Grid>
     </>
   );

@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
-import TvevChart from "./TvevChart";
 import TvevStats from "./TvevStats";
+import Chart from "@app/_components/charts/apex/Chart";
+import { getExchangeTvevFor } from "@app/_services/exchange";
 
 const tvevChartConfig = {
   chartTitle: "TVEV",
@@ -10,12 +11,13 @@ const tvevChartConfig = {
   yaxisTooltipFormatterLabel: "RATIO",
 };
 
-export default function Tvev({ slug }) {
+export default async function Tvev({ slug }) {
+  const tvevData = await getExchangeTvevFor(slug, 30);
   return (
     <>
       <TvevStats slug={slug} />
       <Grid item xs={12}>
-        <TvevChart slug={slug} config={tvevChartConfig} />
+        <Chart series={tvevData} config={tvevChartConfig} />
       </Grid>
     </>
   );
