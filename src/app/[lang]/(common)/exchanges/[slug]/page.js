@@ -11,7 +11,7 @@ import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import { getExchangeNameFor, getExchanges } from "@app/_services/exchange";
 import { getCoinNameFromExchangeSlug } from "@app/_services/coin";
 import styles from "./styles.module.css";
-import ProfileAccordion from "@app/_components/charts/apex/exchangeListing/ProfileAccordion";
+import ExchangeProfileAccordion from "@app/_components/charts/apex/exchangeListing/ExchangeProfileAccordion";
 
 const Volume = lazy(
   () => import("@app/_components/charts/apex/exchangeListing/Volume")
