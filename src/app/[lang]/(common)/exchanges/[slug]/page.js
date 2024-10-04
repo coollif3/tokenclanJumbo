@@ -23,30 +23,6 @@ export async function generateMetadata({ params, searchParams }) {
   };
 }
 
-const volumeChartConfig = {
-  chartTitle: "Exchange Volume BTC",
-  tooltipSeries: "Volume",
-  yaxisTitle: "24hr Volume BTC",
-  yaxisFormatter: "THOUSAND_SEPARATOR",
-  yaxisTooltipFormatterLabel: "BITCOIN",
-};
-
-const marketcapChartConfig = {
-  chartTitle: "Market Cap",
-  tooltipSeries: "Market Cap",
-  yaxisTitle: "USD",
-  yaxisFormatter: "THOUSAND_SEPARATOR",
-  yaxisTooltipFormatterLabel: "DOLLAR",
-};
-
-const tvevChartConfig = {
-  chartTitle: "TVEV",
-  tooltipSeries: "Tvev Ratio",
-  yaxisTitle: "Ratio",
-  yaxisFormatter: "THOUSAND_SEPARATOR",
-  yaxisTooltipFormatterLabel: "RATIO",
-};
-
 export default async function ExchangeDetailedPage({ params }) {
   const slug = params.slug;
   const exchange = await getExchangeNameFor(slug);
@@ -95,17 +71,17 @@ export default async function ExchangeDetailedPage({ params }) {
           <Grid item xs={12}>
             <ProfileAccordion slug={slug} />
           </Grid>
-          <Volume slug={slug} config={volumeChartConfig} />
+          <Volume slug={slug} />
 
           <Grid item xs={12} mt={5}>
             <Typography variant="h3">{`${exchange.name} Market Cap (USD)`}</Typography>
           </Grid>
-          <Marketcap slug={slug} config={marketcapChartConfig} />
+          <Marketcap slug={slug} />
 
           <Grid item xs={12} mt={5}>
             <Typography variant="h3">{`${exchange.name} TVEV Ratio`}</Typography>
           </Grid>
-          <Tvev slug={slug} config={tvevChartConfig} />
+          <Tvev slug={slug} />
         </Grid>
       </Container>
     </>
