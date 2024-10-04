@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import {
   Container,
   Grid,
@@ -12,8 +13,10 @@ import {
   getExchangeNameFor,
   getExchanges,
 } from "@app/_services/exchange";
-import DataTimeframeChart from "@app/_components/charts/apex/DataTimeframeChart";
-import { Suspense } from "react";
+
+const DataTimeframeChart = lazy(
+  () => import("@app/_components/charts/apex/DataTimeframeChart")
+);
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
