@@ -1,18 +1,26 @@
-import { Container, Grid, Typography, Breadcrumbs, Link } from "@mui/material";
+import { lazy, Suspense } from "react";
+import {
+  Container,
+  Grid,
+  Typography,
+  Breadcrumbs,
+  Link,
+  CircularProgress,
+} from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
-  getBlockchainTvlForSlug,
-  getBlockchainTvlChngForSlug,
-  getBlockchainCoinMktcapForSlug,
-  getBlockchainCoinMktcapChngForSlug,
-  getBlockchainRatioForSlug,
-  getBlockchainRatioChngForSlug,
   getBlockchainNameForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
-import Chart from "@app/_components/charts/apex/Chart";
-import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
-import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
+
+const Tvl = lazy(() => import("@app/_components/charts/apex/blockchain/Tvl"));
+const Marketcap = lazy(
+  () => import("@app/_components/charts/apex/blockchain/Marketcap")
+);
+
+const Ratio = lazy(
+  () => import("@app/_components/charts/apex/blockchain/Ratio")
+);
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -29,40 +37,9 @@ export async function generateStaticParams() {
   return rows.map((row) => ({ slug: row.slug }));
 }
 
-const tvlChartConfig = {
-  chartTitle: "Blockchain TVL",
-  tooltipSeries: "TVL",
-  yaxisTitle: "USD",
-  yaxisFormatter: "THOUSAND_SEPARATOR",
-  yaxisTooltipFormatterLabel: "DOLLAR",
-};
-const mktcapChartConfig = {
-  chartTitle: "Market Cap USD",
-  tooltipSeries: "MarketCap",
-  yaxisTitle: "USD",
-  yaxisFormatter: "THOUSAND_SEPARATOR",
-  yaxisTooltipFormatterLabel: "DOLLAR",
-};
-const ratioChartConfig = {
-  chartTitle: "Mktcap/Tvl",
-  tooltipSeries: "MarketCap/TVL",
-  yaxisTitle: "Ratio",
-  yaxisFormatter: "THOUSAND_SEPARATOR",
-  yaxisTooltipFormatterLabel: "RATIO",
-};
-
 export default async function BlockchainDetailedPage({ params }) {
   const slug = params.slug;
-
   const coin = await getBlockchainNameForSlug(slug);
-  const tvlData = await getBlockchainTvlForSlug(slug, 30);
-  const tvlChng = await getBlockchainTvlChngForSlug(slug);
-
-  const mktcapData = await getBlockchainCoinMktcapForSlug(slug, 30);
-  const mktcapChng = await getBlockchainCoinMktcapChngForSlug(slug);
-
-  const ratioData = await getBlockchainRatioForSlug(slug, 30);
-  const ratioChng = await getBlockchainRatioChngForSlug(slug);
 
   return (
     <Container
@@ -94,114 +71,24 @@ export default async function BlockchainDetailedPage({ params }) {
       </Grid>
 
       <Grid container spacing={3.75}>
-        <Grid item xs={12} sm={6} md={3}>
-          <CurrentMarketCard
-            subheader={"Today's TVL USD"}
-            value={tvlChng.usd}
-            prefixUnit={"$"}
-            roundedDigit={0}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <PercentChngCard
-            title={`24hr Change`}
-            value={parseFloat(tvlChng.one_day_chng)}
-            period={"day"}
-            unit={"%"}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <PercentChngCard
-            title={`7 Day Change`}
-            value={parseFloat(tvlChng.seven_day_chng)}
-            period={"week"}
-            unit={"%"}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <PercentChngCard
-            title={`30 Day Change`}
-            value={parseFloat(tvlChng.thirty_day_chng)}
-            period={"month"}
-            unit={"%"}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Chart series={tvlData} config={tvlChartConfig} />
-        </Grid>
+        <Suspense fallback={<CircularProgress />}>
+          <Tvl slug={slug} />
+        </Suspense>
+
         <Grid item xs={12} mt={5}>
           <Typography variant="h3">{`${coin.name} Market Cap (USD)`}</Typography>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
-          <CurrentMarketCard
-            subheader={"Today's Market Cap USD"}
-            value={mktcapChng.market_cap}
-            prefixUnit={"$"}
-            roundedDigit={0}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <PercentChngCard
-            title={`24hr Change`}
-            value={parseFloat(mktcapChng.one_day_chng)}
-            period={"day"}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <PercentChngCard
-            title={`7 Day Change`}
-            value={parseFloat(mktcapChng.seven_day_chng)}
-            period={"week"}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <PercentChngCard
-            title={`30 Day Change`}
-            value={parseFloat(mktcapChng.thirty_day_chng)}
-            period={"month"}
-          />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Chart series={mktcapData} config={mktcapChartConfig} />
-        </Grid>
+        <Suspense fallback={<CircularProgress />}>
+          <Marketcap slug={slug} />
+        </Suspense>
         <Grid item xs={12} mt={5}>
           <Typography variant="h3">{`${coin.name} MarketCap/TVL Ratio`}</Typography>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <CurrentMarketCard
-            subheader={"Today's Ratio"}
-            value={ratioChng.ratio}
-            prefixUnit={""}
-            roundedDigit={2}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <PercentChngCard
-            title={`24hr Change`}
-            value={parseFloat(ratioChng.one_day_chng)}
-            period={"day"}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <PercentChngCard
-            title={`7 Day Change`}
-            value={parseFloat(ratioChng.seven_day_chng)}
-            period={"week"}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <PercentChngCard
-            title={`30 Day Change`}
-            value={parseFloat(ratioChng.thirty_day_chng)}
-            period={"month"}
-          />
-        </Grid>
 
-        <Grid item xs={12}>
-          <Chart series={ratioData} config={ratioChartConfig} />
-        </Grid>
+        <Suspense fallback={<CircularProgress />}>
+          <Ratio slug={slug} />
+        </Suspense>
       </Grid>
     </Container>
   );
