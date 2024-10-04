@@ -24,7 +24,7 @@ const keyNameMapping = {
 };
 
 // accordion component function is used to display the Exchange Profile details
-export default async function ProfileAccordion({ slug }) {
+export default async function ExchangeProfileAccordion({ slug }) {
   const exchangeProfile = await getExchangeProfileFor(slug);
   // console.log("exchangeProfile: ", exchangeProfile);
   return (
