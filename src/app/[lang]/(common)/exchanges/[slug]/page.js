@@ -53,7 +53,7 @@ async function DisplayVolumeChart(slug) {
     tooltipSeries: "Volume",
     yaxisTitle: "24hr Volume BTC",
     yaxisFormatter: "THOUSAND_SEPARATOR",
-    yaxisTooltipFormatterLabel: "BITexchange",
+    yaxisTooltipFormatterLabel: "BITCOIN",
   };
   return <Chart series={volData} config={volumeChartConfig} />;
 }
