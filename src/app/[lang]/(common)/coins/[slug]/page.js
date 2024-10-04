@@ -1,23 +1,20 @@
+import { lazy, Suspense } from "react";
 import {
   Container,
   Grid,
   Typography,
   Breadcrumbs,
   Link,
-  Box,
-  Paper,
-  Card,
-  CardContent,
+  CircularProgress,
 } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
-import {
-  getCoinProfileFor,
-  getCoinNameFor,
-  getAllCoinSlug,
-} from "@app/_services/coin";
+import { getCoinNameFor, getAllCoinSlug } from "@app/_services/coin";
 
-import { splitIntoParagraphs } from "@app/_utilities/helpers";
 import classes from "./styles.module.css";
+
+const CoinProfileAccordion = lazy(
+  () => import("@app/_components/widgets/CoinProfileAccordion")
+);
 
 export async function generateStaticParams() {
   const rows = await getAllCoinSlug();
@@ -32,83 +29,6 @@ export async function generateMetadata({ params, searchParams }) {
     title: `${coin.name} Profile`,
     description: `Details on ${coin.name} including socials and urls`,
   };
-}
-
-// accordion component function is used to display the Coin Profile details
-async function DisplayCoinProfile(slug) {
-  const coinProfile = await getCoinProfileFor(slug);
-  // console.log("coinProfile: ", coinProfile);
-
-  // mapping of the key names to display names
-  const keyNameMapping = {
-    symbol: "Symbol",
-    coin_profile_name: "Coin Name",
-    description: `About ${coinProfile.coin_profile_name}`,
-    homepage: "Homepage URL",
-    subreddit_url: "Reddit",
-  };
-
-  return (
-    <>
-      <Grid container spacing={2}>
-        {Object.keys(coinProfile).map((key) => {
-          let displayKey = keyNameMapping[key] || key;
-          let value = coinProfile[key] || "N.A";
-
-          return (
-            <Grid
-              item
-              xs={12}
-              sm={
-                displayKey === `About ${coinProfile.coin_profile_name}` &&
-                value !== "N.A"
-                  ? 12
-                  : 6
-              }
-              md={
-                displayKey === `About ${coinProfile.coin_profile_name}` &&
-                value !== "N.A"
-                  ? 12
-                  : 4
-              }
-              key={key}
-            >
-              <Card
-                elevation={3}
-                sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}
-              >
-                <CardContent>
-                  <Typography variant="h6">{displayKey}</Typography>
-                  {key === "description" && value !== "N.A" ? (
-                    splitIntoParagraphs(value).map((paragraph, index) => (
-                      <Typography variant="body1" paragraph key={index}>
-                        {paragraph}
-                      </Typography>
-                    ))
-                  ) : (
-                    <Typography variant="body1">
-                      {["homepage", "subreddit_url"].includes(key) &&
-                      value !== "N.A" ? (
-                        <Link
-                          href={value}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {value}
-                        </Link>
-                      ) : (
-                        value
-                      )}
-                    </Typography>
-                  )}
-                </CardContent>
-              </Card>
-            </Grid>
-          );
-        })}
-      </Grid>
-    </>
-  );
 }
 
 export default async function CoinProfilePage({ params }) {
@@ -129,7 +49,7 @@ export default async function CoinProfilePage({ params }) {
         disableGutters
         className={classes.tokenclan}
       >
-        <Grid container spacing={3.75} sx={{ my: 3 }}>
+        <Grid container spacing={3.75} sx={{ mb: 3 }}>
           <Grid item xs={12} sm={4}>
             <Typography variant="h3">{`${coin.name} Coin Profile`}</Typography>
           </Grid>
@@ -138,7 +58,7 @@ export default async function CoinProfilePage({ params }) {
               <Link underline="hover" color="inherit" href="/">
                 Home
               </Link>
-              <Link underline="hover" color="inherit" href="/coins">
+              <Link underline="hover" color="inherit" href="/#">
                 Coins
               </Link>
               <Typography color="text.primary">{coin.name}</Typography>
@@ -147,7 +67,9 @@ export default async function CoinProfilePage({ params }) {
         </Grid>
         <Grid container spacing={3.75}>
           <Grid item xs={12}>
-            {await DisplayCoinProfile(slug)}
+            <Suspense fallback={<CircularProgress />}>
+              <CoinProfileAccordion slug={slug} />
+            </Suspense>
           </Grid>
         </Grid>
       </Container>
