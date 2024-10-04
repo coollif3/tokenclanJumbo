@@ -1,12 +1,27 @@
-import { Container, Grid, Typography, Breadcrumbs, Link } from "@mui/material";
+import React, { Suspense, lazy } from "react";
+import {
+  Container,
+  Grid,
+  Typography,
+  Breadcrumbs,
+  Link,
+  CircularProgress,
+} from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import { getExchangeNameFor, getExchanges } from "@app/_services/exchange";
 import { getCoinNameFromExchangeSlug } from "@app/_services/coin";
 import styles from "./styles.module.css";
-import Volume from "@app/_components/charts/apex/exchangeListing/Volume";
-import Marketcap from "@app/_components/charts/apex/exchangeListing/Marketcap";
 import ProfileAccordion from "@app/_components/charts/apex/exchangeListing/ProfileAccordion";
-import Tvev from "@app/_components/charts/apex/exchangeListing/Tvev";
+
+const Volume = lazy(
+  () => import("@app/_components/charts/apex/exchangeListing/Volume")
+);
+const Marketcap = lazy(
+  () => import("@app/_components/charts/apex/exchangeListing/Marketcap")
+);
+const Tvev = lazy(
+  () => import("@app/_components/charts/apex/exchangeListing/Tvev")
+);
 
 export async function generateStaticParams() {
   const rows = await getExchanges();
@@ -71,17 +86,23 @@ export default async function ExchangeDetailedPage({ params }) {
           <Grid item xs={12}>
             <ProfileAccordion slug={slug} />
           </Grid>
-          <Volume slug={slug} />
+          <Suspense fallback={<CircularProgress />}>
+            <Volume slug={slug} />
+          </Suspense>
 
           <Grid item xs={12} mt={5}>
             <Typography variant="h3">{`${exchange.name} Market Cap (USD)`}</Typography>
           </Grid>
-          <Marketcap slug={slug} />
+          <Suspense fallback={<CircularProgress />}>
+            <Marketcap slug={slug} />
+          </Suspense>
 
           <Grid item xs={12} mt={5}>
             <Typography variant="h3">{`${exchange.name} TVEV Ratio`}</Typography>
           </Grid>
-          <Tvev slug={slug} />
+          <Suspense fallback={<CircularProgress />}>
+            <Tvev slug={slug} />
+          </Suspense>
         </Grid>
       </Container>
     </>
