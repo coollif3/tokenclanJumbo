@@ -35,6 +35,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
   const coin = await getExchangeNameFor(slug);
+  // console.log("slug: ", slug);
+  // console.log("coin: ", coin);
 
   return {
     title: `${coin.name} Data on Market Cap, Exchange Volume and TVEV Ratio | TokenClan`,

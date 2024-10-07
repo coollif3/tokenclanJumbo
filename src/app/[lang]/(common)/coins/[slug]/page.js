@@ -6,7 +6,11 @@ import {
   Link,
   Card,
   CardContent,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
 } from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import {
   getExchangeNameFor,
@@ -39,13 +43,13 @@ export async function generateMetadata({ params, searchParams }) {
   let title, description;
 
   if (exchange) {
-    title = `${exchange.name} Profile | TokenClan`;
+    title = `${exchange.name} Coin Profile | TokenClan`;
     description = `Details on ${exchange.name} including socials and urls`;
   } else if (blockchain) {
-    title = `${blockchain.name} Profile | TokenClan`;
+    title = `${blockchain.name} Coin Profile | TokenClan`;
     description = `Details on ${blockchain.name} gas token including socials and urls`;
   } else {
-    title = `Profile | TokenClan`;
+    title = `Coin Profile | TokenClan`;
     description = `Details including socials and urls`;
   }
 
@@ -85,88 +89,126 @@ async function DisplayCommonCoinProfile(slug) {
     return paragraphs;
   };
 
-  // Determine which profile to display based on the presence of name_id values
-  const displayProfile = coinProfile.dcp_slug === null && coinProfile.ecp_slug !== null
-    ? 'ecp'
-    : 'dcp';
+  // Function to render profile data to be displayed
+  const renderProfileData = (profileType) => {
+    return Object.keys(coinProfile).map((key) => {
+      // Skip keys that do not match the displayProfile value to be displayed
+      if (profileType === 'ecp' && key.startsWith('dcp_')) return null;
+      if (profileType === 'dcp' && key.startsWith('ecp_')) return null;
+
+      // Skip dcp_slug and ecp_slug display
+      if (key === 'dcp_slug' || key === 'ecp_slug') return null;
+
+      let displayKey = keyNameMapping[key] || key;
+      let value = coinProfile[key] || "N.A";
+
+      return (
+        <Grid
+          item
+          xs={12}
+          sm={(key === 'dcp_description' || key === 'ecp_description') && value !== "N.A" ? 12 : 6}
+          md={(key === 'dcp_description' || key === 'ecp_description') && value !== "N.A" ? 12 : 6}
+          lg={(key === 'dcp_description' || key === 'ecp_description') && value !== "N.A" ? 12 : 6}
+          key={key}
+        >
+          <Card elevation={3} sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}>
+            <CardContent>
+              <Typography variant="h6">{displayKey}</Typography>
+              {(key === 'dcp_description' || key === 'ecp_description') && value !== "N.A" ? (
+                splitIntoParagraphs(value).map((paragraph, index) => (
+                  <Typography variant="body1" paragraph key={index}>
+                    {paragraph}
+                  </Typography>
+                ))
+              ) : (
+                <Typography variant="body1">
+                  {["dcp_homepage", "dcp_subreddit_url", "ecp_homepage", "ecp_subreddit_url"].includes(key) && value !== "N.A" ? (
+                    <Link href={value} target="_blank" rel="noopener noreferrer">
+                      {value}
+                    </Link>
+                  ) : (
+                    value
+                  )}
+                </Typography>
+              )}
+            </CardContent>
+          </Card>
+        </Grid>
+      );
+    });
+  };
 
   return (
     <>
       <Grid container spacing={2}>
-        {Object.keys(coinProfile).map((key) => {
-          // Skip keys that do not match the displayProfile value to be displayed
-          if (displayProfile === 'ecp' && key.startsWith('dcp_')) return null;
-          if (displayProfile === 'dcp' && key.startsWith('ecp_')) return null;
-
-          // Skip dcp_name_id and ecp_name_id
-          if (key === 'dcp_slug' || key === 'ecp_slug') return null;
-
-          let displayKey = keyNameMapping[key] || key;
-          let value = coinProfile[key] || "N.A";
-
-          return (
-            <Grid
-              item
-              xs={12}
-              sm={
-                (key === 'dcp_description' || key === 'ecp_description') &&
-                  value !== "N.A"
-                  ? 12
-                  : 6
-              }
-              md={
-                (key === 'dcp_description' || key === 'ecp_description') &&
-                  value !== "N.A"
-                  ? 12
-                  : 6
-              }
-              lg={
-                (key === 'dcp_description' || key === 'ecp_description') &&
-                  value !== "N.A"
-                  ? 12
-                  : 6
-              }
-              key={key}
+        {coinProfile.dcp_slug !== null && coinProfile.ecp_slug === null && (
+          <Accordion
+            elevation={0}
+            sx={{ boxShadow: "none", mb: 3, border: "1px solid #ddd" }}
+          >
+            <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
+              <Typography variant="h5">Blockchain Gas Coin Profile</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={2}>
+                {renderProfileData('dcp')}
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
+        )}
+        {coinProfile.dcp_slug === null && coinProfile.ecp_slug !== null && (
+          <Accordion
+            elevation={0}
+            sx={{ boxShadow: "none", mb: 3, border: "1px solid #ddd" }}
+          >
+            <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
+              <Typography variant="h5">Exchange Coin Profile</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={2}>
+                {renderProfileData('ecp')}
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
+        )}
+        {coinProfile.dcp_slug !== null && coinProfile.ecp_slug !== null && (
+          <>
+            <Accordion
+              elevation={0}
+              sx={{ boxShadow: "none", mb: 3, border: "1px solid #ddd" }}
             >
-              <Card
-                elevation={3}
-                sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}
-              >
-                <CardContent>
-                  <Typography variant="h6">{displayKey}</Typography>
-                  {(key === 'dcp_description' || key === 'ecp_description') && value !== "N.A" ? (
-                    splitIntoParagraphs(value).map((paragraph, index) => (
-                      <Typography variant="body1" paragraph key={index}>
-                        {paragraph}
-                      </Typography>
-                    ))
-                  ) : (
-                    <Typography variant="body1">
-                      {["dcp_homepage", "dcp_subreddit_url", "ecp_homepage", "ecp_subreddit_url"].includes(key) &&
-                        value !== "N.A" ? (
-                        <Link
-                          href={value}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {value}
-                        </Link>
-                      ) : (
-                        value
-                      )}
-                    </Typography>
-                  )}
-                </CardContent>
-              </Card>
-            </Grid>
-          );
-        })}
+              <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
+                <Typography variant="h5">Blockchain Gas Coin Profile</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Grid container spacing={2}>
+                  {renderProfileData('dcp')}
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              elevation={0}
+              sx={{ boxShadow: "none", mb: 3, border: "1px solid #ddd" }}
+            >
+              <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
+                <Typography variant="h5">Exchange Coin Profile</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Grid container spacing={2}>
+                  {renderProfileData('ecp')}
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+          </>
+        )}
       </Grid>
     </>
   );
 }
 
 export default async function CoinProfilePage({ params }) {
+  // const param = params;
+  // console.log("param: ", param);
   const slug = params.slug;
   const exchange = await getExchangeNameFor(slug);
   const blockchain = await getBlockchainNameForSlug(slug);
@@ -194,9 +236,9 @@ export default async function CoinProfilePage({ params }) {
         }}
         disableGutters
       >
-        <Grid container spacing={3.75} sx={{ my: 3 }}>
+        <Grid container spacing={3.75} sx={{ mt: 3, mb: 6 }}>
           <Grid item xs={12} sm={4}>
-            <Typography variant="h3">{`${name} ${blockchain ? 'Gas Coin' : 'Coin'} Profile`}</Typography>
+            <Typography variant="h3">{`${name}`}</Typography>
           </Grid>
           <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
             <Breadcrumbs aria-label="breadcrumb">
