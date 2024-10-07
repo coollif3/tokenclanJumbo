@@ -299,8 +299,6 @@ export const getCommonCoinProfileFor = async (slug) => {
           replacements: { slug },
         });
 
-        // console.log("results: ", results);
-
         return results[0];
       } catch (error) {
         console.log(error);
