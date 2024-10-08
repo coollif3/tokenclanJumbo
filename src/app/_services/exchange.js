@@ -194,7 +194,7 @@ export const getExchangeNameFor = async (slug) => {
         const [results, metadata] = await db.query(getExchangeNameSql, {
           replacements: { slug },
         });
-
+        console.log("results: ", results);
         return results[0];
       } catch (error) {
         console.log(error);
