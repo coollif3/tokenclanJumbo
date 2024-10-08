@@ -7,9 +7,12 @@ import {
   Link,
   CircularProgress,
 } from "@mui/material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
-import { getCoinNameFor, getAllCoinSlug } from "@app/_services/coin";
+import {
+  getCoinNameFor,
+  getCommonCoinSlug
+} from "@app/_services/coin";
+import { getBlockchainNameForSlug } from "@app/_services/blockchain";
 
 import classes from "./styles.module.css";
 
@@ -18,14 +21,24 @@ const CoinProfileAccordion = lazy(
 );
 
 export async function generateStaticParams() {
-  const rows = await getAllCoinSlug();
-  return rows.map((row) => ({ slug: row.slug }));
+  const rows = await getCommonCoinSlug();
+  // console.log("rows: ", rows);
+
+  const results = rows
+    .filter(row => row.dcp_slug !== null || row.ecp_slug !== null) // Filter out rows where both dcp_slug and ecp_slug are null
+    .map((row) => {
+      let slug = row.dcp_slug || row.ecp_slug; // Use dcp_slug if available, otherwise use ecp_slug
+      return { slug };
+    });
+
+  // console.log("results: ", results);
+  return results;
 }
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
   // console.log("slug: ", slug);
-  const exchange = await getExchangeNameFor(slug);
+  const exchange = await getCoinNameFor(slug);
   const blockchain = await getBlockchainNameForSlug(slug);
 
   let title, description;
@@ -51,7 +64,22 @@ export default async function CoinProfilePage({ params }) {
   // const param = params;
   // console.log("param: ", param);
   const slug = params.slug;
-  const coin = await getCoinNameFor(slug);
+  // console.log("slug: ", slug);
+  const exchange = await getCoinNameFor(slug);
+  const blockchain = await getBlockchainNameForSlug(slug);
+
+  let name;
+
+  // console.log("exchangeName: ", exchange);
+  // console.log("blockchainName: ", blockchain);
+
+  if (exchange) {
+    name = exchange.name;
+  } else if (blockchain) {
+    name = blockchain.name;;
+  } else {
+    name = "Crypto";
+  }
 
   return (
     <>
@@ -79,7 +107,7 @@ export default async function CoinProfilePage({ params }) {
               <Link underline="hover" color="inherit" href="/#">
                 Coins
               </Link>
-              <Typography color="text.primary">{coin.name}</Typography>
+              <Typography color="text.primary">{`${name}`}</Typography>
             </Breadcrumbs>
           </Grid>
         </Grid>
