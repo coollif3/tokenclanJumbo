@@ -362,6 +362,7 @@ export const getCoinProfileBySlug = `SELECT
   WHERE 
     c.name_id = :slug;`;
 
+// Coin queries from combined coin_profile_view table
 export const getCommonCoinSlug = `SELECT 
   dcp_slug,
   ecp_slug 
