@@ -1,9 +1,9 @@
 import {
   getBackgroundColorStyle,
   getBackgroundImageStyle,
-} from '@jumbo/utilities/helpers';
-import { Card, CardContent, CardHeader } from '@mui/material';
-import PropTypes from 'prop-types';
+} from "@jumbo/utilities/helpers";
+import { Card, CardContent, CardHeader } from "@mui/material";
+import PropTypes from "prop-types";
 
 function JumboCard({
   avatar,
@@ -26,7 +26,7 @@ function JumboCard({
   return (
     <Card
       sx={{
-        position: 'relative',
+        position: "relative",
         ...backgroundColorStyle,
         ...backgroundImageStyle,
         ...colorStyle,
@@ -46,7 +46,14 @@ function JumboCard({
           title={title}
           subheader={subheader}
           action={action}
-          sx={headerSx}
+          sx={{
+            ...headerSx,
+            textAlign: "center",
+            "& .MuiCardHeader-content": {
+              textAlign: "center",
+              width: "100%",
+            },
+          }}
         />
       )}
 

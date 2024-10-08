@@ -14,8 +14,34 @@ import {
   getBlockchainRatioChngForSlug as getBlockchainRatioChngForSlugSql,
   getDefiMktOverviewChng as getDefiMktOverviewChngSql,
   getBlockchainName as getBlockchainNameSql,
+  getBlockchainDomForSlug as getBlockchainDomForSlugSql,
+  getBlockchainTvlForSlugWeek as getBlockchainTvlForSlugWeekSql,
+  getBlockchainTvlForSlugMonth as getBlockchainTvlForSlugMonthSql,
 } from "../_sql/query";
 import { formatToTimestampArray } from "@app/_utilities/helpers";
+
+export const getBlockchainDomForSlug = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await db.query(getBlockchainDomForSlugSql, {
+          replacements: {
+            slug,
+            periodLimit: period,
+          },
+        });
+        const formattedResults = formatToTimestampArray(results);
+        return formattedResults;
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching blockchain dominance data for ${slug}`);
+      }
+    }),
+    [`getBlockchainDomForSlug-${slug}-${period}`],
+    { revalidate: 28800, tags: [`blockchain-${slug}-${period}`] }
+  );
+  return await getData(slug, parseInt(period));
+};
 
 export const getBlockchainRatioChngForSlug = async (slug) => {
   const getData = nextCache(
@@ -154,6 +180,62 @@ export const getBlockchainTvlChngForSlug = async (slug) => {
     { revalidate: 28800, tags: [`blockchain-${slug}`] }
   );
   return await getData(slug);
+};
+
+export const getBlockchainTvlForSlugMonth = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await db.query(
+          getBlockchainTvlForSlugMonthSql,
+          {
+            replacements: {
+              slug,
+              periodLimit: period,
+            },
+          }
+        );
+        const formattedResults = formatToTimestampArray(results);
+        return formattedResults;
+      } catch (error) {
+        console.log(error);
+        throw new Error(
+          `Error fetching weekly blockchain tvl data for ${slug}`
+        );
+      }
+    }),
+    [`getBlockchainTvlForSlugMonth-${slug}-${period}`],
+    { revalidate: 2629743, tags: [`blockchain-${slug}-month-${period}`] }
+  );
+  return await getData(slug, parseInt(period));
+};
+
+export const getBlockchainTvlForSlugWeek = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await db.query(
+          getBlockchainTvlForSlugWeekSql,
+          {
+            replacements: {
+              slug,
+              periodLimit: period,
+            },
+          }
+        );
+        const formattedResults = formatToTimestampArray(results);
+        return formattedResults;
+      } catch (error) {
+        console.log(error);
+        throw new Error(
+          `Error fetching weekly blockchain tvl data for ${slug}`
+        );
+      }
+    }),
+    [`getBlockchainTvlForSlugWeek-${slug}-${period}`],
+    { revalidate: 604800, tags: [`blockchain-${slug}-week-${period}`] }
+  );
+  return await getData(slug, parseInt(period));
 };
 
 export const getBlockchainTvlForSlug = async (slug, period) => {

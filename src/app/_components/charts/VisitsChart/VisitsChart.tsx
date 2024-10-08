@@ -3,6 +3,8 @@ import { Div } from "@jumbo/shared";
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
 import { UpData } from "./data/upData";
 import { DownData } from "./data/downData";
+import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
+import { darken } from "polished";
 
 const VisitsChart = ({
   color,
@@ -11,6 +13,9 @@ const VisitsChart = ({
   color?: string;
   market: boolean;
 }) => {
+  const { theme } = useJumboTheme();
+  const darkerMain = darken(0.2, theme.palette.primary.main);
+  const darkerSecondary = darken(0.2, theme.palette.secondary.main);
   return (
     <ResponsiveContainer
       className="card-img-bottom overflow-hidden"
@@ -43,7 +48,7 @@ const VisitsChart = ({
           dataKey="price"
           strokeWidth={2}
           stroke="#73cfce"
-          fill={market ? "#00ada9" : "#e53935"}
+          fill={market ? darkerMain : "#e53935"}
           fillOpacity={1}
         />
       </AreaChart>

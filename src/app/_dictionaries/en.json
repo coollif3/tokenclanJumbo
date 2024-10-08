@@ -16,5 +16,9 @@
   },
   "footer": {
     "content": "Copyright TokenClan © 2024"
+  },
+  "widgets": {
+    "title": "Newsletter Subscription",
+    "subheader": "Receive latest news and updates"
   }
 }

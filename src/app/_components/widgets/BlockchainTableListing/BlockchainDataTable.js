@@ -9,13 +9,18 @@ import Link from "next/link";
 import { displayRedGreenColumn } from "@app/_utilities/helpers";
 import styles from "./styles.module.css";
 
+const colorPalette = {
+  red: "#FF5E5B",
+  green: "#5DCBA6",
+};
+
 export default function BlockchainDataTable({ rows }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Blockchain ID</TableCell>
+            <TableCell>Rank</TableCell>
             <TableCell>Name</TableCell>
             <TableCell align="right">TVL (USD)</TableCell>
             <TableCell align="right">Dominance %</TableCell>
@@ -27,22 +32,28 @@ export default function BlockchainDataTable({ rows }) {
           </TableRow>
         </TableHead>
         <TableBody className={styles.tokenclan}>
-          {rows.map((row) => (
+          {rows.map((row, index) => (
             <TableRow
               key={row.blockchain_id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.blockchain_id}
+                {index + 1}
               </TableCell>
               <TableCell>
-                <Link href={`/blockchains/${row.slug}`}>{row.name}</Link>
+                <Link
+                  href={`/blockchains/${row.slug}`}
+                  underline="none"
+                  sx={{ textDecoration: "none" }}
+                >
+                  {row.name}
+                </Link>
               </TableCell>
               <TableCell align="right">{row.usd}</TableCell>
               <TableCell align="right">{row.dominance}</TableCell>
-              {displayRedGreenColumn(row.one_day_chng)}
-              {displayRedGreenColumn(row.seven_day_chng)}
-              {displayRedGreenColumn(row.thirty_day_chng, true)}
+              {displayRedGreenColumn(row.one_day_chng, colorPalette)}
+              {displayRedGreenColumn(row.seven_day_chng, colorPalette)}
+              {displayRedGreenColumn(row.thirty_day_chng, colorPalette, true)}
             </TableRow>
           ))}
         </TableBody>

@@ -2,36 +2,63 @@ import moment from "moment";
 import { USE_IMAGE_PLACEHOLDERS } from "../constants/paths";
 import TableCell from "@mui/material/TableCell";
 
+// split the description into readable paragraphs
+export const splitIntoParagraphs = (text) => {
+  const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+  const paragraphs = [];
+  for (let i = 0; i < sentences.length; i += 4) {
+    paragraphs.push(sentences.slice(i, i + 4).join(" "));
+  }
+  return paragraphs;
+};
+
+export const isValidEmail = (emailAddress) => {
+  const pattern = new RegExp(
+    /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+  );
+  return pattern.test(emailAddress);
+};
+
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-export const displayRedGreenColumn = (item, last = false) => {
+export const displayRedGreenColumn = (item, colorPalette, last = false) => {
   const num = (+item).toFixed(2);
   if (last) {
     if (num > 0) {
       return (
         <TableCell
           align="right"
-          sx={{ color: "green", pr: 4 }}
+          sx={{ color: colorPalette.green, pr: 4 }}
         >{`${num}%`}</TableCell>
       );
     } else {
       return (
         <TableCell
           align="right"
-          sx={{ color: "red", pr: 4 }}
+          sx={{ color: colorPalette.red, pr: 4 }}
         >{`${num}%`}</TableCell>
       );
     }
   }
   if (num > 0) {
     return (
-      <TableCell align="right" sx={{ color: "green" }}>{`${num}%`}</TableCell>
+      <TableCell
+        align="right"
+        sx={{ color: colorPalette.green }}
+      >{`${num}%`}</TableCell>
     );
   } else {
     return (
-      <TableCell align="right" sx={{ color: "red" }}>{`${num}%`}</TableCell>
+      <TableCell
+        align="right"
+        sx={{ color: colorPalette.red }}
+      >{`${num}%`}</TableCell>
     );
   }
 };

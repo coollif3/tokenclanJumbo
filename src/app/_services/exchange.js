@@ -12,16 +12,39 @@ import {
   getExchangeMktcapChngBySlug,
   getExchangeTvevBySlug,
   getExchangeTvevChngBySlug,
-  getCoinProfileBySlug,
   getExchangeProfileBySlug,
   globalVolumeOverviewChng as globalVolumeOverviewChngSql,
   getExchangeName as getExchangeNameSql,
-  getAllExchangeCoinSlug as getAllExchangeCoinSlugSql,
-  getCommonCoinProfileBySlug,
-  getCommonCoinSlug as getCommonCoinSlugSql,
+  getExchangeCoinDominanceForSlug as getExchangeCoinDominanceForSlugSql,
 } from "../_sql/query";
 
 import { formatToTimestampArray } from "@app/_utilities/helpers";
+
+export const getExchangeCoinDominanceForSlug = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await db.query(
+          getExchangeCoinDominanceForSlugSql,
+          {
+            replacements: { slug, periodLimit: period },
+          }
+        );
+        const formattedResults = formatToTimestampArray(results);
+        return formattedResults;
+      } catch (error) {
+        console.log(error);
+
+        throw new Error(
+          `Error fetching exchange coin dominance for slug ${slug} data`
+        );
+      }
+    }),
+    [`getExchangeCoinDominanceForSlug-${slug}-${period}`],
+    { revalidate: 28800, tags: [`exchange-${slug}`] }
+  );
+  return await getData(slug, parseInt(period));
+};
 
 export const getExchangeTvevChngFor = async (slug) => {
   const getData = nextCache(
@@ -251,80 +274,3 @@ export const getExchangeProfileFor = async (slug) => {
   );
   return await getData(slug);
 };
-
-// Get coin profile data for a given slug
-export const getCoinProfileFor = async (slug) => {
-  const getData = nextCache(
-    cache(async (slug) => {
-      try {
-        const [results, metadata] = await db.query(getCoinProfileBySlug, {
-          replacements: { slug },
-        });
-
-        return results[0];
-      } catch (error) {
-        console.log(error);
-        throw new Error(
-          `Error fetching exchange coin profile for slug ${slug}`
-        );
-      }
-    }),
-    [`getCoinProfileForSlug-${slug}`],
-    { revalidate: 86400, tags: [`coin-${slug}`] }
-  );
-  return await getData(slug);
-};
-
-export const getAllExchangeCoinSlug = nextCache(
-  cache(async () => {
-    try {
-      const [results, metadata] = await db.query(getAllExchangeCoinSlugSql);
-
-      return results;
-    } catch (error) {
-      console.log(error);
-      throw new Error("Error fetching all exchange coin slug data");
-    }
-  }),
-  ["getAllExchangeCoinSlug"],
-  { revalidate: 86400 }
-);
-
-// Get common coin profile data for a given slug
-export const getCommonCoinProfileFor = async (slug) => {
-  const getData = nextCache(
-    cache(async (slug) => {
-      try {
-        const [results, metadata] = await db.query(getCommonCoinProfileBySlug, {
-          replacements: { slug },
-        });
-
-        return results[0];
-      } catch (error) {
-        console.log(error);
-        throw new Error(
-          `Error fetching exchange coin profile for slug ${slug}`
-        );
-      }
-    }),
-    [`getCommonCoinProfileForSlug-${slug}`],
-    { revalidate: 86400, tags: [`coin-${slug}`] }
-  );
-  return await getData(slug);
-};
-
-// Get common coin slug data
-export const getCommonCoinSlug = nextCache(
-  cache(async () => {
-    try {
-      const [results, metadata] = await db.query(getCommonCoinSlugSql);
-
-      return results;
-    } catch (error) {
-      console.log(error);
-      throw new Error("Error fetching all common coins slug data");
-    }
-  }),
-  ["getCommonCoinSlug"],
-  { revalidate: 86400 }
-);

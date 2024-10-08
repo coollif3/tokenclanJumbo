@@ -40,13 +40,13 @@ export const mainTheme = {
 
   palette: {
     primary: {
-      main: "#7352C7",
+      main: "#5DCBA6",
       light: "#A67FFB",
       dark: "#5E3BB7",
       contrastText: "#FFF",
     },
     secondary: {
-      main: "#E44A77",
+      main: "#FF5E5B",
       light: "#FF7EA6",
       dark: "#DF295E",
       contrastText: "#FFF",
@@ -70,15 +70,16 @@ export const mainTheme = {
       contrastText: "#FFF",
     },
     success: {
-      main: "#3BD2A2",
+      main: "#5DCBA6", // #
       light: "#78FFD3",
       dark: "#00A073",
       contrastText: "#FFF",
     },
     text: {
-      primary: "#475259",
-      secondary: "#8595A6",
+      primary: "#4E4B5C",
+      secondary: "#475259",
       disabled: "#A2B2C3",
+      link: "#2D5FB4",
     },
     divider: "#DEE2E6",
     background: {
@@ -87,7 +88,7 @@ export const mainTheme = {
     },
     action: {
       active: "#475259",
-      hover: "#F5F7FA",
+      hover: "#EEE5E9",
     },
   },
   shadows: shadows,
@@ -162,6 +163,18 @@ export const mainTheme = {
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        ":root": {
+          "--color-primary": "#5DCBA6",
+          "--color-secondary": "#FF5E5B",
+          "--color-success": "#5DCBA6",
+          "--color-error": "#E73145",
+          "--color-info-main": "#2EB5C9",
+          "--color-link": "#2D5FB4",
+        },
+      },
+    },
     MuiTableCell: {
       styleOverrides: {
         root: {

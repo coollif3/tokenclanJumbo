@@ -1,15 +1,18 @@
-import { useJumboTheme } from '@jumbo/components/JumboTheme/hooks';
-import { isNavSection } from '@jumbo/utilities/helpers';
-import { List } from '@mui/material';
-import PropTypes from 'prop-types';
-import { JumboNavIdentifier } from '..';
-import { JumboNavbarContext } from './JumboNavbarContext';
+import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
+import { isNavSection } from "@jumbo/utilities/helpers";
+import { Box, Button, List, Modal } from "@mui/material";
+import PropTypes from "prop-types";
+import { JumboNavIdentifier } from "..";
+import { JumboNavbarContext } from "./JumboNavbarContext";
+import { JumboCard } from "@jumbo/components/JumboCard";
+import React from "react";
+import { NewsLetterSubscription } from "@app/_components/widgets/NewsLetterSubscription";
 
 function JumboNavbarProvider({
-  items = [],
+  items = {},
   mini = false,
   open = true,
-  groupBehaviour = 'collapsible',
+  groupBehaviour = "collapsible",
   theme,
 }) {
   const miniAndClosed = !!mini && !open;
@@ -22,6 +25,14 @@ function JumboNavbarProvider({
     mini,
     open,
   };
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
   let isFirstSection = true;
   return (
@@ -31,9 +42,10 @@ function JumboNavbarProvider({
         sx={{
           mr: miniAndClosed ? 0 : 2,
           pb: 2,
+          color: theme.palette.text.link,
         }}
       >
-        {items.map((item, index) => {
+        {items.menuItems.map((item, index) => {
           if (isNavSection(item) && isFirstSection === true) {
             isFirstSection = false;
             return (
@@ -47,6 +59,79 @@ function JumboNavbarProvider({
           return <JumboNavIdentifier item={item} key={index} />;
         })}
       </List>
+      <Box
+        sx={{
+          left: "50%",
+          bottom: { xs: "-5%", sm: "10px", md: "10px", lg: "10px", xl: "10px" },
+          transform: "translate(-50%)",
+          width: "100%",
+          position: {
+            xs: "relative",
+            sm: "absolute",
+            md: "absolute",
+            lg: "absolute",
+            xl: "absolute",
+          },
+        }}
+      >
+        <JumboCard
+          title="Stay Updated With Our Newsletter!"
+          contentWrapper
+          contentSx={{ pt: 0 }}
+        >
+          <Box display="flex" justifyContent="center">
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{
+                bgcolor: theme.palette.text.link,
+                "&:hover": {
+                  bgcolor: theme.palette.primary.main, // Change this to your desired hover color
+                },
+                borderRadius: 10,
+              }}
+              onClick={handleOpen}
+            >
+              Subscribe
+            </Button>
+          </Box>
+        </JumboCard>
+      </Box>
+      <Modal
+        open={isOpen}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box
+          sx={{
+            width: {
+              xs: "90%",
+              sm: "75%",
+              md: "50%",
+              lg: "40%",
+              xl: "30%",
+            },
+            height: {
+              xs: "90%",
+            },
+            maxHeight: "100%",
+            overflowY: "auto",
+            maxWidth: "100%",
+          }}
+        >
+          <NewsLetterSubscription
+            title={items.widgets.title}
+            subheader={items.widgets.subheader}
+          />
+        </Box>
+      </Modal>
     </JumboNavbarContext.Provider>
   );
 }
@@ -87,5 +172,5 @@ JumboNavbarProvider.propTypes = {
   mini: PropTypes.bool,
   open: PropTypes.bool,
   theme: PropTypes.object,
-  groupBehaviour: PropTypes.oneOf(['collapsible', 'popover']),
+  groupBehaviour: PropTypes.oneOf(["collapsible", "popover"]),
 };

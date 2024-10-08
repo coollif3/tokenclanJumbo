@@ -1,31 +1,27 @@
+import React, { Suspense, lazy } from "react";
 import {
   Container,
   Grid,
   Typography,
   Breadcrumbs,
   Link,
-  Card,
-  CardContent,
+  CircularProgress,
 } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
-import {
-  getExchangeVolumeFor,
-  getExchangeVolumeChngFor,
-  getExchangeMktcapFor,
-  getExchangeMktcapChngFor,
-  getExchangeTvevFor,
-  getExchangeTvevChngFor,
-  getExchangeNameFor,
-  getExchanges,
-  getExchangeProfileFor,
-} from "@app/_services/exchange";
-import ExchangeCharts from "@app/_components/charts/apex/ExchangeCharts";
-import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
-import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { getExchangeNameFor, getExchanges } from "@app/_services/exchange";
+import { getCoinNameFromExchangeSlug } from "@app/_services/coin";
+import styles from "./styles.module.css";
+import ExchangeProfileAccordion from "@app/_components/charts/apex/exchangeListing/ExchangeProfileAccordion";
+
+const Volume = lazy(
+  () => import("@app/_components/charts/apex/exchangeListing/Volume")
+);
+const Marketcap = lazy(
+  () => import("@app/_components/charts/apex/exchangeListing/Marketcap")
+);
+const Tvev = lazy(
+  () => import("@app/_components/charts/apex/exchangeListing/Tvev")
+);
 
 export async function generateStaticParams() {
   const rows = await getExchanges();
@@ -34,247 +30,18 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
-  const coin = await getExchangeNameFor(slug);
-  // console.log("slug: ", slug);
-  // console.log("coin: ", coin);
+  const exchange = await getExchangeNameFor(slug);
 
   return {
-    title: `${coin.name} Data on Market Cap, Exchange Volume and TVEV Ratio | TokenClan`,
-    description: `TVEV ratio offers a way to value crypto exchange tokens like ${coin.name}`,
+    title: `${exchange.name} Data on Market Cap, Exchange Volume and TVEV Ratio `,
+    description: `TVEV ratio offers a way to value crypto exchange tokens like ${exchange.name}`,
   };
-}
-
-async function DisplayVolumeChart(slug) {
-  const volData = await getExchangeVolumeFor(slug, 30);
-  const volumeChartConfig = {
-    chartTitle: "Exchange Volume BTC",
-    tooltipSeries: "Volume",
-    yaxisTitle: "24hr Volume BTC",
-  };
-  return <ExchangeCharts series={volData} config={volumeChartConfig} />;
-}
-
-async function DisplayVolumeStats(slug) {
-  const volChng = await getExchangeVolumeChngFor(slug);
-
-  return (
-    <>
-      <Grid item xs={12} sm={6} md={3}>
-        <CurrentMarketCard
-          subheader={"Today's Volume BTC"}
-          value={volChng.vol_24hr_normalized}
-          prefixUnit=""
-          roundedDigit={0}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <PercentChngCard
-          title={`24hr Change`}
-          value={parseFloat(volChng.one_day_chng)}
-          period={"day"}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <PercentChngCard
-          title={`7 Day Change`}
-          value={parseFloat(volChng.seven_day_chng)}
-          period={"week"}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <PercentChngCard
-          title={`30 Day Change`}
-          value={parseFloat(volChng.thirty_day_chng)}
-          period={"month"}
-        />
-      </Grid>
-    </>
-  );
-}
-
-async function DisplayMktcapFor(slug) {
-  const mktcapData = await getExchangeMktcapFor(slug, 30);
-  const marketcapChartConfig = {
-    chartTitle: "Market Cap",
-    tooltipSeries: "Market Cap",
-    yaxisTitle: "USD",
-  };
-
-  return <ExchangeCharts series={mktcapData} config={marketcapChartConfig} />;
-}
-
-async function DisplayMktcapStatsFor(slug) {
-  const mktcapChng = await getExchangeMktcapChngFor(slug);
-
-  return (
-    <>
-      <Grid item xs={12} sm={6} md={3}>
-        <CurrentMarketCard
-          subheader={"Today's Market Cap BTC"}
-          value={mktcapChng.market_cap}
-          prefixUnit="$"
-          roundedDigit={0}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <PercentChngCard
-          title={`24hr Change`}
-          value={parseFloat(mktcapChng.one_day_chng)}
-          period={"day"}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <PercentChngCard
-          title={`7 Day Change`}
-          value={parseFloat(mktcapChng.seven_day_chng)}
-          period={"week"}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <PercentChngCard
-          title={`30 Day Change`}
-          value={parseFloat(mktcapChng.thirty_day_chng)}
-          period={"month"}
-        />
-      </Grid>
-    </>
-  );
-}
-
-async function DisplayTvevRatioChartFor(slug) {
-  const tvevChartConfig = {
-    chartTitle: "TVEV",
-    tooltipSeries: "Tvev Ratio",
-    yaxisTitle: "Ratio",
-  };
-  const tvevData = await getExchangeTvevFor(slug, 30);
-
-  return <ExchangeCharts series={tvevData} config={tvevChartConfig} />;
-}
-
-async function DisplayTvevStats(slug) {
-  const tvevChng = await getExchangeTvevChngFor(slug);
-
-  return (
-    <>
-      <Grid item xs={12} sm={6} md={3}>
-        <CurrentMarketCard
-          subheader={"Today's Ratio"}
-          value={tvevChng.ratio}
-          prefixUnit=""
-          roundedDigit={2}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <PercentChngCard
-          title={`24hr Change`}
-          value={parseFloat(tvevChng.one_day_chng)}
-          period={"day"}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <PercentChngCard
-          title={`7 Day Change`}
-          value={parseFloat(tvevChng.seven_day_chng)}
-          period={"week"}
-        />
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        <PercentChngCard
-          title={`30 Day Change`}
-          value={parseFloat(tvevChng.thirty_day_chng)}
-          period={"month"}
-        />
-      </Grid>
-    </>
-  );
-}
-
-// accordion component function is used to display the Exchange Profile details
-async function DisplayExchangeProfile(slug) {
-  const exchangeProfile = await getExchangeProfileFor(slug);
-  // console.log("exchangeProfile: ", exchangeProfile);
-
-  // mapping of the key names to display names
-  const keyNameMapping = {
-    exchange_name: "Exchange Name",
-    year_established: "Year Established",
-    description: "Description",
-    exchange_profile_url: "Exchange URL",
-    reddit: "Reddit",
-    twitter: "Twitter",
-    telegram: "Telegram",
-    centralized: "Centralized Exchange",
-  };
-
-  return (
-    <>
-      <Accordion
-        defaultExpanded
-        elevation={0}
-        sx={{ boxShadow: "none", mb: 3, border: "1px solid #ddd" }}
-      >
-        <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
-          <Typography variant="h5">Exchange Profile</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Grid container spacing={2}>
-            {Object.keys(exchangeProfile).map((key) => {
-              let displayKey = keyNameMapping[key] || key;
-              let value = exchangeProfile[key] || "N.A";
-              if (key === "centralized") {
-                value = value === 1 ? "Yes" : value === 0 ? "No" : "N.A";
-              }
-              if (key === "twitter" && value !== "N.A") {
-                value = `@${value}`;
-              }
-              return (
-                <Grid
-                  item
-                  xs={12}
-                  sm={displayKey === "Description" && value !== "N.A" ? 12 : 6}
-                  md={displayKey === "Description" && value !== "N.A" ? 12 : 4}
-                  key={key}
-                >
-                  <Card
-                    elevation={3}
-                    sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}
-                  >
-                    <CardContent>
-                      <Typography variant="h6">{displayKey}</Typography>
-                      <Typography variant="body1">
-                        {/* if key is 'exchange_profile_url', 'reddit', 'telegram' and value is not 'N.A', display value as a link */}
-                        {[
-                          "exchange_profile_url",
-                          "reddit",
-                          "telegram",
-                        ].includes(key) && value !== "N.A" ? (
-                          <Link
-                            href={value}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {value}
-                          </Link>
-                        ) : (
-                          value
-                        )}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              );
-            })}
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
-    </>
-  );
 }
 
 export default async function ExchangeDetailedPage({ params }) {
   const slug = params.slug;
-  const coin = await getExchangeNameFor(slug);
+  const exchange = await getExchangeNameFor(slug);
+  const coin = await getCoinNameFromExchangeSlug(slug);
 
   return (
     <>
@@ -288,16 +55,19 @@ export default async function ExchangeDetailedPage({ params }) {
           flexDirection: "column",
         }}
         disableGutters
+        className={styles.tokenclan}
       >
-        <Grid container spacing={3.75} sx={{ my: 3 }}>
+        <Grid container spacing={3.75} sx={{ mb: 3 }}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h3">
-              {`${coin.name} Exchange Volume in BTC `}
+              {`${exchange.name} Exchange Data `}
             </Typography>
             <Typography variant="h5">
-              <Link href={`/coins/${slug}`} underline="none">
-                (Exchange Coin Profile)
+              (Exchange Coin Profile:{" "}
+              <Link href={`/coins/${coin.slug}`} underline="none">
+                {coin.symbol}{" "}
               </Link>
+              )
             </Typography>
           </Grid>
           <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
@@ -308,34 +78,31 @@ export default async function ExchangeDetailedPage({ params }) {
               <Link underline="hover" color="inherit" href="/exchanges">
                 Exchanges
               </Link>
-              <Typography color="text.primary">{coin.name}</Typography>
+              <Typography color="text.primary">{exchange.name}</Typography>
             </Breadcrumbs>
           </Grid>
         </Grid>
         <Grid container spacing={3.75}>
           <Grid item xs={12}>
-            {await DisplayExchangeProfile(slug)}
+            <ExchangeProfileAccordion slug={slug} />
           </Grid>
-          {await DisplayVolumeStats(slug)}
-          <Grid item xs={12}>
-            {await DisplayVolumeChart(slug)}
-          </Grid>
+          <Suspense fallback={<CircularProgress />}>
+            <Volume slug={slug} />
+          </Suspense>
 
           <Grid item xs={12} mt={5}>
-            <Typography variant="h3">{`${coin.name} Market Cap (USD)`}</Typography>
+            <Typography variant="h3">{`${exchange.name} Market Cap (USD)`}</Typography>
           </Grid>
-          {await DisplayMktcapStatsFor(slug)}
-          <Grid item xs={12}>
-            {await DisplayMktcapFor(slug)}
-          </Grid>
+          <Suspense fallback={<CircularProgress />}>
+            <Marketcap slug={slug} />
+          </Suspense>
 
           <Grid item xs={12} mt={5}>
-            <Typography variant="h3">{`${coin.name} TVEV Ratio`}</Typography>
+            <Typography variant="h3">{`${exchange.name} TVEV Ratio`}</Typography>
           </Grid>
-          {await DisplayTvevStats(slug)}
-          <Grid item xs={12}>
-            {await DisplayTvevRatioChartFor(slug)}
-          </Grid>
+          <Suspense fallback={<CircularProgress />}>
+            <Tvev slug={slug} />
+          </Suspense>
         </Grid>
       </Container>
     </>

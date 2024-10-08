@@ -1,8 +1,11 @@
+import { getDictionary } from "@app/[lang]/dictionaries";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import { ASSET_IMAGES } from "@app/_utilities/constants/paths";
 import {
   Container,
   Typography,
+  Divider,
+  Box,
 } from "@mui/material";
 import { CarouselMain } from "../../_components/_core/CarouselMain/CarouselMain";
 import { CarouselImg } from "../../_components/_core/CarouselImg/CarouselImg";
@@ -30,17 +33,18 @@ const items = [
 
 const images = [
   {
-    image: `${ASSET_IMAGES}/main-page/coingecko-logo.svg`
+    image: `${ASSET_IMAGES}/main-page/coingecko-logo.svg`,
   },
   {
-    image: `${ASSET_IMAGES}/main-page/coinpaprika-logo.svg`
+    image: `${ASSET_IMAGES}/main-page/coinpaprika-logo.svg`,
   },
   {
-    image: `${ASSET_IMAGES}/main-page/defillama-logo.svg`
-  }
+    image: `${ASSET_IMAGES}/main-page/defillama-logo.svg`,
+  },
 ];
 
-export default async function Home() {
+export default async function Home({ params }) {
+  // const { widgets } = await getDictionary(params.lang);
   return (
     <Container
       maxWidth={false}
@@ -53,11 +57,11 @@ export default async function Home() {
       }}
       disableGutters
     >
-      <Typography variant="h1" align="center" mb={10}>
+      <Typography variant="h1" align="center" mb={4}>
         Empowering Crypto Investors With Financial Data
       </Typography>
       <CarouselMain items={items}></CarouselMain>
-      <Typography variant="h2" align="center" mt={10} mb={10}>
+      <Typography variant="h4" align="center" my={4}>
         Data Aggregated From
       </Typography>
       <CarouselImg items={images}></CarouselImg>
