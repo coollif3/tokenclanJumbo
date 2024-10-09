@@ -64,7 +64,10 @@ export default async function ExchangeDetailedPage({ params }) {
             </Typography>
             <Typography variant="h5">
               (Exchange Coin Profile:{" "}
-              <Link href={`/coins/${coin.slug}`} underline="none">
+              <Link
+                href={`/coins/${coin.slug}?route=exchange`}
+                underline="none"
+              >
                 {coin.symbol}{" "}
               </Link>
               )

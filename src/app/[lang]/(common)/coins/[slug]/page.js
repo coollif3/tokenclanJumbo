@@ -8,10 +8,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
-import {
-  getCoinNameFor,
-  getCommonCoinSlug
-} from "@app/_services/coin";
+import { getCoinNameFor, getCommonCoinSlug } from "@app/_services/coin";
 import { getBlockchainNameForSlug } from "@app/_services/blockchain";
 
 import classes from "./styles.module.css";
@@ -25,7 +22,7 @@ export async function generateStaticParams() {
   // console.log("rows: ", rows);
 
   const results = rows
-    .filter(row => row.dcp_slug !== null || row.ecp_slug !== null) // Filter out rows where both dcp_slug and ecp_slug are null
+    .filter((row) => row.dcp_slug !== null || row.ecp_slug !== null) // Filter out rows where both dcp_slug and ecp_slug are null
     .map((row) => {
       let slug = row.dcp_slug || row.ecp_slug; // Use dcp_slug if available, otherwise use ecp_slug
       return { slug };
@@ -60,13 +57,15 @@ export async function generateMetadata({ params, searchParams }) {
   };
 }
 
-export default async function CoinProfilePage({ params }) {
+export default async function CoinProfilePage({ params, searchParams }) {
   // const param = params;
   // console.log("param: ", param);
   const slug = params.slug;
   // console.log("slug: ", slug);
   const exchange = await getCoinNameFor(slug);
   const blockchain = await getBlockchainNameForSlug(slug);
+  // console.log(searchParams);
+  const { route } = searchParams;
 
   let name;
 
@@ -76,7 +75,7 @@ export default async function CoinProfilePage({ params }) {
   if (exchange) {
     name = exchange.name;
   } else if (blockchain) {
-    name = blockchain.name;;
+    name = blockchain.name;
   } else {
     name = "Crypto";
   }
@@ -114,7 +113,7 @@ export default async function CoinProfilePage({ params }) {
         <Grid container spacing={3.75}>
           <Grid item xs={12}>
             <Suspense fallback={<CircularProgress />}>
-              <CoinProfileAccordion slug={slug} />
+              <CoinProfileAccordion slug={slug} route={route} />
             </Suspense>
           </Grid>
         </Grid>

@@ -60,7 +60,7 @@ export default async function BlockchainDetailedPage({ params }) {
           <Typography variant="h3">{`${blockchain.name} Blockchain TVL (USD)`}</Typography>
           <Typography variant="h5">
             (Gas Coin Profile: :{" "}
-            <Link href={`/coins/${slug}`} underline="none">
+            <Link href={`/coins/${slug}?route=blockchain`} underline="none">
               {blockchain.name}{" "}
             </Link>
             )
