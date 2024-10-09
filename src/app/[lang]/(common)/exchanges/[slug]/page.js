@@ -86,9 +86,6 @@ export default async function ExchangeDetailedPage({ params }) {
           </Grid>
         </Grid>
         <Grid container spacing={3.75}>
-          <Grid item xs={12}>
-            <ExchangeProfileAccordion slug={slug} />
-          </Grid>
           <Suspense fallback={<CircularProgress />}>
             <Volume slug={slug} />
           </Suspense>
@@ -106,6 +103,9 @@ export default async function ExchangeDetailedPage({ params }) {
           <Suspense fallback={<CircularProgress />}>
             <Tvev slug={slug} />
           </Suspense>
+          <Grid item xs={12}>
+            <ExchangeProfileAccordion slug={slug} />
+          </Grid>
         </Grid>
       </Container>
     </>
