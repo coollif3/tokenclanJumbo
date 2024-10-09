@@ -4,11 +4,10 @@ import {
   useJumboHeaderTheme,
 } from "@jumbo/components/JumboTheme/hooks";
 import { Div } from "@jumbo/shared";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
+import TollIcon from "@mui/icons-material/Toll";
 import {
   Avatar,
   Button,
@@ -91,6 +90,14 @@ const DropDownPopover = () => {
                 Exchanges
               </ListItemButton>
             </Link>
+            {/* <Link href="/coins" sx={{ my: 0 }} color="inherit" underline="none">
+              <ListItemButton>
+                <ListItemIcon sx={{ minWidth: 36 }}>
+                  <TollIcon />
+                </ListItemIcon>
+                Coins
+              </ListItemButton>
+            </Link> */}
           </List>
         </nav>
       </JumboDdPopover>

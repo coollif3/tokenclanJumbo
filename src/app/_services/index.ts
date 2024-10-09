@@ -18,6 +18,11 @@ async function getMenus(locale: string) {
           label: sidebar.menuItem.exchanges,
           icon: "exchanges",
         },
+        // {
+        //   path: `/${locale}/coins`,
+        //   label: sidebar.menuItem.coins,
+        //   icon: "coins",
+        // },
       ],
     },
     {
@@ -49,7 +54,7 @@ async function getMenus(locale: string) {
           icon: "contact",
         },
       ],
-    }
+    },
   ];
 
   return { menuItems, widgets };
