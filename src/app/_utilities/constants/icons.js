@@ -17,9 +17,9 @@ import {
   PrivacyTip,
   Policy,
   ContactMail,
+  Toll,
 } from "@mui/icons-material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { SxProps, Theme } from "@mui/material";
 
 const APP_ICONS = [
   {
@@ -90,6 +90,10 @@ const APP_ICONS = [
   {
     name: "blockchains",
     Component: CurrencyBitcoin,
+  },
+  {
+    name: "coins",
+    Component: Toll,
   },
   {
     name: "tvevRatio",

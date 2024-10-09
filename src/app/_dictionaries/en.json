@@ -7,6 +7,7 @@
     "menuItem": {
       "blockchains": "Blockchains",
       "exchanges": "Exchanges",
+      "coins": "Coins",
       "tvevRatio": "TVEV Ratio",
       "disclaimer": "Disclaimer",
       "privacy": "Privacy",
