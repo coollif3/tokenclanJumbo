@@ -22,9 +22,9 @@ export async function generateStaticParams() {
   // console.log("rows: ", rows);
 
   const results = rows
-    .filter((row) => row.dcp_slug !== null || row.ecp_slug !== null) // Filter out rows where both dcp_slug and ecp_slug are null
+    .filter((row) => row.coin_slug !== null) // Filter out rows where coin_slug is null
     .map((row) => {
-      let slug = row.dcp_slug || row.ecp_slug; // Use dcp_slug if available, otherwise use ecp_slug
+      let slug = row.coin_slug; // Use coin_slug
       return { slug };
     });
 

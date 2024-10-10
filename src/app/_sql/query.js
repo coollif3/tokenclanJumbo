@@ -364,8 +364,7 @@ export const getCoinProfileBySlug = `SELECT
 
 // Coin queries from combined coin_profile_view table
 export const getCommonCoinSlug = `SELECT 
-  dcp_slug,
-  ecp_slug 
+  coin_slug 
 FROM 
   coin_profile_view;`;
 

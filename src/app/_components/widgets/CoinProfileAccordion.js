@@ -58,7 +58,7 @@ export default async function CoinProfileAccordion({ slug, route }) {
       if (profileType === "dcp" && key.startsWith("ecp_")) return null;
 
       // Skip dcp_slug and ecp_slug display
-      if (key === "dcp_slug" || key === "ecp_slug" || key === "ecp_name")
+      if (key === "dcp_slug" || key === "ecp_slug" || key === "ecp_name" || key === "coin_slug")
         return null;
 
       let displayKey = keyNameMapping[key] || key;
@@ -70,19 +70,19 @@ export default async function CoinProfileAccordion({ slug, route }) {
           xs={12}
           sm={
             (key === "dcp_description" || key === "ecp_description") &&
-            value !== "N.A"
+              value !== "N.A"
               ? 12
               : 6
           }
           md={
             (key === "dcp_description" || key === "ecp_description") &&
-            value !== "N.A"
+              value !== "N.A"
               ? 12
               : 6
           }
           lg={
             (key === "dcp_description" || key === "ecp_description") &&
-            value !== "N.A"
+              value !== "N.A"
               ? 12
               : 6
           }
@@ -92,7 +92,7 @@ export default async function CoinProfileAccordion({ slug, route }) {
             <CardContent>
               <Typography variant="h6">{displayKey}</Typography>
               {(key === "dcp_description" || key === "ecp_description") &&
-              value !== "N.A" ? (
+                value !== "N.A" ? (
                 splitIntoParagraphs(value).map((paragraph, index) => (
                   <Typography variant="body1" paragraph key={index}>
                     {paragraph}
@@ -216,11 +216,11 @@ export default async function CoinProfileAccordion({ slug, route }) {
             sx={{ boxShadow: "none", mb: 3, border: "1px solid #ddd" }}
           >
             <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
-              <Typography variant="h5">Exchange Coin Profile</Typography>
+              <Typography variant="h5">Blockchain Gas Coin Profile</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Grid container spacing={2}>
-                {renderProfileData("ecp")}
+                {renderProfileData("dcp")}
               </Grid>
             </AccordionDetails>
           </Accordion>
