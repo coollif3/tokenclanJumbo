@@ -14,12 +14,15 @@ import {
   getExchangeNameFor,
   getExchanges,
 } from "@app/_services/exchange";
+import { getCoinNameFromExchangeSlug } from "@app/_services/coin";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
 const DataTimeframeChart = lazy(
   () => import("@app/_components/charts/apex/DataTimeframeChart")
 );
+
+import ExchangeSubmenu from "@app/_components/_core/ExchangeSubmenu";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -46,7 +49,7 @@ const chartConfig = {
 
 export default async function SlugMktcapPage({ params }) {
   const slug = params.slug;
-
+  const coin = await getCoinNameFromExchangeSlug(slug);
   const exchange = await getExchangeNameFor(slug);
   const mktcapChng = await getExchangeMktcapChngFor(slug);
 
@@ -65,6 +68,7 @@ export default async function SlugMktcapPage({ params }) {
       <Grid container spacing={3.75} sx={{ mb: 3 }}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h3">{`${exchange.name} Marketcap`}</Typography>
+          <ExchangeSubmenu slug={slug} coinSlug={coin.slug} />
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">

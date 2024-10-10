@@ -12,6 +12,7 @@ import { getExchangeNameFor, getExchanges } from "@app/_services/exchange";
 import { getCoinNameFromExchangeSlug } from "@app/_services/coin";
 import styles from "./styles.module.css";
 import ExchangeProfileAccordion from "@app/_components/charts/apex/exchangeListing/ExchangeProfileAccordion";
+import ExchangeSubmenu from "@app/_components/_core/ExchangeSubmenu";
 
 const Volume = lazy(
   () => import("@app/_components/charts/apex/exchangeListing/Volume")
@@ -42,6 +43,7 @@ export default async function ExchangeDetailedPage({ params }) {
   const slug = params.slug;
   const exchange = await getExchangeNameFor(slug);
   const coin = await getCoinNameFromExchangeSlug(slug);
+  console.log("coin: ", coin);
 
   return (
     <>
@@ -62,16 +64,7 @@ export default async function ExchangeDetailedPage({ params }) {
             <Typography variant="h3">
               {`${exchange.name} Exchange Data `}
             </Typography>
-            <Typography variant="h5">
-              (Exchange Coin Profile:{" "}
-              <Link
-                href={`/coins/${coin.slug}?route=exchange`}
-                underline="none"
-              >
-                {coin.symbol}{" "}
-              </Link>
-              )
-            </Typography>
+            <ExchangeSubmenu slug={slug} coinSlug={coin.slug} />
           </Grid>
           <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
             <Breadcrumbs aria-label="breadcrumb">
