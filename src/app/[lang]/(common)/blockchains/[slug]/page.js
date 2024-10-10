@@ -13,6 +13,7 @@ import {
   getBlockchainNameForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
+import BlockchainSubmenu from "@app/_components/_core/BlockchainSubmenu";
 
 const Tvl = lazy(() => import("@app/_components/charts/apex/blockchain/Tvl"));
 const Marketcap = lazy(
@@ -55,16 +56,10 @@ export default async function BlockchainDetailedPage({ params }) {
       disableGutters
       className={styles.tokenclan}
     >
-      <Grid container spacing={3.75} sx={{ my: 3 }}>
+      <Grid container sx={{ mb: 3 }}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h3">{`${blockchain.name} Blockchain TVL (USD)`}</Typography>
-          <Typography variant="h5">
-            (Gas Coin Profile: :{" "}
-            <Link href={`/coins/${slug}?route=blockchain`} underline="none">
-              {blockchain.name}{" "}
-            </Link>
-            )
-          </Typography>
+          <BlockchainSubmenu slug={slug} />
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">

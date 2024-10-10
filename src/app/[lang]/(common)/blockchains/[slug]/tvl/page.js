@@ -21,6 +21,8 @@ const DataTimeframeChart = lazy(
   () => import("@app/_components/charts/apex/DataTimeframeChart")
 );
 
+import BlockchainSubmenu from "@app/_components/_core/BlockchainSubmenu";
+
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
   const blockchain = await getBlockchainNameForSlug(slug);
@@ -60,7 +62,7 @@ export default async function SlugTvlPage({ params }) {
       }}
       disableGutters
     >
-      <Grid container spacing={3.75} sx={{ mb: 3 }}>
+      <Grid container>
         <Grid item xs={12} sm={6}>
           <Typography variant="h3">{`${blockchain.name} TVL`}</Typography>
         </Grid>
@@ -84,7 +86,10 @@ export default async function SlugTvlPage({ params }) {
         </Grid>
       </Grid>
 
-      <Grid container spacing={3.75}>
+      <Grid container spacing={1.2}>
+        <Grid item xs={12}>
+          <BlockchainSubmenu slug={slug} />
+        </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <CurrentMarketCard
             subheader={"Today's TVL USD"}

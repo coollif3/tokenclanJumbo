@@ -13,6 +13,7 @@ import {
   getBlockchains,
 } from "@app/_services/blockchain";
 import { Suspense, lazy } from "react";
+import BlockchainSubmenu from "@app/_components/_core/BlockchainSubmenu";
 
 const DataTimeframeChart = lazy(
   () => import("@app/_components/charts/apex/DataTimeframeChart")
@@ -58,7 +59,7 @@ export default async function SlugDominancePage({ params }) {
       }}
       disableGutters
     >
-      <Grid container spacing={3.75} sx={{ mb: 3 }}>
+      <Grid container>
         <Grid item xs={12} sm={6}>
           <Typography variant="h3">{`${blockchain.name} TVL Dominance`}</Typography>
         </Grid>
@@ -79,6 +80,9 @@ export default async function SlugDominancePage({ params }) {
             </Link>
             <Typography color="text.primary">Dominance</Typography>
           </Breadcrumbs>
+        </Grid>
+        <Grid item xs={12}>
+          <BlockchainSubmenu slug={slug} />
         </Grid>
       </Grid>
 
