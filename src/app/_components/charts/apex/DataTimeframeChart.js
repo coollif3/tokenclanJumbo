@@ -11,11 +11,7 @@ import Chart from "@app/_components/charts/apex/Chart";
 import { useEffect, useState } from "react";
 import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
 
-export default async function DataTimeframeChart({
-  slug,
-  dataFunc,
-  chartConfig,
-}) {
+export default function DataTimeframeChart({ slug, dataFunc, chartConfig }) {
   const { theme } = useJumboTheme();
   const [timeframe, setTimeframe] = useState(30);
   // const [chartType, setChartType] = useState("daily");
