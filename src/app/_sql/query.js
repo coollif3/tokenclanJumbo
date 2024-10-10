@@ -373,4 +373,4 @@ export const getCommonCoinProfileBySlug = `SELECT
 FROM 
   coin_profile_view 
 WHERE 
-  dcp_slug = :slug OR ecp_slug = :slug;`;
+  coin_slug = :slug ;`;
