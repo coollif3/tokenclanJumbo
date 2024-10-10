@@ -62,7 +62,7 @@ export default function DataTimeframeChart({ slug, dataFunc, chartConfig }) {
   };
 
   return (
-    <Grid container spacing={3.75} sx={{ mt: 3, mb: 3 }}>
+    <Grid container spacing={3.75} sx={{ mb: 3 }}>
       <Grid item xs={12}>
         {/* <Box sx={{ display: "flex", alignItems: "center" }}>
             <ButtonGroup
