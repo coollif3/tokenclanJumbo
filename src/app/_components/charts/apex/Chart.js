@@ -3,10 +3,10 @@
 import dynamic from "next/dynamic";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-export default function Chart({ series, config }) {
+export default function Chart({ series, config, compareSeries }) {
   const chartConfig = {
     options: {
-      colors: ["#5DCBA6"],
+      colors: ["#5DCBA6", "#FF4560"],
       chart: {
         zoom: {
           type: "x",
@@ -83,6 +83,14 @@ export default function Chart({ series, config }) {
         name: config.tooltipSeries,
         data: series,
       },
+      ...(compareSeries?.length
+        ? [
+            {
+              name: "Ratio 2",
+              data: compareSeries,
+            },
+          ]
+        : []),
     ],
   };
 

@@ -10,17 +10,28 @@ import {
 import Chart from "@app/_components/charts/apex/Chart";
 import { useEffect, useState } from "react";
 import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
+import { useSearchParams } from 'next/navigation';
 
 export default function DataTimeframeChart({ slug, dataFunc, chartConfig }) {
   const { theme } = useJumboTheme();
   const [timeframe, setTimeframe] = useState(30);
   // const [chartType, setChartType] = useState("daily");
   const [tvlData, setTvlData] = useState([]);
+  const [tvlCompareData, setTvlCompareData] = useState([]);
+  const searchParams = useSearchParams();
+  const compareTo = searchParams.get('compareTo');
+  
 
   useEffect(() => {
     async function fetchData() {
       const tvlData = await dataFunc(slug, timeframe);
-      setTvlData(tvlData);
+
+      if(compareTo !== null){
+        const tvlDataCompare = await dataFunc(compareTo, timeframe);
+        setTvlCompareData(tvlDataCompare);
+      }
+
+      setTvlData(tvlData);      
     }
 
     fetchData();
@@ -146,7 +157,7 @@ export default function DataTimeframeChart({ slug, dataFunc, chartConfig }) {
         </Box>
       </Grid>
       <Grid item xs={12}>
-        <Chart series={tvlData} config={chartConfig} />
+        <Chart series={tvlData} config={chartConfig} compareSeries={tvlCompareData} />
       </Grid>
     </Grid>
   );
