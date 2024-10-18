@@ -22,6 +22,7 @@ const DataTimeframeChart = lazy(
 );
 
 import BlockchainSubmenu from "@app/_components/_core/BlockchainSubmenu";
+import BlockChainSlugData from "@app/_components/_core/BlockChainSlugData";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -51,7 +52,7 @@ export default async function SlugRatioPage({ params }) {
 
   const blockchain = await getBlockchainNameForSlug(slug);
   const ratioChng = await getBlockchainRatioChngForSlug(slug);
-
+  const listingRows = await getBlockchains();
   return (
     <Container
       maxWidth={false}
@@ -123,6 +124,9 @@ export default async function SlugRatioPage({ params }) {
             period={"month"}
             unit={"%"}
           />
+        </Grid>
+        <Grid item xs={12}>
+          <BlockChainSlugData slugData={listingRows} />
         </Grid>
         <Grid item xs={12}>
           <Suspense fallback={<CircularProgress />}>
