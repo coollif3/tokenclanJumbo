@@ -39,20 +39,21 @@ export async function generateStaticParams() {
   return rows.map((row) => ({ slug: row.slug }));
 }
 
-const chartConfig = {
-  chartTitle: "MarketCap/TVL Ratio",
-  tooltipSeries: "Ratio",
-  yaxisTitle: "Ratio",
-  yaxisFormatter: "THOUSAND_SEPARATOR",
-  yaxisTooltipFormatterLabel: "RATIO",
-};
-
 export default async function SlugRatioPage({ params }) {
   const slug = params.slug;
 
   const blockchain = await getBlockchainNameForSlug(slug);
   const ratioChng = await getBlockchainRatioChngForSlug(slug);
   const listingRows = await getBlockchains();
+
+  const chartConfig = {
+    chartTitle: "MarketCap/TVL Ratio",
+    tooltipSeries: `${blockchain.name}`,
+    yaxisTitle: "Ratio",
+    yaxisFormatter: "THOUSAND_SEPARATOR",
+    yaxisTooltipFormatterLabel: "RATIO",
+  };
+
   return (
     <Container
       maxWidth={false}

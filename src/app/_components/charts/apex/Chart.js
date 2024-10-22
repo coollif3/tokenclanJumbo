@@ -86,7 +86,7 @@ export default function Chart({ series, config, compareSeries }) {
       ...(compareSeries?.length
         ? [
             {
-              name: "Ratio 2",
+              name: config.slugBtooltipSeries,
               data: compareSeries,
             },
           ]

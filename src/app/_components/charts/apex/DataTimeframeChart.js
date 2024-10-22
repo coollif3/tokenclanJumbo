@@ -10,7 +10,8 @@ import {
 import Chart from "@app/_components/charts/apex/Chart";
 import { useEffect, useState } from "react";
 import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
+import { getBlockchainNameForSlug } from "@app/_services/blockchain";
 
 export default function DataTimeframeChart({ slug, dataFunc, chartConfig }) {
   const { theme } = useJumboTheme();
@@ -19,19 +20,20 @@ export default function DataTimeframeChart({ slug, dataFunc, chartConfig }) {
   const [tvlData, setTvlData] = useState([]);
   const [tvlCompareData, setTvlCompareData] = useState([]);
   const searchParams = useSearchParams();
-  const compareTo = searchParams.get('compareTo');
-  
+  const compareToSlug = searchParams.get("compareTo");
 
   useEffect(() => {
     async function fetchData() {
       const tvlData = await dataFunc(slug, timeframe);
 
-      if(compareTo !== null){
-        const tvlDataCompare = await dataFunc(compareTo, timeframe);
+      if (compareToSlug !== null) {
+        const tvlDataCompare = await dataFunc(compareToSlug, timeframe);
         setTvlCompareData(tvlDataCompare);
+        const slugName = await getBlockchainNameForSlug(compareToSlug);
+        chartConfig.slugBtooltipSeries = `${slugName.name}`;
       }
 
-      setTvlData(tvlData);      
+      setTvlData(tvlData);
     }
 
     fetchData();
@@ -157,7 +159,11 @@ export default function DataTimeframeChart({ slug, dataFunc, chartConfig }) {
         </Box>
       </Grid>
       <Grid item xs={12}>
-        <Chart series={tvlData} config={chartConfig} compareSeries={tvlCompareData} />
+        <Chart
+          series={tvlData}
+          config={chartConfig}
+          compareSeries={tvlCompareData}
+        />
       </Grid>
     </Grid>
   );
