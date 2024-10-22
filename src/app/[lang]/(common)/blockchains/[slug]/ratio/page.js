@@ -94,7 +94,7 @@ export default async function SlugRatioPage({ params }) {
         <Grid item xs={12}>
           <BlockchainSubmenu slug={slug} />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={3} sx={{ mb: 2 }}>
           <CurrentMarketCard
             subheader={"Today's Ratio"}
             value={ratioChng.ratio}

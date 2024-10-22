@@ -279,8 +279,8 @@ export const getBlockchainNameForSlug = async (slug) => {
   const getData = nextCache(
     cache(async (slug) => {
       try {
-        console.log("inside function");
-        console.log(slug);
+        // console.log("inside function");
+        // console.log(slug);
         const [results, metadata] = await db.query(getBlockchainNameSql, {
           replacements: {
             slug,

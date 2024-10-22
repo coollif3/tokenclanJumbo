@@ -4,15 +4,16 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import { useRouter } from "next/navigation";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
+import { getBlockchainNameForSlug } from "@app/_services/blockchain";
 
 export default function BlockChainSlugData({ slugData }) {
   const { theme } = useJumboTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const [selectedSlug, setSelectedSlug] = useState(''); 
+  const [selectedSlugName, setSelectedSlugName] = useState("");
   const searchParams = useSearchParams();
-  const compareTo = searchParams.get('compareTo');
+  const compareToSlug = searchParams.get("compareTo");
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -22,17 +23,21 @@ export default function BlockChainSlugData({ slugData }) {
 
   const router = useRouter();
 
-  const handleNavigation = (path,Slug) => {
+  const handleNavigation = (path, name) => {
     handleClose();
     router.push(path);
-    setSelectedSlug(Slug)
+    setSelectedSlugName(name);
   };
 
   useEffect(() => {
-    if(compareTo !== null){
-        setSelectedSlug(compareTo)
+    async function fetchData() {
+      if (compareToSlug !== null) {
+        const slugName = await getBlockchainNameForSlug(compareToSlug);
+        setSelectedSlugName(slugName.name);
+      }
     }
-  })
+    fetchData();
+  });
 
   return (
     <div>
@@ -49,7 +54,9 @@ export default function BlockChainSlugData({ slugData }) {
         }}
         onClick={handleClick}
       >
-        {selectedSlug ? selectedSlug : 'Compare Slug'}
+        {selectedSlugName
+          ? `Data Chart 2: ${selectedSlugName}`
+          : "Compare Slug"}
       </Button>
       <Menu
         id="blockchain-submenu"
@@ -60,27 +67,29 @@ export default function BlockChainSlugData({ slugData }) {
           "aria-labelledby": "bcSubmenu-button",
         }}
         slotProps={{
-            paper: {
-              style: {
-                maxHeight: 48 * 4.5,
-                width: '20ch',
-              },
+          paper: {
+            style: {
+              maxHeight: 48 * 4.5,
+              width: "20ch",
             },
-          }}
+          },
+        }}
       >
         {slugData.map((item, index) => (
-        <MenuItem
-          key={index}
-          sx={{
-            color: theme.palette.text.link,
-            "&:hover": { backgroundColor: theme.palette.background.default },
-            "&:active": { color: theme.palette.primary.main },
-          }}
-          onClick={() => handleNavigation(`?compareTo=${item.name}`,item.name)}
-        >
-          {item.name}
-        </MenuItem>
-      ))}
+          <MenuItem
+            key={index}
+            sx={{
+              color: theme.palette.text.link,
+              "&:hover": { backgroundColor: theme.palette.background.default },
+              "&:active": { color: theme.palette.primary.main },
+            }}
+            onClick={() =>
+              handleNavigation(`?compareTo=${item.slug}`, item.name)
+            }
+          >
+            {item.name}
+          </MenuItem>
+        ))}
       </Menu>
     </div>
   );
