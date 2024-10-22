@@ -1,96 +1,88 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, Menu, MenuItem } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { Button, FormControl, InputLabel, Menu, MenuItem, OutlinedInput, Select } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams,usePathname,useRouter  } from "next/navigation";
 import { getBlockchainNameForSlug } from "@app/_services/blockchain";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 export default function BlockChainSlugData({ slugData }) {
   const { theme } = useJumboTheme();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const [selectedSlugName, setSelectedSlugName] = useState("");
   const searchParams = useSearchParams();
   const compareToSlug = searchParams.get("compareTo");
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  
+  const [multiSelectSlugName, setMultiSelectSlugName] = useState([]);
 
   const router = useRouter();
+  const pathName = usePathname()
 
-  const handleNavigation = (path, name) => {
-    handleClose();
-    router.push(path);
-    setSelectedSlugName(name);
-  };
+
+  async function getSlugName (array) {
+    const slugNameArray = await Promise.allSettled(
+      array.map(slug => getBlockchainNameForSlug(slug))
+    )
+
+    return slugNameArray.map((result) => result.value).map((x) => x.name)
+  }
+
+  const handleOnChange = async(e) => {
+    const newValues = e.target.value;
+    let data = newValues.map((slug) => slugData.find(item => item.name === slug)).map((x) => x.slug);
+    const queryString = data.length ? `?compareTo=${data.join(',')}` : pathName;
+    router.push(queryString, undefined, { shallow: true });
+    setMultiSelectSlugName(e.target.value)
+  }
 
   useEffect(() => {
     async function fetchData() {
       if (compareToSlug !== null) {
-        const slugName = await getBlockchainNameForSlug(compareToSlug);
-        setSelectedSlugName(slugName.name);
+        getBlockchainNameForSlug(compareToSlug)
+        let array = compareToSlug.split(',');
+        setMultiSelectSlugName(await getSlugName(array))
       }
     }
     fetchData();
-  });
+  },[compareToSlug]);
 
   return (
     <div>
-      <Button
-        variant="outlined"
-        endIcon={<ArrowDropDownIcon sx={{ fontSize: 32 }} />}
-        id="bcSubmenu-button"
-        aria-controls={open ? "blockchain-submenu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        sx={{
-          color: theme.palette.text.link,
-          borderColor: theme.palette.text.link,
-        }}
-        onClick={handleClick}
+      <FormControl sx={{ m: 1, width: 300 }}>
+      <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+      <Select
+        labelId="demo-multiple-name-label"
+        id="demo-multiple-name"
+        multiple
+        value={multiSelectSlugName}
+        onChange={(e) => handleOnChange(e)}
+        input={<OutlinedInput label="Name" />}
+        MenuProps={MenuProps}
       >
-        {selectedSlugName
-          ? `Data Chart 2: ${selectedSlugName}`
-          : "Compare Slug"}
-      </Button>
-      <Menu
-        id="blockchain-submenu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "bcSubmenu-button",
-        }}
-        slotProps={{
-          paper: {
-            style: {
-              maxHeight: 48 * 4.5,
-              width: "20ch",
-            },
-          },
-        }}
-      >
-        {slugData.map((item, index) => (
-          <MenuItem
-            key={index}
-            sx={{
-              color: theme.palette.text.link,
-              "&:hover": { backgroundColor: theme.palette.background.default },
-              "&:active": { color: theme.palette.primary.main },
-            }}
-            onClick={() =>
-              handleNavigation(`?compareTo=${item.slug}`, item.name)
-            }
-          >
-            {item.name}
-          </MenuItem>
-        ))}
-      </Menu>
+          {slugData.map((item, index) => (
+            <MenuItem
+              key={index}
+              value={item.name}
+              sx={{
+                color: theme.palette.text.link,
+                "&:hover": { backgroundColor: theme.palette.background.default },
+                "&:active": { color: theme.palette.primary.main },
+              }}
+            >
+              {item.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </div>
   );
 }

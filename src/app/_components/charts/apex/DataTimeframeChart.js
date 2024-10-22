@@ -25,19 +25,23 @@ export default function DataTimeframeChart({ slug, dataFunc, chartConfig }) {
   useEffect(() => {
     async function fetchData() {
       const tvlData = await dataFunc(slug, timeframe);
-
       if (compareToSlug !== null) {
-        const tvlDataCompare = await dataFunc(compareToSlug, timeframe);
-        setTvlCompareData(tvlDataCompare);
-        const slugName = await getBlockchainNameForSlug(compareToSlug);
-        chartConfig.slugBtooltipSeries = `${slugName.name}`;
+        let array = compareToSlug.split(',');
+        const tvlDataCompareArray = await Promise.allSettled(
+          array.map(slug => dataFunc(slug, timeframe))
+        );
+        setTvlCompareData(tvlDataCompareArray.map((result) => result.value))
+        const slugNameArray = await Promise.allSettled(
+          array.map(slug => getBlockchainNameForSlug(slug))
+        )
+        chartConfig.slugtooltipSeriesArray = slugNameArray.map((result) => result.value).map((x) => x.name);
       }
 
       setTvlData(tvlData);
     }
 
     fetchData();
-  }, [slug, timeframe, dataFunc]);
+  }, [slug, timeframe, dataFunc,compareToSlug]);
 
   // useEffect(() => {
   //   async function fetchData() {

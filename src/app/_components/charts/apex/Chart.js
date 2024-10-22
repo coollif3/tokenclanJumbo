@@ -83,16 +83,15 @@ export default function Chart({ series, config, compareSeries }) {
         name: config.tooltipSeries,
         data: series,
       },
-      ...(compareSeries?.length
-        ? [
-            {
-              name: config.slugBtooltipSeries,
-              data: compareSeries,
-            },
-          ]
-        : []),
+      ...(compareSeries?.length && config.slugtooltipSeriesArray
+        ? compareSeries.map((series, index) => ({
+          name: config.slugtooltipSeriesArray[index],
+          data: series,
+        }))
+      : []),
     ],
   };
+  
 
   return (
     <ApexChart
