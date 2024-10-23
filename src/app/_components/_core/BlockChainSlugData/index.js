@@ -38,10 +38,16 @@ export default function BlockChainSlugData({ slugData }) {
 
   const handleOnChange = async(e) => {
     const newValues = e.target.value;
-    let data = newValues.map((slug) => slugData.find(item => item.name === slug)).map((x) => x.slug);
-    const queryString = data.length ? `?compareTo=${data.join(',')}` : pathName;
-    router.push(queryString, undefined, { shallow: true });
-    setMultiSelectSlugName(e.target.value)
+
+    if(newValues.length <= 5){
+      let data = newValues.map((slug) => slugData.find(item => item.name === slug)).map((x) => x.slug);
+      const queryString = data.length ? `?compareTo=${data.join(',')}` : pathName;
+      router.push(queryString, undefined, { shallow: true });
+      setMultiSelectSlugName(e.target.value)
+    }
+    else{
+      return;
+    }
   }
 
   useEffect(() => {
@@ -58,7 +64,7 @@ export default function BlockChainSlugData({ slugData }) {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-      <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+      <InputLabel id="demo-multiple-name-label">Select</InputLabel>
       <Select
         labelId="demo-multiple-name-label"
         id="demo-multiple-name"

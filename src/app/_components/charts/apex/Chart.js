@@ -6,7 +6,7 @@ const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 export default function Chart({ series, config, compareSeries }) {
   const chartConfig = {
     options: {
-      colors: ["#5DCBA6", "#FF4560"],
+      colors: ["#5DCBA6", "#FF4560","#00A100","#008FFB","#FFB200","#8D95EB"],
       chart: {
         zoom: {
           type: "x",
