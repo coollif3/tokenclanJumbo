@@ -1,15 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   FormControl,
   InputLabel,
-  Menu,
   MenuItem,
   OutlinedInput,
   Select,
 } from "@mui/material";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { getBlockchainNameForSlug } from "@app/_services/blockchain";
@@ -25,7 +22,7 @@ const MenuProps = {
   },
 };
 
-export default function BlockChainSlugData({ slugData }) {
+export default function CompareTimeSeriesBox({ slugData }) {
   const { theme } = useJumboTheme();
   const searchParams = useSearchParams();
   const compareToSlug = searchParams.get("compareTo");
@@ -73,7 +70,7 @@ export default function BlockChainSlugData({ slugData }) {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ my: 1, width: 300 }}>
         <InputLabel id="demo-multiple-name-label">Compare</InputLabel>
         <Select
           labelId="demo-multiple-name-label"

@@ -22,7 +22,7 @@ const DataTimeframeChart = lazy(
 );
 
 import BlockchainSubmenu from "@app/_components/_core/BlockchainSubmenu";
-import BlockChainSlugData from "@app/_components/_core/BlockChainSlugData";
+import CompareTimeSeriesBox from "@app/_components/_core/CompareTimeSeriesBox";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -127,7 +127,7 @@ export default async function SlugRatioPage({ params }) {
           />
         </Grid>
         <Grid item xs={12}>
-          <BlockChainSlugData slugData={listingRows} />
+          <CompareTimeSeriesBox slugData={listingRows} />
         </Grid>
         <Grid item xs={12}>
           <Suspense fallback={<CircularProgress />}>
