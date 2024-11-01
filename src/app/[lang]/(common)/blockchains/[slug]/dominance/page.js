@@ -19,6 +19,8 @@ const DataTimeframeChart = lazy(
   () => import("@app/_components/charts/apex/DataTimeframeChart")
 );
 
+import CompareTimeSeriesBox from "@app/_components/_core/CompareTimeSeriesBox";
+
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
   const blockchain = await getBlockchainNameForSlug(slug);
@@ -44,8 +46,8 @@ const chartConfig = {
 
 export default async function SlugDominancePage({ params }) {
   const slug = params.slug;
-
   const blockchain = await getBlockchainNameForSlug(slug);
+  const listingRows = await getBlockchains();
 
   return (
     <Container
@@ -83,6 +85,9 @@ export default async function SlugDominancePage({ params }) {
         </Grid>
         <Grid item xs={12}>
           <BlockchainSubmenu slug={slug} />
+        </Grid>
+        <Grid item xs={12}>
+          <CompareTimeSeriesBox slugData={listingRows} />
         </Grid>
       </Grid>
 
