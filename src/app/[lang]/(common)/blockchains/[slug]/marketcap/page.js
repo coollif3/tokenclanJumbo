@@ -127,7 +127,7 @@ export default async function SlugMktcapPage({ params }) {
           />
         </Grid>
         <Grid item xs={12}>
-          <CompareTimeSeriesBox slugData={listingRows} />
+          <CompareTimeSeriesBox slugData={listingRows} boxType="blockchain" />
         </Grid>
         <Grid item xs={12}>
           <Suspense fallback={<CircularProgress />}>

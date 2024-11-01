@@ -127,7 +127,7 @@ export default async function SlugRatioPage({ params }) {
           />
         </Grid>
         <Grid item xs={12}>
-          <CompareTimeSeriesBox slugData={listingRows} />
+          <CompareTimeSeriesBox slugData={listingRows} boxType="blockchain" />
         </Grid>
         <Grid item xs={12}>
           <Suspense fallback={<CircularProgress />}>
@@ -135,6 +135,7 @@ export default async function SlugRatioPage({ params }) {
               slug={slug}
               dataFunc={getBlockchainRatioForSlug}
               chartConfig={chartConfig}
+              chartType="blockchain"
             />
           </Suspense>
         </Grid>

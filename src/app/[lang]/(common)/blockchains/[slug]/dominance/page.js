@@ -87,7 +87,7 @@ export default async function SlugDominancePage({ params }) {
           <BlockchainSubmenu slug={slug} />
         </Grid>
         <Grid item xs={12}>
-          <CompareTimeSeriesBox slugData={listingRows} />
+          <CompareTimeSeriesBox slugData={listingRows} boxType="blockchain" />
         </Grid>
       </Grid>
 
