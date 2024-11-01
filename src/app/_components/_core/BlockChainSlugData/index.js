@@ -1,9 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, FormControl, InputLabel, Menu, MenuItem, OutlinedInput, Select } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  Menu,
+  MenuItem,
+  OutlinedInput,
+  Select,
+} from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
-import { useSearchParams,usePathname,useRouter  } from "next/navigation";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { getBlockchainNameForSlug } from "@app/_services/blockchain";
 
 const ITEM_HEIGHT = 48;
@@ -21,66 +29,70 @@ export default function BlockChainSlugData({ slugData }) {
   const { theme } = useJumboTheme();
   const searchParams = useSearchParams();
   const compareToSlug = searchParams.get("compareTo");
-  
+
   const [multiSelectSlugName, setMultiSelectSlugName] = useState([]);
 
   const router = useRouter();
-  const pathName = usePathname()
+  const pathName = usePathname();
 
-
-  async function getSlugName (array) {
+  async function getSlugName(array) {
     const slugNameArray = await Promise.allSettled(
-      array.map(slug => getBlockchainNameForSlug(slug))
-    )
+      array.map((slug) => getBlockchainNameForSlug(slug))
+    );
 
-    return slugNameArray.map((result) => result.value).map((x) => x.name)
+    return slugNameArray.map((result) => result.value).map((x) => x.name);
   }
 
-  const handleOnChange = async(e) => {
+  const handleOnChange = async (e) => {
     const newValues = e.target.value;
 
-    if(newValues.length <= 5){
-      let data = newValues.map((slug) => slugData.find(item => item.name === slug)).map((x) => x.slug);
-      const queryString = data.length ? `?compareTo=${data.join(',')}` : pathName;
+    if (newValues.length <= 4) {
+      let data = newValues
+        .map((slug) => slugData.find((item) => item.name === slug))
+        .map((x) => x.slug);
+      const queryString = data.length
+        ? `?compareTo=${data.join(",")}`
+        : pathName;
       router.push(queryString, undefined, { shallow: true });
-      setMultiSelectSlugName(e.target.value)
-    }
-    else{
+      setMultiSelectSlugName(e.target.value);
+    } else {
       return;
     }
-  }
+  };
 
   useEffect(() => {
     async function fetchData() {
       if (compareToSlug !== null) {
-        getBlockchainNameForSlug(compareToSlug)
-        let array = compareToSlug.split(',');
-        setMultiSelectSlugName(await getSlugName(array))
+        getBlockchainNameForSlug(compareToSlug);
+        let array = compareToSlug.split(",");
+        setMultiSelectSlugName(await getSlugName(array));
       }
     }
     fetchData();
-  },[compareToSlug]);
+  }, [compareToSlug]);
 
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-      <InputLabel id="demo-multiple-name-label">Select</InputLabel>
-      <Select
-        labelId="demo-multiple-name-label"
-        id="demo-multiple-name"
-        multiple
-        value={multiSelectSlugName}
-        onChange={(e) => handleOnChange(e)}
-        input={<OutlinedInput label="Name" />}
-        MenuProps={MenuProps}
-      >
+        <InputLabel id="demo-multiple-name-label">Compare</InputLabel>
+        <Select
+          labelId="demo-multiple-name-label"
+          id="demo-multiple-name"
+          multiple
+          value={multiSelectSlugName}
+          onChange={(e) => handleOnChange(e)}
+          input={<OutlinedInput label="Name" />}
+          MenuProps={MenuProps}
+        >
           {slugData.map((item, index) => (
             <MenuItem
               key={index}
               value={item.name}
               sx={{
                 color: theme.palette.text.link,
-                "&:hover": { backgroundColor: theme.palette.background.default },
+                "&:hover": {
+                  backgroundColor: theme.palette.background.default,
+                },
                 "&:active": { color: theme.palette.primary.main },
               }}
             >

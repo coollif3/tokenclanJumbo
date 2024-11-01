@@ -6,7 +6,7 @@ const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 export default function Chart({ series, config, compareSeries }) {
   const chartConfig = {
     options: {
-      colors: ["#5DCBA6", "#FF4560","#00A100","#008FFB","#FFB200","#8D95EB"],
+      colors: ["#5DCBA6", "#FF4560", "#00A100", "#008FFB", "#FFB200"],
       chart: {
         zoom: {
           type: "x",
@@ -85,13 +85,12 @@ export default function Chart({ series, config, compareSeries }) {
       },
       ...(compareSeries?.length && config.slugtooltipSeriesArray
         ? compareSeries.map((series, index) => ({
-          name: config.slugtooltipSeriesArray[index],
-          data: series,
-        }))
-      : []),
+            name: config.slugtooltipSeriesArray[index],
+            data: series,
+          }))
+        : []),
     ],
   };
-  
 
   return (
     <ApexChart
