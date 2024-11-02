@@ -23,6 +23,7 @@ const DataTimeframeChart = lazy(
 );
 
 import ExchangeSubmenu from "@app/_components/_core/ExchangeSubmenu";
+import CompareTimeSeriesBox from "@app/_components/_core/CompareTimeSeriesBox";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -39,19 +40,20 @@ export async function generateStaticParams() {
   return rows.map((row) => ({ slug: row.slug }));
 }
 
-const chartConfig = {
-  chartTitle: "Exchange Marketcap",
-  tooltipSeries: "Marketcap",
-  yaxisTitle: "USD",
-  yaxisFormatter: "THOUSAND_SEPARATOR",
-  yaxisTooltipFormatterLabel: "DOLLAR",
-};
-
 export default async function SlugMktcapPage({ params }) {
   const slug = params.slug;
   const coin = await getCoinNameFromExchangeSlug(slug);
   const exchange = await getExchangeNameFor(slug);
   const mktcapChng = await getExchangeMktcapChngFor(slug);
+  const listingRows = await getExchanges();
+
+  const chartConfig = {
+    chartTitle: "Exchange Marketcap",
+    tooltipSeries: `${exchange.name}`,
+    yaxisTitle: "USD",
+    yaxisFormatter: "THOUSAND_SEPARATOR",
+    yaxisTooltipFormatterLabel: "DOLLAR",
+  };
 
   return (
     <Container
@@ -120,11 +122,15 @@ export default async function SlugMktcapPage({ params }) {
           />
         </Grid>
         <Grid item xs={12}>
+          <CompareTimeSeriesBox slugData={listingRows} boxType="exchange" />
+        </Grid>
+        <Grid item xs={12}>
           <Suspense fallback={<CircularProgress />}>
             <DataTimeframeChart
               slug={slug}
               dataFunc={getExchangeMktcapFor}
               chartConfig={chartConfig}
+              chartType="exchange"
             />
           </Suspense>
         </Grid>

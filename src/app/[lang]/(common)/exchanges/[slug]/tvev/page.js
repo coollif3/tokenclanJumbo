@@ -22,6 +22,7 @@ const DataTimeframeChart = lazy(
   () => import("@app/_components/charts/apex/DataTimeframeChart")
 );
 import ExchangeSubmenu from "@app/_components/_core/ExchangeSubmenu";
+import CompareTimeSeriesBox from "@app/_components/_core/CompareTimeSeriesBox";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -38,19 +39,20 @@ export async function generateStaticParams() {
   return rows.map((row) => ({ slug: row.slug }));
 }
 
-const chartConfig = {
-  chartTitle: "Exchange TVEV Ratio",
-  tooltipSeries: "Ratio",
-  yaxisTitle: "Ratio",
-  yaxisFormatter: "THOUSAND_SEPARATOR",
-  yaxisTooltipFormatterLabel: "RATIO",
-};
-
 export default async function SlugMktcapPage({ params }) {
   const slug = params.slug;
   const coin = await getCoinNameFromExchangeSlug(slug);
   const exchange = await getExchangeNameFor(slug);
   const tvevChng = await getExchangeTvevChngFor(slug);
+  const listingRows = await getExchanges();
+
+  const chartConfig = {
+    chartTitle: "Exchange TVEV Ratio",
+    tooltipSeries: `${exchange.name}`,
+    yaxisTitle: "Ratio",
+    yaxisFormatter: "THOUSAND_SEPARATOR",
+    yaxisTooltipFormatterLabel: "RATIO",
+  };
 
   return (
     <Container
@@ -119,11 +121,15 @@ export default async function SlugMktcapPage({ params }) {
           />
         </Grid>
         <Grid item xs={12}>
+          <CompareTimeSeriesBox slugData={listingRows} boxType="exchange" />
+        </Grid>
+        <Grid item xs={12}>
           <Suspense fallback={<CircularProgress />}>
             <DataTimeframeChart
               slug={slug}
               dataFunc={getExchangeTvevFor}
               chartConfig={chartConfig}
+              chartType="exchange"
             />
           </Suspense>
         </Grid>

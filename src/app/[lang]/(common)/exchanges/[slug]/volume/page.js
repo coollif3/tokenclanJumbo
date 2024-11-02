@@ -18,6 +18,7 @@ import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChn
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 import { Suspense, lazy } from "react";
 import ExchangeSubmenu from "@app/_components/_core/ExchangeSubmenu";
+import CompareTimeSeriesBox from "@app/_components/_core/CompareTimeSeriesBox";
 
 const DataTimeframeChart = lazy(
   () => import("@app/_components/charts/apex/DataTimeframeChart")
@@ -38,20 +39,20 @@ export async function generateStaticParams() {
   return rows.map((row) => ({ slug: row.slug }));
 }
 
-const chartConfig = {
-  chartTitle: "Exchange Volume BTC",
-  tooltipSeries: "Volume",
-  yaxisTitle: "24hr Volume",
-  yaxisFormatter: "THOUSAND_SEPARATOR",
-  yaxisTooltipFormatterLabel: "BITCOIN",
-};
-
 export default async function SlugVolumePage({ params }) {
   const slug = params.slug;
   const coin = await getCoinNameFromExchangeSlug(slug);
   const exchange = await getExchangeNameFor(slug);
   const volumeChng = await getExchangeVolumeChngFor(slug);
+  const listingRows = await getExchanges();
 
+  const chartConfig = {
+    chartTitle: "Exchange Volume BTC",
+    tooltipSeries: `${exchange.name}`,
+    yaxisTitle: "24hr Volume",
+    yaxisFormatter: "THOUSAND_SEPARATOR",
+    yaxisTooltipFormatterLabel: "BITCOIN",
+  };
   return (
     <Container
       maxWidth={false}
@@ -119,11 +120,15 @@ export default async function SlugVolumePage({ params }) {
           />
         </Grid>
         <Grid item xs={12}>
+          <CompareTimeSeriesBox slugData={listingRows} boxType="exchange" />
+        </Grid>
+        <Grid item xs={12}>
           <Suspense fallback={<CircularProgress />}>
             <DataTimeframeChart
               slug={slug}
               dataFunc={getExchangeVolumeFor}
               chartConfig={chartConfig}
+              chartType="exchange"
             />
           </Suspense>
         </Grid>

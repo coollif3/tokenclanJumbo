@@ -20,6 +20,7 @@ const DataTimeframeChart = lazy(
 );
 
 import ExchangeSubmenu from "@app/_components/_core/ExchangeSubmenu";
+import CompareTimeSeriesBox from "@app/_components/_core/CompareTimeSeriesBox";
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
@@ -35,18 +36,19 @@ export async function generateStaticParams() {
   return rows.map((row) => ({ slug: row.slug }));
 }
 
-const chartConfig = {
-  chartTitle: "Dominance",
-  tooltipSeries: "Dominance",
-  yaxisTitle: "%",
-  yaxisFormatter: "",
-  yaxisTooltipFormatterLabel: "PERCENTAGE",
-};
-
 export default async function SlugDominancePage({ params }) {
   const slug = params.slug;
   const coin = await getCoinNameFromExchangeSlug(slug);
   const exchange = await getExchangeNameFor(slug);
+  const listingRows = await getExchanges();
+
+  const chartConfig = {
+    chartTitle: "Dominance",
+    tooltipSeries: `${exchange.name}`,
+    yaxisTitle: "%",
+    yaxisFormatter: "",
+    yaxisTooltipFormatterLabel: "PERCENTAGE",
+  };
 
   return (
     <Container
@@ -83,11 +85,15 @@ export default async function SlugDominancePage({ params }) {
 
       <Grid container spacing={3.75}>
         <Grid item xs={12}>
+          <CompareTimeSeriesBox slugData={listingRows} boxType="exchange" />
+        </Grid>
+        <Grid item xs={12}>
           <Suspense fallback={<CircularProgress />}>
             <DataTimeframeChart
               slug={slug}
               chartConfig={chartConfig}
               dataFunc={getExchangeCoinDominanceForSlug}
+              chartType="exchange"
             />
           </Suspense>
         </Grid>
