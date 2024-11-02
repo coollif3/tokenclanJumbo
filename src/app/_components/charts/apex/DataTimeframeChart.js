@@ -13,35 +13,41 @@ import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
 import { useSearchParams } from "next/navigation";
 import { getBlockchainNameForSlug } from "@app/_services/blockchain";
 
-export default function DataTimeframeChart({ slug, dataFunc, chartConfig }) {
+export default function DataTimeframeChart({
+  slug,
+  dataFunc,
+  chartConfig,
+  chartType,
+}) {
   const { theme } = useJumboTheme();
   const [timeframe, setTimeframe] = useState(30);
-  // const [chartType, setChartType] = useState("daily");
-  const [tvlData, setTvlData] = useState([]);
-  const [tvlCompareData, setTvlCompareData] = useState([]);
+  const [chartData, setChartData] = useState([]);
+  const [compareData, setCompareData] = useState([]);
   const searchParams = useSearchParams();
   const compareToSlug = searchParams.get("compareTo");
 
   useEffect(() => {
     async function fetchData() {
-      const tvlData = await dataFunc(slug, timeframe);
+      const seriesData = await dataFunc(slug, timeframe);
       if (compareToSlug !== null) {
-        let array = compareToSlug.split(',');
-        const tvlDataCompareArray = await Promise.allSettled(
-          array.map(slug => dataFunc(slug, timeframe))
+        let array = compareToSlug.split(",");
+        const dataCompareArray = await Promise.allSettled(
+          array.map((slug) => dataFunc(slug, timeframe))
         );
-        setTvlCompareData(tvlDataCompareArray.map((result) => result.value))
+        setCompareData(dataCompareArray.map((result) => result.value));
         const slugNameArray = await Promise.allSettled(
-          array.map(slug => getBlockchainNameForSlug(slug))
-        )
-        chartConfig.slugtooltipSeriesArray = slugNameArray.map((result) => result.value).map((x) => x.name);
+          array.map((slug) => getBlockchainNameForSlug(slug))
+        );
+        chartConfig.slugtooltipSeriesArray = slugNameArray
+          .map((result) => result.value)
+          .map((x) => x.name);
       }
 
-      setTvlData(tvlData);
+      setChartData(seriesData);
     }
 
     fetchData();
-  }, [slug, timeframe, dataFunc,compareToSlug]);
+  }, [slug, timeframe, dataFunc, compareToSlug]);
 
   // useEffect(() => {
   //   async function fetchData() {
@@ -164,9 +170,9 @@ export default function DataTimeframeChart({ slug, dataFunc, chartConfig }) {
       </Grid>
       <Grid item xs={12}>
         <Chart
-          series={tvlData}
+          series={chartData}
           config={chartConfig}
-          compareSeries={tvlCompareData}
+          compareSeries={compareData}
         />
       </Grid>
     </Grid>
