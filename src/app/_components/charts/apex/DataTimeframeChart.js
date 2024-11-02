@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
 import { useSearchParams } from "next/navigation";
 import { getBlockchainNameForSlug } from "@app/_services/blockchain";
+import { getExchangeNameFor } from "@app/_services/exchange";
 
 export default function DataTimeframeChart({
   slug,
@@ -36,7 +37,16 @@ export default function DataTimeframeChart({
         );
         setCompareData(dataCompareArray.map((result) => result.value));
         const slugNameArray = await Promise.allSettled(
-          array.map((slug) => getBlockchainNameForSlug(slug))
+          array.map((slug) => {
+            if (chartType === "blockchain") {
+              // console.log("blockchain logic");
+              return getBlockchainNameForSlug(slug);
+            } else {
+              // it is exchange
+              // console.log("exchange logic");
+              return getExchangeNameFor(slug);
+            }
+          })
         );
         chartConfig.slugtooltipSeriesArray = slugNameArray
           .map((result) => result.value)
@@ -47,7 +57,7 @@ export default function DataTimeframeChart({
     }
 
     fetchData();
-  }, [slug, timeframe, dataFunc, compareToSlug]);
+  }, [slug, timeframe, dataFunc, compareToSlug, chartType]);
 
   // useEffect(() => {
   //   async function fetchData() {
