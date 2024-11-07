@@ -362,6 +362,17 @@ export const getCoinProfileBySlug = `SELECT
   WHERE 
     c.name_id = :slug;`;
 
+export const listAllCoins = `SELECT
+    coin_name,
+    price,
+    market_cap,
+    total_vol,
+    price_chg_percent_24h
+  FROM
+    coin_data_latest
+  ORDER BY
+    market_cap DESC;`;
+
 // Coin queries from combined coin_profile_view table
 export const getCommonCoinSlug = `SELECT 
   coin_slug 
