@@ -1,0 +1,10 @@
+.tokenclan a {
+  color: var(--color-link);
+  /* color: #2d5fb4; */
+  text-decoration: none;
+}
+
+.tokenclan a:hover {
+  color: var(--color-primary);
+  /* color: #5dcba6; */
+}
