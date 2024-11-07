@@ -24,11 +24,24 @@ const eSequelize = new Sequelize(
   }
 );
 
+const cSequelize = new Sequelize(
+  config["dbCoin"],
+  config["dbUser"],
+  config["dbPass"],
+  {
+    host: config["dbHost"],
+    dialect: "mysql",
+    dialectModule: mysql2,
+  }
+);
+
 const sequelize = {
   blockchain: bcSequelize,
   exchange: eSequelize,
+  coin: cSequelize,
 };
 
 export default sequelize;
 export const blockchain = bcSequelize;
 export const exchange = eSequelize;
+export const coin = cSequelize;

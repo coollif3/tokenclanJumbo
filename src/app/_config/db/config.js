@@ -8,6 +8,7 @@ const {
   DEMO_DB_PASS,
   DB_BLOCKCHAIN,
   DB_EXCHANGE,
+  DB_COIN,
 } = process.env;
 
 let config = {};
@@ -20,6 +21,7 @@ if (NODE_ENV === "production") {
     dbPass: DB_PASS,
     dbBlockchain: DB_BLOCKCHAIN,
     dbExchange: DB_EXCHANGE,
+    dbCoin: DB_COIN,
   };
 } else {
   config = {
@@ -29,6 +31,7 @@ if (NODE_ENV === "production") {
     dbPass: DEMO_DB_PASS,
     dbBlockchain: DB_BLOCKCHAIN,
     dbExchange: DB_EXCHANGE,
+    dbCoin: DB_COIN,
   };
 }
 
