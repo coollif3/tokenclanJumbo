@@ -1,12 +1,12 @@
 import { lazy, Suspense } from "react";
-import { getBlockchains } from "@app/_services/blockchain";
+import { getCoinData } from "@app/_services/coin";
 import { Container, Grid, Typography, CircularProgress } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 
-const BlockchainDataTable = lazy(
+const CoinDataTable = lazy(
   () =>
     import(
-      "@app/_components/widgets/BlockchainTableListing/BlockchainDataTable"
+      "@app/_components/widgets/CoinTableListing/CoinDataTable"
     )
 );
 
@@ -17,7 +17,7 @@ export const metadata = {
 };
 
 const CoinsPage = async () => {
-  const listingRows = await getBlockchains();
+  const listingRows = await getCoinData();
   return (
     <Container
       maxWidth={false}
@@ -36,7 +36,7 @@ const CoinsPage = async () => {
         </Grid>
         <Grid item xs={12}>
           <Suspense fallback={<CircularProgress />}>
-            <BlockchainDataTable rows={listingRows} />
+            <CoinDataTable rows={listingRows} />
           </Suspense>
         </Grid>
       </Grid>

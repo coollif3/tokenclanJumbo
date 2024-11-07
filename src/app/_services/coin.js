@@ -2,6 +2,7 @@
 import { cache } from "react";
 import { unstable_cache as nextCache } from "next/cache";
 import { exchange as db } from "../_config/db/db";
+import { coin as dbc } from "../_config/db/db";
 import { formatToTimestampArray } from "@app/_utilities/helpers";
 import {
   getCoinProfileBySlug,
@@ -10,6 +11,7 @@ import {
   getAllExchangeCoinSlug as getAllExchangeCoinSlugSql,
   getCommonCoinProfileBySlug,
   getCommonCoinSlug as getCommonCoinSlugSql,
+  listAllCoins,
 } from "../_sql/query";
 
 // Get coin profile data for a given slug
@@ -145,4 +147,20 @@ export const getCommonCoinSlug = nextCache(
   }),
   ["getCommonCoinSlug"],
   { revalidate: 86400 }
+);
+
+// Get coin data
+export const getCoinData = nextCache(
+  cache(async () => {
+    try {
+      const [results, metadata] = await dbc.query(listAllCoins);
+      console.log("listAllCoins: ", results);
+      return results;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error fetching all coins data");
+    }
+  }),
+  ["getCoinData"],
+  { revalidate: 28800 }
 );
