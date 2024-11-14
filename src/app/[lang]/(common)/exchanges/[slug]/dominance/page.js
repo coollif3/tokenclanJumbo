@@ -13,7 +13,7 @@ import {
   getExchangeNameFor,
   getExchanges,
 } from "@app/_services/exchange";
-import { getCoinNameFromExchangeSlug } from "@app/_services/coin";
+import { getCoinSlugUsingExchngSlug } from "@app/_services/coin";
 
 const DataTimeframeChart = lazy(
   () => import("@app/_components/charts/apex/DataTimeframeChart")
@@ -38,7 +38,7 @@ export async function generateStaticParams() {
 
 export default async function SlugDominancePage({ params }) {
   const slug = params.slug;
-  const coin = await getCoinNameFromExchangeSlug(slug);
+  const coin = await getCoinSlugUsingExchngSlug(slug);
   const exchange = await getExchangeNameFor(slug);
   const listingRows = await getExchanges();
 

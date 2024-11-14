@@ -13,7 +13,7 @@ import {
   getExchangeNameFor,
   getExchanges,
 } from "@app/_services/exchange";
-import { getCoinNameFromExchangeSlug } from "@app/_services/coin";
+import { getCoinSlugUsingExchngSlug } from "@app/_services/coin";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 import { Suspense, lazy } from "react";
@@ -41,7 +41,7 @@ export async function generateStaticParams() {
 
 export default async function SlugMktcapPage({ params }) {
   const slug = params.slug;
-  const coin = await getCoinNameFromExchangeSlug(slug);
+  const coin = await getCoinSlugUsingExchngSlug(slug);
   const exchange = await getExchangeNameFor(slug);
   const tvevChng = await getExchangeTvevChngFor(slug);
   const listingRows = await getExchanges();

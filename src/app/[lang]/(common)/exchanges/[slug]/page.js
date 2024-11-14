@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import { getExchangeNameFor, getExchanges } from "@app/_services/exchange";
-import { getCoinNameFromExchangeSlug } from "@app/_services/coin";
+import { getCoinSlugUsingExchngSlug } from "@app/_services/coin";
 import styles from "./styles.module.css";
 import ExchangeProfileAccordion from "@app/_components/charts/apex/exchangeListing/ExchangeProfileAccordion";
 import ExchangeSubmenu from "@app/_components/_core/ExchangeSubmenu";
@@ -42,7 +42,9 @@ export async function generateMetadata({ params, searchParams }) {
 export default async function ExchangeDetailedPage({ params }) {
   const slug = params.slug;
   const exchange = await getExchangeNameFor(slug);
-  const coin = await getCoinNameFromExchangeSlug(slug);
+  const coin = await getCoinSlugUsingExchngSlug(slug);
+  // console.log("exchangeSlug: ", slug);
+  // console.log("coinSlug: ", coin);
 
   return (
     <>
