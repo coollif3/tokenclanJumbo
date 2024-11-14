@@ -333,11 +333,13 @@ export const getAllExchangeCoinSlug =
   "SELECT c.name_id AS slug FROM `exchanges` AS e INNER JOIN coins as c ON e.coin_id = c.id WHERE e.active = TRUE AND e.display = TRUE;";
 
 export const getCoinName = `SELECT 
-    name 
+    slug,
+    name,
+    type 
   FROM 
     coins 
   WHERE 
-    name_id = :slug`;
+    slug = :slug`;
 
 export const getCoinNameFromExchangeSlug = `SELECT 
     c.name_id AS slug,
@@ -363,6 +365,8 @@ export const getCoinProfileBySlug = `SELECT
     c.name_id = :slug;`;
 
 export const listAllCoins = `SELECT
+    coin_relations_id,
+    coin_slug,
     coin_name,
     price,
     market_cap,
@@ -372,6 +376,40 @@ export const listAllCoins = `SELECT
     coin_data_latest
   ORDER BY
     market_cap DESC;`;
+
+export const getCoinSlugUsingExchngSlug = `SELECT
+    slug
+  FROM
+    coin_slug_exchange
+  WHERE
+    exchange_slug = :slug;`;
+
+export const getCoinSlugUsingBlkChainSlug = `SELECT
+    slug
+  FROM
+    coin_slug_blkchain
+  WHERE
+    blkchain_slug = :slug;`;
+
+export const getCoinSlug = `SELECT 
+    slug
+  FROM 
+    coins;`;
+
+export const getCoinProfile = `SELECT
+    coin_relations_id AS id,
+    coin_symbol AS symbol,
+    coin_name,
+    description,
+    homepage,
+    subreddit,
+    related_type AS type,
+    type_name,
+    name
+  FROM
+    coin_profile
+  WHERE
+    coin_slug = :slug;`;
 
 // Coin queries from combined coin_profile_view table
 export const getCommonCoinSlug = `SELECT 

@@ -11,7 +11,11 @@ import {
   getAllExchangeCoinSlug as getAllExchangeCoinSlugSql,
   getCommonCoinProfileBySlug,
   getCommonCoinSlug as getCommonCoinSlugSql,
+  getCoinSlug as getCoinSlugSql,
+  getCoinProfile as getCoinProfileSql,
   listAllCoins,
+  getCoinSlugUsingExchngSlug as getCoinSlugUsingExchngSlugSql,
+  getCoinSlugUsingBlkChainSlug as getCoinSlugUsingBlkChainSlugSql
 } from "../_sql/query";
 
 // Get coin profile data for a given slug
@@ -19,15 +23,15 @@ export const getCoinProfileFor = async (slug) => {
   const getData = nextCache(
     cache(async (slug) => {
       try {
-        const [results, metadata] = await db.query(getCoinProfileBySlug, {
+        const [results, metadata] = await dbc.query(getCoinProfileSql, {
           replacements: { slug },
         });
 
-        return results[0];
+        return results;
       } catch (error) {
         console.log(error);
         throw new Error(
-          `Error fetching exchange coin profile for slug ${slug}`
+          `Error fetching coin profile for slug ${slug}`
         );
       }
     }),
@@ -41,14 +45,14 @@ export const getCoinNameFor = async (slug) => {
   const getData = nextCache(
     cache(async (slug) => {
       try {
-        const [results, metadata] = await db.query(getCoinNameSql, {
+        const [results, metadata] = await dbc.query(getCoinNameSql, {
           replacements: { slug },
         });
 
         return results[0];
       } catch (error) {
         console.log(error);
-        throw new Error(`Error fetching exchange coin name for slug ${slug}`);
+        throw new Error(`Error fetching coin name for slug ${slug}`);
       }
     }),
     [`getCoinNameForSlug-${slug}`],
@@ -164,3 +168,59 @@ export const getCoinData = nextCache(
   ["getCoinData"],
   { revalidate: 28800 }
 );
+
+// Get coin slug data
+export const getCoinSlug = nextCache(
+  cache(async () => {
+    try {
+      const [results, metadata] = await dbc.query(getCoinSlugSql);
+
+      return results;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error fetching all common coins slug data");
+    }
+  }),
+  ["getCoinSlug"],
+  { revalidate: 86400 }
+);
+
+export const getCoinSlugUsingExchngSlug = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await dbc.query(getCoinSlugUsingExchngSlugSql, {
+          replacements: { slug },
+        });
+
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching coin slug using exchange slug ${slug}`);
+      }
+    }),
+    [`getCoinSlugUsingExchngSlug-${slug}`],
+    { revalidate: 86400, tags: [`coin-${slug}`] }
+  );
+  return await getData(slug);
+};
+
+export const getCoinSlugUsingBlkChainSlug = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await dbc.query(getCoinSlugUsingBlkChainSlugSql, {
+          replacements: { slug },
+        });
+
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching coin slug using blockchain slug ${slug}`);
+      }
+    }),
+    [`getCoinSlugUsingBlkChainSlug-${slug}`],
+    { revalidate: 86400, tags: [`coin-${slug}`] }
+  );
+  return await getData(slug);
+}
