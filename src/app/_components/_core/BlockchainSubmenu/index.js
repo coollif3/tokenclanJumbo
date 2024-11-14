@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
 
-export default function BlockchainSubmenu({ slug }) {
+export default function BlockchainSubmenu({ slug, coinSlug }) {
   const { theme } = useJumboTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -87,7 +87,7 @@ export default function BlockchainSubmenu({ slug }) {
             "&:hover": { backgroundColor: theme.palette.background.default },
             "&:active": { color: theme.palette.primary.main },
           }}
-          onClick={() => handleNavigation(`/coins/${slug}?route=blockchain`)}
+          onClick={() => handleNavigation(`/coins/${coinSlug}?route=blockchain`)}
         >
           Coin Profile
         </MenuItem>

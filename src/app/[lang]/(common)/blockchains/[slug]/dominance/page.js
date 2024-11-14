@@ -12,6 +12,7 @@ import {
   getBlockchainNameForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
+import { getCoinSlugUsingBlkChainSlug } from "@app/_services/coin";
 import { Suspense, lazy } from "react";
 import BlockchainSubmenu from "@app/_components/_core/BlockchainSubmenu";
 
@@ -48,6 +49,7 @@ export default async function SlugDominancePage({ params }) {
   const slug = params.slug;
   const blockchain = await getBlockchainNameForSlug(slug);
   const listingRows = await getBlockchains();
+  const coin = await getCoinSlugUsingBlkChainSlug(slug);
 
   return (
     <Container
@@ -84,7 +86,7 @@ export default async function SlugDominancePage({ params }) {
           </Breadcrumbs>
         </Grid>
         <Grid item xs={12}>
-          <BlockchainSubmenu slug={slug} />
+          <BlockchainSubmenu slug={slug} coinSlug={coin.slug} />
         </Grid>
         <Grid item xs={12}>
           <CompareTimeSeriesBox slugData={listingRows} boxType="blockchain" />

@@ -13,6 +13,7 @@ import {
   getBlockchainRatioChngForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
+import { getCoinSlugUsingBlkChainSlug } from "@app/_services/coin";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 import { Suspense, lazy } from "react";
@@ -45,6 +46,7 @@ export default async function SlugRatioPage({ params }) {
   const blockchain = await getBlockchainNameForSlug(slug);
   const ratioChng = await getBlockchainRatioChngForSlug(slug);
   const listingRows = await getBlockchains();
+  const coin = await getCoinSlugUsingBlkChainSlug(slug);
 
   const chartConfig = {
     chartTitle: "MarketCap/TVL Ratio",
@@ -92,7 +94,7 @@ export default async function SlugRatioPage({ params }) {
 
       <Grid container spacing={1.2}>
         <Grid item xs={12}>
-          <BlockchainSubmenu slug={slug} />
+          <BlockchainSubmenu slug={slug} coinSlug={coin.slug} />
         </Grid>
         <Grid item xs={12} sm={6} md={3} sx={{ mb: 2 }}>
           <CurrentMarketCard

@@ -12,6 +12,7 @@ import {
   Link,
   CircularProgress,
 } from "@mui/material";
+import { getCoinSlugUsingBlkChainSlug } from "@app/_services/coin";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
@@ -53,6 +54,7 @@ export default async function SlugTvlPage({ params }) {
   const blockchain = await getBlockchainNameForSlug(slug);
   const tvlChng = await getBlockchainTvlChngForSlug(slug);
   const listingRows = await getBlockchains();
+  const coin = await getCoinSlugUsingBlkChainSlug(slug);
 
   return (
     <Container
@@ -92,7 +94,7 @@ export default async function SlugTvlPage({ params }) {
 
       <Grid container spacing={1.2}>
         <Grid item xs={12}>
-          <BlockchainSubmenu slug={slug} />
+          <BlockchainSubmenu slug={slug} coinSlug={coin.slug} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <CurrentMarketCard

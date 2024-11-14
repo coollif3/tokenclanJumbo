@@ -13,6 +13,7 @@ import {
   getBlockchainNameForSlug,
   getBlockchains,
 } from "@app/_services/blockchain";
+import { getCoinSlugUsingBlkChainSlug } from "@app/_services/coin";
 import BlockchainSubmenu from "@app/_components/_core/BlockchainSubmenu";
 
 const Tvl = lazy(() => import("@app/_components/charts/apex/blockchain/Tvl"));
@@ -42,6 +43,9 @@ export async function generateStaticParams() {
 export default async function BlockchainDetailedPage({ params }) {
   const slug = params.slug;
   const blockchain = await getBlockchainNameForSlug(slug);
+  const coin = await getCoinSlugUsingBlkChainSlug(slug);
+  // console.log("blkchainSlug: ", slug);
+  // console.log("coinSlug: ", coin);
 
   return (
     <Container
@@ -59,7 +63,7 @@ export default async function BlockchainDetailedPage({ params }) {
       <Grid container sx={{ mb: 3 }}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h3">{`${blockchain.name} Blockchain TVL (USD)`}</Typography>
-          <BlockchainSubmenu slug={slug} />
+          <BlockchainSubmenu slug={slug} coinSlug={coin.slug} />
         </Grid>
         <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
