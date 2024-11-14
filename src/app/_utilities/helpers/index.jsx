@@ -12,6 +12,29 @@ export const splitIntoParagraphs = (text) => {
   return paragraphs;
 };
 
+// Assign "N.A" to empty or null values
+export const assignValueNA = (obj, keys) => {
+  keys.forEach(key => {
+    if (!obj[key] || obj[key].trim() === '' || obj[key] === null) {
+      obj[key] = 'N.A';
+    }
+  });
+  return obj;
+};
+
+// Filter profiles to get the ones with the lowest coin_relations_id for each coin_slug and type
+export const filterProfilesByLowestRelationId = (profiles) => {
+  const filteredProfiles = profiles.reduce((acc, profile) => {
+    const key = `${profile.coin_slug}-${profile.type}`;
+    if (!acc[key] || acc[key].coin_relations_id > profile.coin_relations_id) {
+      acc[key] = profile;
+    }
+    return acc;
+  }, {});
+
+  return Object.values(filteredProfiles);
+};
+
 export const isValidEmail = (emailAddress) => {
   const pattern = new RegExp(
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i

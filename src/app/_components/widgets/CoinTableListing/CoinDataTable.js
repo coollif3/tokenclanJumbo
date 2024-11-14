@@ -16,6 +16,7 @@ const colorPalette = {
 
 const CoinDataTable = (props) => {
   const rows = props.rows || [];
+  // console.log("rows: ", rows);
 
   return (
     <TableContainer component={Paper}>
@@ -36,7 +37,7 @@ const CoinDataTable = (props) => {
           {Array.isArray(rows) && rows.length > 0 ? (
             rows.map((row, index) => (
               <TableRow
-                key={row.coin_slug}
+                key={row.coin_relations_id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
