@@ -8,8 +8,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
-import { getCoinNameFor, getCommonCoinSlug } from "@app/_services/coin";
-import { getBlockchainNameForSlug } from "@app/_services/blockchain";
+import { getCoinNameFor, getCommonCoinSlug, getCoinSlug } from "@app/_services/coin";
 
 import classes from "./styles.module.css";
 
@@ -18,13 +17,13 @@ const CoinProfileAccordion = lazy(
 );
 
 export async function generateStaticParams() {
-  const rows = await getCommonCoinSlug();
+  const rows = await getCoinSlug();
   // console.log("rows: ", rows);
 
   const results = rows
-    .filter((row) => row.coin_slug !== null) // Filter out rows where coin_slug is null
+    .filter((row) => row.slug !== null) // Filter out rows where coin_slug is null
     .map((row) => {
-      let slug = row.coin_slug; // Use coin_slug
+      let slug = row.slug; // Use coin slug
       return { slug };
     });
 
@@ -34,18 +33,15 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
+  const coin = await getCoinNameFor(slug);
   // console.log("slug: ", slug);
-  const exchange = await getCoinNameFor(slug);
-  const blockchain = await getBlockchainNameForSlug(slug);
+  // console.log("coin: ", coin);
 
   let title, description;
 
-  if (exchange) {
-    title = `${exchange.name} Coin Profile | TokenClan`;
-    description = `Details on ${exchange.name} including socials and urls`;
-  } else if (blockchain) {
-    title = `${blockchain.name} Coin Profile | TokenClan`;
-    description = `Details on ${blockchain.name} gas token including socials and urls`;
+  if (coin) {
+    title = `${coin.name} Coin Profile | TokenClan`;
+    description = `Details on ${coin.name} including socials and urls`;
   } else {
     title = `Coin Profile | TokenClan`;
     description = `Details including socials and urls`;
@@ -58,24 +54,18 @@ export async function generateMetadata({ params, searchParams }) {
 }
 
 export default async function CoinProfilePage({ params, searchParams }) {
-  // const param = params;
-  // console.log("param: ", param);
+  const param = params;
   const slug = params.slug;
-  // console.log("slug: ", slug);
-  const exchange = await getCoinNameFor(slug);
-  const blockchain = await getBlockchainNameForSlug(slug);
-  // console.log(searchParams);
+  const coin = await getCoinNameFor(slug);
   const { route } = searchParams;
+  // console.log("param: ", param);
+  // console.log("slug: ", slug);
+  // console.log(searchParams);
 
   let name;
 
-  // console.log("exchangeName: ", exchange);
-  // console.log("blockchainName: ", blockchain);
-
-  if (exchange) {
-    name = exchange.name;
-  } else if (blockchain) {
-    name = blockchain.name;
+  if (coin) {
+    name = coin.name;
   } else {
     name = "Crypto";
   }
@@ -103,7 +93,7 @@ export default async function CoinProfilePage({ params, searchParams }) {
               <Link underline="hover" color="inherit" href="/">
                 Home
               </Link>
-              <Link underline="hover" color="inherit" href="/#">
+              <Link underline="hover" color="inherit" href="/coins">
                 Coins
               </Link>
               <Typography color="text.primary">{`${name}`}</Typography>
