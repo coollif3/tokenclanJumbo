@@ -6,7 +6,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Link from "next/link";
-import { displayRedGreenColumn } from "@app/_utilities/helpers";
+import { displayRedGreenColumn, filterByLowestRelationId } from "@app/_utilities/helpers";
 import styles from "./styles.module.css";
 
 const colorPalette = {
@@ -17,6 +17,9 @@ const colorPalette = {
 const CoinDataTable = (props) => {
   const rows = props.rows || [];
   // console.log("rows: ", rows);
+
+  const filteredData = filterByLowestRelationId(rows);
+  // console.log("filteredData: ", filteredData);
 
   return (
     <TableContainer component={Paper}>
@@ -34,8 +37,8 @@ const CoinDataTable = (props) => {
           </TableRow>
         </TableHead>
         <TableBody className={styles.tokenclan}>
-          {Array.isArray(rows) && rows.length > 0 ? (
-            rows.map((row, index) => (
+          {Array.isArray(filteredData) && filteredData.length > 0 ? (
+            filteredData.map((row, index) => (
               <TableRow
                 key={row.coin_relations_id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

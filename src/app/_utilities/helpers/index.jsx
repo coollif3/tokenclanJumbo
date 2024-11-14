@@ -22,17 +22,17 @@ export const assignValueNA = (obj, keys) => {
   return obj;
 };
 
-// Filter profiles to get the ones with the lowest coin_relations_id for each coin_slug and type
-export const filterProfilesByLowestRelationId = (profiles) => {
-  const filteredProfiles = profiles.reduce((acc, profile) => {
-    const key = `${profile.coin_slug}-${profile.type}`;
-    if (!acc[key] || acc[key].coin_relations_id > profile.coin_relations_id) {
-      acc[key] = profile;
+// Filter data to get the ones with the lowest coin_relations_id for each coin_slug and type
+export const filterByLowestRelationId = (data) => {
+  const filteredData = data.reduce((acc, data) => {
+    const key = `${data.coin_slug}-${data.type}`;
+    if (!acc[key] || acc[key].coin_relations_id > data.coin_relations_id) {
+      acc[key] = data;
     }
     return acc;
   }, {});
 
-  return Object.values(filteredProfiles);
+  return Object.values(filteredData);
 };
 
 export const isValidEmail = (emailAddress) => {

@@ -2,7 +2,7 @@ import {
   splitIntoParagraphs,
   capitalizeFirstLetter,
   assignValueNA,
-  filterProfilesByLowestRelationId
+  filterByLowestRelationId
 } from "@app/_utilities/helpers";
 import {
   Grid,
@@ -41,7 +41,7 @@ export default async function CoinProfileAccordion({ slug, route }) {
       break;
   }
 
-  const filteredProfiles = filterProfilesByLowestRelationId(coinProfile);
+  const filteredData = filterByLowestRelationId(coinProfile);
 
   const renderAccordion = (profile) => {
     profile = assignValueNA(profile, ['description', 'homepage', 'subreddit']); // Assign "N.A" to empty or null values
@@ -126,7 +126,7 @@ export default async function CoinProfileAccordion({ slug, route }) {
 
   return (
     <div>
-      {filteredProfiles.map(profile => renderAccordion(profile))}
+      {filteredData.map(profile => renderAccordion(profile))}
     </div>
   );
 }

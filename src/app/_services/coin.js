@@ -158,7 +158,7 @@ export const getCoinData = nextCache(
   cache(async () => {
     try {
       const [results, metadata] = await dbc.query(listAllCoins);
-      console.log("listAllCoins: ", results);
+
       return results;
     } catch (error) {
       console.log(error);
