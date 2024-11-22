@@ -17,7 +17,7 @@ import {
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { getCoinProfileFor } from "@app/_services/coin";
 
-// accordion component function is used to display the Coin Profile details
+// Accordion component function is used to display the Coin Profile details
 export default async function CoinProfileAccordion({ slug, route }) {
   const coinProfile = await getCoinProfileFor(slug);
   // console.log("slug: ", slug);
@@ -41,12 +41,21 @@ export default async function CoinProfileAccordion({ slug, route }) {
       break;
   }
 
-  const filteredData = filterByLowestRelationId(coinProfile);
+  const filteredProfiles = filterByLowestRelationId(coinProfile);
+  // console.log("filteredProfiles: ", filteredProfiles);
 
-  const renderAccordion = (profile) => {
+  const renderAccordion = (profile, index) => {
     profile = assignValueNA(profile, ['description', 'homepage', 'subreddit']); // Assign "N.A" to empty or null values
     return (
-      <Accordion key={profile.id} elevation={0} sx={{ boxShadow: "none", mb: 3, border: "1px solid #ddd" }}>
+      <Accordion
+        key={profile.id}
+        defaultExpanded={
+          (blockchainRoute && profile.type_name === "blockchain") ||
+          (exchangeRoute && profile.type_name === "exchange")
+        }
+        elevation={0}
+        sx={{ boxShadow: "none", mb: 3, border: "1px solid #ddd" }}
+      >
         <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
           <Typography variant="h5">{capitalizeFirstLetter(profile.type_name)} Coin Profile</Typography>
         </AccordionSummary>
@@ -124,9 +133,16 @@ export default async function CoinProfileAccordion({ slug, route }) {
     );
   };
 
+  // Sort profiles to display the one with type_name === "blockchain" or "exchange" first
+  const sortedProfiles = filteredProfiles.sort((a, b) => {
+    if (blockchainRoute && a.type_name === "blockchain") return -1;
+    if (exchangeRoute && a.type_name === "exchange") return -1;
+    return 0;
+  });
+
   return (
     <div>
-      {filteredData.map(profile => renderAccordion(profile))}
+      {sortedProfiles.map((profile, index) => renderAccordion(profile, index))}
     </div>
   );
 }
