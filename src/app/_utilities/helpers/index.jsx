@@ -35,6 +35,19 @@ export const filterByLowestRelationId = (data) => {
   return Object.values(filteredData);
 };
 
+// Filter data to get the ones with the lowest coin_relations_id for each coin_slug, coin_symbol, and type
+export const filterCoinList = (data) => {
+  const filteredData = data.reduce((acc, data) => {
+    const key = `${data.coin_symbol}-${data.type}`;
+    if (!acc[key] || acc[key].coin_relations_id > data.coin_relations_id) {
+      acc[key] = data;
+    }
+    return acc;
+  }, {});
+
+  return Object.values(filteredData);
+};
+
 export const isValidEmail = (emailAddress) => {
   const pattern = new RegExp(
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i

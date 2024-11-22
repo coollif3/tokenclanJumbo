@@ -6,7 +6,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Link from "next/link";
-import { displayRedGreenColumn, filterByLowestRelationId } from "@app/_utilities/helpers";
+import { displayRedGreenColumn, filterCoinList } from "@app/_utilities/helpers";
 import styles from "./styles.module.css";
 
 const colorPalette = {
@@ -18,7 +18,7 @@ const CoinDataTable = (props) => {
   const rows = props.rows || [];
   // console.log("rows: ", rows);
 
-  const filteredData = filterByLowestRelationId(rows);
+  const filteredData = filterCoinList(rows);
   // console.log("filteredData: ", filteredData);
 
   return (

@@ -367,7 +367,9 @@ export const getCoinProfileBySlug = `SELECT
 export const listAllCoins = `SELECT
     coin_relations_id,
     coin_slug,
+    coin_symbol,
     coin_name,
+    related_type AS type,
     price,
     market_cap,
     total_vol,
