@@ -90,14 +90,14 @@ const DropDownPopover = () => {
                 Exchanges
               </ListItemButton>
             </Link>
-            {/* <Link href="/coins" sx={{ my: 0 }} color="inherit" underline="none">
+            <Link href="/coins" sx={{ my: 0 }} color="inherit" underline="none">
               <ListItemButton>
                 <ListItemIcon sx={{ minWidth: 36 }}>
                   <TollIcon />
                 </ListItemIcon>
                 Coins
               </ListItemButton>
-            </Link> */}
+            </Link>
           </List>
         </nav>
       </JumboDdPopover>
