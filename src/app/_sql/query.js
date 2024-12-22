@@ -413,6 +413,30 @@ export const getCoinProfile = `SELECT
   WHERE
     coin_slug = :slug;`;
 
+export const getCoinPriceChngForSlug = `SELECT 
+    price, 
+    1day_usd_chng AS one_day_chng, 
+    7day_usd_chng AS seven_day_chng, 
+    30day_usd_chng AS thirty_day_chng 
+  FROM 
+    coin_mkt_data 
+  WHERE 
+    coin_slug = :slug 
+  ORDER BY 
+    createdAt DESC 
+  LIMIT 1`;
+
+export const getCoinPriceForSlug = `SELECT
+  createdAt AS x,
+  price AS y
+FROM
+  coin_mkt_data
+WHERE 
+  coin_slug = :slug 
+ORDER BY 
+  createdAt DESC 
+LIMIT :periodLimit`;
+
 // Coin queries from combined coin_profile_view table
 export const getCommonCoinSlug = `SELECT 
   coin_slug 

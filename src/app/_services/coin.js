@@ -15,7 +15,9 @@ import {
   getCoinProfile as getCoinProfileSql,
   listAllCoins,
   getCoinSlugUsingExchngSlug as getCoinSlugUsingExchngSlugSql,
-  getCoinSlugUsingBlkChainSlug as getCoinSlugUsingBlkChainSlugSql
+  getCoinSlugUsingBlkChainSlug as getCoinSlugUsingBlkChainSlugSql,
+  getCoinPriceChngForSlug as getCoinPriceChngForSlugSql,
+  getCoinPriceForSlug as getCoinPriceForSlugSql,
 } from "../_sql/query";
 
 // Get coin profile data for a given slug
@@ -224,3 +226,48 @@ export const getCoinSlugUsingBlkChainSlug = async (slug) => {
   );
   return await getData(slug);
 }
+
+export const getCoinPriceChngForSlug = async (slug) => {
+  const getData = nextCache(
+    cache(async (slug) => {
+      try {
+        const [results, metadata] = await dbc.query(getCoinPriceChngForSlugSql, {
+          replacements: { slug },
+        }
+        );
+
+        return results[0];
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching coin price chng data for ${slug}`);
+      }
+    }),
+    [`getCoinPriceChngForSlug-${slug}`],
+    { revalidate: 28800, tags: [`coin-${slug}`] }
+  );
+  return await getData(slug);
+};
+
+export const getCoinPriceForSlug = async (slug, period) => {
+  const getData = nextCache(
+    cache(async (slug, period) => {
+      try {
+        const [results, metadata] = await dbc.query(getCoinPriceForSlugSql, {
+          replacements: {
+            slug,
+            periodLimit: period,
+          },
+        });
+        const formattedResults = formatToTimestampArray(results);
+
+        return formattedResults;
+      } catch (error) {
+        console.log(error);
+        throw new Error(`Error fetching coin price data for ${slug}`);
+      }
+    }),
+    [`getCoinPriceForSlug-${slug}-${period}`],
+    { revalidate: 28800, tags: [`coin-${slug}-${period}`] }
+  );
+  return await getData(slug, parseInt(period));
+};
