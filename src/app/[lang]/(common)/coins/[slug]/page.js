@@ -10,7 +10,14 @@ import {
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import { getCoinNameFor, getCommonCoinSlug, getCoinSlug } from "@app/_services/coin";
 
+// import CoinSubmenu from "@app/_components/_core/CoinSubmenu";
+
 import classes from "./styles.module.css";
+
+// chart component for coin price
+const CoinPrice = lazy(
+  () => import("@app/_components/charts/apex/coin/Price")
+);
 
 const CoinProfileAccordion = lazy(
   () => import("@app/_components/widgets/CoinProfileAccordion")
@@ -101,6 +108,9 @@ export default async function CoinProfilePage({ params, searchParams }) {
           </Grid>
         </Grid>
         <Grid container spacing={3.75}>
+          <Suspense fallback={<CircularProgress />}>
+            <CoinPrice slug={slug} />
+          </Suspense>
           <Grid item xs={12}>
             <Suspense fallback={<CircularProgress />}>
               <CoinProfileAccordion slug={slug} route={route} />
