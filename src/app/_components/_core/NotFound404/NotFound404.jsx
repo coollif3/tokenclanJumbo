@@ -16,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const NotFound404 = () => {
+  const { theme } = useJumboTheme();
   return (
     <Div
       sx={{
