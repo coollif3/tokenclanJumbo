@@ -100,6 +100,7 @@ export default async function SlugDominancePage({ params }) {
               slug={slug}
               dataFunc={getBlockchainDomForSlug}
               chartConfig={chartConfig}
+              chartType="blockchain"
             />
           </Suspense>
         </Grid>

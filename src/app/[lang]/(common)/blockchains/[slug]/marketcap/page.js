@@ -137,6 +137,7 @@ export default async function SlugMktcapPage({ params }) {
               slug={slug}
               dataFunc={getBlockchainCoinMktcapForSlug}
               chartConfig={chartConfig}
+              chartType="blockchain"
             />
           </Suspense>
         </Grid>
