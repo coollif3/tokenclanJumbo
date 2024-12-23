@@ -136,6 +136,7 @@ export default async function SlugTvlPage({ params }) {
             slug={slug}
             dataFunc={getBlockchainTvlForSlug}
             chartConfig={chartConfig}
+            chartType="blockchain"
           />
         </Suspense>
       </Grid>
