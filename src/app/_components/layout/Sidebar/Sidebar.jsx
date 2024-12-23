@@ -4,7 +4,7 @@ import { useJumboLayout } from '@jumbo/components/JumboLayout/hooks';
 import { JumboScrollbar } from '@jumbo/components/JumboScrollbar';
 import { useJumboSidebarTheme } from '@jumbo/components/JumboTheme/hooks';
 import { Div } from '@jumbo/shared';
-import { SIDEBAR_VIEWS } from '@jumbo/utilities/constants';
+import { SIDEBAR_STYLES, SIDEBAR_VIEWS } from '@jumbo/utilities/constants';
 import React, { Suspense } from 'react';
 import { SidebarHeader, SidebarSkeleton } from './components';
 
@@ -13,7 +13,9 @@ function Sidebar({ menus }) {
   const { sidebarOptions } = useJumboLayout();
   return (
     <React.Fragment>
+      {sidebarOptions?.style !== SIDEBAR_STYLES.CLIPPED_UNDER_HEADER && (
       <SidebarHeader />
+      )}
       <JumboScrollbar>
         <Suspense
           fallback={
@@ -44,3 +46,4 @@ function Sidebar({ menus }) {
 }
 
 export { Sidebar };
+

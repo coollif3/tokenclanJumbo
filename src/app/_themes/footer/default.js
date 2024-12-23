@@ -1,5 +1,5 @@
 export const footerTheme = {
-  type: 'light',
+  // type: 'light',
   palette: {
     primary: {
       main: '#7352C7',

@@ -8,7 +8,7 @@ const Footer = async ({ lang }) => {
     <Div
       sx={{
         py: 2,
-        px: { lg: 6, xs: 4 },
+        px: { lg: 6, sm: 4, xs: 2.5 },
         borderTop: 2,
         borderColor: 'divider',
         bgcolor: 'background.paper',

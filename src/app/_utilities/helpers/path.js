@@ -1,4 +1,4 @@
-import { CONFIG } from '@app/_config';
+import { anonymousPaths, publicPaths } from '@app/_config/routes/path';
 import { match } from 'path-to-regexp';
 
 function matchPathname(pathArray, pathname, locale) {
@@ -20,9 +20,9 @@ export function isPublicPath(pathname, locale) {
     return true;
   }
 
-  return matchPathname(CONFIG.PUBLIC_ROUTES, pathname, locale);
+  return matchPathname( publicPaths, pathname, locale);
 }
 
 export function isAnonymousPath(pathname, locale) {
-  return matchPathname(CONFIG.ANONYMOUS_ROUTES, pathname, locale);
+  return matchPathname( anonymousPaths, pathname, locale);
 }

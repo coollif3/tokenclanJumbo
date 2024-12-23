@@ -1,9 +1,9 @@
 import {
   getBackgroundColorStyle,
   getBackgroundImageStyle,
-} from '@jumbo/utilities/helpers';
-import { Card, CardContent, CardHeader } from '@mui/material';
-import PropTypes from 'prop-types';
+} from "@jumbo/utilities/helpers";
+import { Card, CardContent, CardHeader } from "@mui/material";
+import PropTypes from "prop-types";
 
 function JumboCard({
   avatar,
@@ -26,7 +26,7 @@ function JumboCard({
   return (
     <Card
       sx={{
-        position: 'relative',
+        position: "relative",
         ...backgroundColorStyle,
         ...backgroundImageStyle,
         ...colorStyle,

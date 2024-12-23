@@ -10,8 +10,7 @@ import { useJumboTheme } from '@jumbo/components/JumboTheme/hooks';
 
 import { SIDEBAR_STYLES } from '@jumbo/utilities/constants';
 
-import { Logo } from '@app/_components/_core/Logo';
-import { SidebarToggleButton } from '@app/_components/_core/SidebarToggleButton';
+import { Logo, SidebarToggleButton } from '@app/_components/_core';
 import { TranslationPopover } from '@app/_components/popovers/TranslationPopover';
 import { Stack, useMediaQuery } from '@mui/material';
 import React from 'react';

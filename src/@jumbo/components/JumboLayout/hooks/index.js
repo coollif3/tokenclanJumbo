@@ -1,3 +1,4 @@
+'use client';
 import { useJumboSidebarTheme } from '@jumbo/components/JumboTheme/hooks';
 
 import {

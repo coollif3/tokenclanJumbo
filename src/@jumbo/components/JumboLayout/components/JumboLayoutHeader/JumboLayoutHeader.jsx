@@ -1,5 +1,5 @@
 import { useJumboHeaderTheme } from '@jumbo/components/JumboTheme/hooks';
-import { AppBar, ThemeProvider, Toolbar } from '@mui/material';
+import { AppBar, Box, ThemeProvider, Toolbar } from '@mui/material';
 import { useAppBarSx, useJumboLayout } from '../../hooks';
 
 function JumboLayoutHeader({ children }) {
@@ -9,7 +9,17 @@ function JumboLayoutHeader({ children }) {
   //TODO: need to cross check this calculation
   const appBarSx = useAppBarSx();
 
-  if (headerOptions?.hide) return null;
+  if (headerOptions?.hide || !children) return null;
+
+  if (headerOptions?.plain) {
+    return (
+      <ThemeProvider theme={headerTheme}>
+        <Box component={'header'} sx={headerOptions.sx}>
+          {children}
+        </Box>
+      </ThemeProvider>
+    );
+  }
 
   return (
     <ThemeProvider theme={headerTheme}>
@@ -18,7 +28,7 @@ function JumboLayoutHeader({ children }) {
         position={headerOptions?.fixed ? 'fixed' : 'relative'}
         sx={{ ...appBarSx }}
       >
-        <Toolbar sx={{ height: '100%', px: { lg: 6, xs: 4 } }}>
+        <Toolbar sx={{ height: '100%', px: { lg: 6, sm: 4, xs: 2.5 } }}>
           {children}
         </Toolbar>
       </AppBar>

@@ -1,5 +1,8 @@
+'use client';
+import { alpha } from '@mui/material';
+
 export const sidebarTheme = {
-  type: 'light',
+  // type: 'light',
   palette: {
     primary: {
       main: '#7352C7',
@@ -50,6 +53,24 @@ export const sidebarTheme = {
     action: {
       active: '#475259',
       hover: '#F5F7FA',
+    },
+  },
+  jumboComponents: {
+    JumboNavbar: {
+      nav: {
+        action: {
+          active: '#7352C7',
+          hover: '#7352C7',
+        },
+        background: {
+          active: alpha('#7352C7', 0.15),
+          hover: '#E9ECEF',
+        },
+        tick: {
+          active: '#7352C7',
+          hover: '#ADB5BD',
+        },
+      },
     },
   },
 };

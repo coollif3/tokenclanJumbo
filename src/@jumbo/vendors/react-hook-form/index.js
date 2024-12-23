@@ -1,2 +1,14 @@
-export * from './components';
-export * from './hooks';
+import {
+  JumboCheckbox,
+  JumboForm,
+  JumboInput,
+  JumboOutlinedInput,
+  JumboSelect,
+} from './components';
+export {
+  JumboCheckbox,
+  JumboForm,
+  JumboInput,
+  JumboOutlinedInput,
+  JumboSelect,
+};

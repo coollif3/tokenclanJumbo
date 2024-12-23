@@ -141,9 +141,6 @@ export const mainTheme = {
     },
   },
   jumboComponents: {
-    JumboSearch: {
-      background: '#F5F5F5',
-    },
     JumboNavbar: {
       nav: {
         action: {
@@ -167,6 +164,14 @@ export const mainTheme = {
         root: {
           borderColor: `rgb(0, 0, 0, 0.1)`,
         },
+        head: {
+          textTransform: 'uppercase',
+          letterSpacing: 1.5,
+          fontWeight: 400,
+          fontSize: 12,
+          lineHeight: 1.25,
+          background: '#F6F6F6',
+        },
       },
     },
     MuiMenuItem: {
@@ -184,10 +189,43 @@ export const mainTheme = {
         },
       },
     },
+
     MuiCardContent: {
       styleOverrides: {
         root: {
           padding: 24,
+        },
+      },
+    },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          boxShadow: `0 0.5rem 1.25rem rgba(115, 82, 199, 0.175)`,
+          ':first-of-type': {
+            borderTopLeftRadius: 12,
+            borderTopRightRadius: 12,
+          },
+          ':last-of-type': {
+            borderBottomLeftRadius: 12,
+            borderBottomRightRadius: 12,
+          },
+        },
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          padding: '0 20px 20px',
+        },
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          paddingInline: 20,
+        },
+        content: {
+          marginBlock: 20,
         },
       },
     },
@@ -220,6 +258,9 @@ export const mainTheme = {
         sizeSmall: {
           height: 22,
           fontSize: 12,
+        },
+        labelMedium: {
+          paddingInline: 16,
         },
       },
     },

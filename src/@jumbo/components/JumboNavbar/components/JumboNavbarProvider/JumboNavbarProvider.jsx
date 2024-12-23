@@ -1,15 +1,15 @@
-import { useJumboTheme } from '@jumbo/components/JumboTheme/hooks';
-import { isNavSection } from '@jumbo/utilities/helpers';
-import { List } from '@mui/material';
-import PropTypes from 'prop-types';
-import { JumboNavIdentifier } from '..';
-import { JumboNavbarContext } from './JumboNavbarContext';
+import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
+import { isNavSection } from "@jumbo/utilities/helpers";
+import { List } from "@mui/material";
+import PropTypes from "prop-types";
+import { JumboNavIdentifier } from "..";
+import { JumboNavbarContext } from "./JumboNavbarContext";
 
 function JumboNavbarProvider({
   items = [],
   mini = false,
   open = true,
-  groupBehaviour = 'collapsible',
+  groupBehaviour = "collapsible",
   theme,
 }) {
   const miniAndClosed = !!mini && !open;
@@ -87,5 +87,5 @@ JumboNavbarProvider.propTypes = {
   mini: PropTypes.bool,
   open: PropTypes.bool,
   theme: PropTypes.object,
-  groupBehaviour: PropTypes.oneOf(['collapsible', 'popover']),
+  groupBehaviour: PropTypes.oneOf(["collapsible", "popover"]),
 };

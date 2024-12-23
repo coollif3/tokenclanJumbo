@@ -1,5 +1,5 @@
 export const headerTheme = {
-  type: 'light',
+  // type: 'light',
   components: {
     MuiAppBar: {
       styleOverrides: {
