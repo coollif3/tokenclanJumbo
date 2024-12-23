@@ -47,6 +47,9 @@ export const LAYOUT_ACTIONS = {
   SET_HEADER_OPTIONS: 'set-header-options',
   SET_FOOTER_OPTIONS: 'set-footer-options',
   SET_OPTIONS: 'set-options',
+  SET_RIGHT_SIDEBAR_OPTIONS: 'right-side-options',
   SET_ROOT_OPTIONS: 'set-root-options',
   SET_CONTENT_OPTIONS: 'set-content-options',
+  SET_WRAPPER_OPTIONS: 'set-wrapper-options',
+  SET_MAIN_OPTIONS: 'set-main-options',
 };

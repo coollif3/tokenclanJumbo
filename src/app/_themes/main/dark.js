@@ -37,7 +37,6 @@ export const mainTheme = {
       xl: 1200,
     },
   },
-
   palette: {
     primary: {
       main: '#7352C7',
@@ -148,6 +147,14 @@ export const mainTheme = {
         root: {
           borderColor: alpha('#000', 0.1),
         },
+        head: {
+          textTransform: 'uppercase',
+          letterSpacing: 1.5,
+          fontWeight: 400,
+          fontSize: 12,
+          lineHeight: 1.25,
+          background: '#3C475F',
+        },
       },
     },
     MuiMenuItem: {
@@ -169,6 +176,38 @@ export const mainTheme = {
       styleOverrides: {
         root: {
           padding: 24,
+        },
+      },
+    },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          boxShadow: `0 0.5rem 1.25rem ${alpha('#000000', 0.15)}`,
+          ':first-of-type': {
+            borderTopLeftRadius: 12,
+            borderTopRightRadius: 12,
+          },
+          ':last-of-type': {
+            borderBottomLeftRadius: 12,
+            borderBottomRightRadius: 12,
+          },
+        },
+      },
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          padding: '0 20px 20px',
+        },
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          paddingInline: 20,
+        },
+        content: {
+          marginBlock: 20,
         },
       },
     },
@@ -198,12 +237,18 @@ export const mainTheme = {
     },
     MuiChip: {
       styleOverrides: {
-        root: {
-          backgroundColor: '#3C475F',
+        filled: {
+          '&.MuiChip-colorDefault': {
+            backgroundColor: '#3C475F',
+          },
         },
+
         sizeSmall: {
           height: 22,
           fontSize: 12,
+        },
+        labelMedium: {
+          paddingInline: 16,
         },
       },
     },
@@ -221,6 +266,11 @@ export const mainTheme = {
 
           '&:hover': {
             backgroundColor: '#323b4f',
+          },
+        },
+        contained: {
+          '&.Mui-disabled': {
+            color: '#FFF',
           },
         },
       },
@@ -264,26 +314,5 @@ export const mainTheme = {
         },
       },
     },
-  },
-  jumboComponents: {
-    JumboSearch: {
-      background: '#3C475F',
-    },
-    // JumboNavbar: {
-    //   nav: {
-    //     action: {
-    //       active: "#7352C7",
-    //       hover: "#7352C7",
-    //     },
-    //     background: {
-    //       active: "rgba(115, 82, 199, 0.15)",
-    //       hover: "#E9ECEF",
-    //     },
-    //     tick: {
-    //       active: "#7352C7",
-    //       hover: "#ADB5BD",
-    //     },
-    //   },
-    // },
   },
 };

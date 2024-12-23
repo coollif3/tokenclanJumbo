@@ -1,5 +1,5 @@
 'use client';
-import { Toolbar } from '@mui/material';
+import { Box, Container, Toolbar } from '@mui/material';
 
 import { Div } from '@jumbo/shared';
 import { SIDEBAR_STYLES } from '@jumbo/utilities/constants';
@@ -8,11 +8,41 @@ import {
   JumboLayoutHeader,
   JumboLayoutSidebar,
 } from './components';
+import { JumboLayoutRightSidebar } from './components/JumboLayoutRightSidebar';
 import { useContentMargin, useHeaderSpaceSx, useJumboLayout } from './hooks';
 
+function WrapperContainer({ children, container, sx }) {
+  if (container) {
+    return (
+      <Container
+        maxWidth={false}
+        sx={{
+          maxWidth: '1320px',
+          display: 'flex',
+          minWidth: 0,
+          flex: 1,
+          flexDirection: 'column',
+          ...sx,
+        }}
+        disableGutters
+      >
+        {children}
+      </Container>
+    );
+  }
+
+  return children;
+}
+
 function JumboLayout(props) {
-  const { rootOptions, sidebarOptions, headerOptions, contentOptions } =
-    useJumboLayout();
+  const {
+    rootOptions,
+    sidebarOptions,
+    headerOptions,
+    contentOptions,
+    wrapperOptions,
+    mainOptions,
+  } = useJumboLayout();
 
   const headerSpaceSx = useHeaderSpaceSx();
   const contentMargin = useContentMargin();
@@ -31,38 +61,23 @@ function JumboLayout(props) {
       {sidebarOptions?.style === SIDEBAR_STYLES.CLIPPED_UNDER_HEADER && (
         <JumboLayoutHeader>{props.header}</JumboLayoutHeader>
       )}
-
-      <Div
-        sx={{
-          display: 'flex',
-          flex: 1,
-          minWidth: 0,
-          position: 'relative',
-        }}
-        className='CmtLayout-wrapper'
+      <WrapperContainer
+        container={wrapperOptions?.container}
+        sx={wrapperOptions?.containerSx || {}}
       >
-        {props.sidebar && (
-          <JumboLayoutSidebar>{props.sidebar}</JumboLayoutSidebar>
-        )}
-        <Div
+        <Box
           sx={{
             display: 'flex',
-            minWidth: 0,
             flex: 1,
-            flexDirection: 'column',
-            minHeight: '100%',
-            marginLeft: {
-              sm: `${contentMargin}px`,
-            },
-            transition: (theme) => theme.transitions.create(['margin-left']),
+            minWidth: 0,
+            position: 'relative',
+            ...(wrapperOptions?.sx ?? {}),
           }}
-          className='CmtLayout-main'
+          className='CmtLayout-wrapper'
+          component={wrapperOptions?.component}
         >
-          {sidebarOptions?.style !== SIDEBAR_STYLES.CLIPPED_UNDER_HEADER && (
-            <JumboLayoutHeader>{props.header}</JumboLayoutHeader>
-          )}
-          {!headerOptions.hide && headerOptions.fixed && (
-            <Toolbar sx={{ ...headerSpaceSx }} />
+          {props.sidebar && (
+            <JumboLayoutSidebar>{props.sidebar}</JumboLayoutSidebar>
           )}
           <Div
             sx={{
@@ -70,17 +85,48 @@ function JumboLayout(props) {
               minWidth: 0,
               flex: 1,
               flexDirection: 'column',
-              py: 4,
-              px: { lg: 6, xs: 4 },
-              ...(contentOptions?.sx ?? {}),
+              minHeight: '100%',
+              ...(contentMargin
+                ? {
+                    marginLeft: {
+                      sm: `${contentMargin}px`,
+                    },
+                  }
+                : {}),
+              transition: (theme) => theme.transitions.create(['margin-left']),
+              ...(mainOptions?.sx ?? {}),
             }}
-            className='CmtLayout-content'
+            className='CmtLayout-main'
           >
-            {props.children}
+            {sidebarOptions?.style !== SIDEBAR_STYLES.CLIPPED_UNDER_HEADER && (
+              <JumboLayoutHeader>{props.header}</JumboLayoutHeader>
+            )}
+            {!headerOptions.hide && headerOptions.fixed && (
+              <Toolbar sx={{ ...headerSpaceSx }} />
+            )}
+            <Div
+              sx={{
+                display: 'flex',
+                minWidth: 0,
+                flex: 1,
+                flexDirection: 'column',
+                py: 4,
+                px: { lg: 6, sm: 4, xs: 2.5 },
+                ...(contentOptions?.sx ?? {}),
+              }}
+              className='CmtLayout-content'
+            >
+              {props.children}
+            </Div>
+            <JumboLayoutFooter>{props.footer}</JumboLayoutFooter>
           </Div>
-          <JumboLayoutFooter>{props.footer}</JumboLayoutFooter>
-        </Div>
-      </Div>
+          {props?.rightSidebar && (
+            <JumboLayoutRightSidebar>
+              {props?.rightSidebar}
+            </JumboLayoutRightSidebar>
+          )}
+        </Box>
+      </WrapperContainer>
     </Div>
   );
 }

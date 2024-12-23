@@ -17,6 +17,8 @@ const defaultLayoutConfig = {
     anchor: SIDEBAR_ANCHOR_POSITIONS.LEFT,
     width: 240,
     minWidth: 80,
+    drawer: true,
+    drawerBreakpoint: 'xl',
   },
   header: {
     hide: false,
@@ -24,6 +26,7 @@ const defaultLayoutConfig = {
     sx: {
       height: 80,
     },
+    drawerBreakpoint: 'xl',
   },
   footer: {
     hide: false,
@@ -34,6 +37,8 @@ const defaultLayoutConfig = {
       py: 4,
     },
   },
+  wrapper: {},
+  main: {},
 };
 
 export const CONTAINER_MAX_WIDTH = 1320;

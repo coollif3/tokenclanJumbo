@@ -1,5 +1,5 @@
 'use client';
-import { Link } from '@app/_components/_core/NextLink';
+import { Link } from '@app/_components/_core';
 import { LoginForm } from '@app/_components/auth/login';
 import { ASSET_AVATARS, ASSET_IMAGES } from '@app/_utilities/constants/paths';
 import { getAssetPath } from '@app/_utilities/helpers';
@@ -32,14 +32,12 @@ const LoginPage = () => {
       }}
     >
       <Div sx={{ mb: 3, display: 'inline-flex' }}>
-        <Link href='#' sx={{ display: 'inline-flex' }}>
-          <Image
-            height={35}
-            width={110}
-            src={`${ASSET_IMAGES}/logo.png`}
-            alt='Jumbo React'
-          />
-        </Link>
+        <Image
+          height={35}
+          width={110}
+          src={`${ASSET_IMAGES}/logo.png`}
+          alt='Jumbo React'
+        />
       </Div>
       <Card sx={{ maxWidth: '100%', width: 360, mb: 4 }}>
         <Div sx={{ position: 'relative', height: '200px' }}>

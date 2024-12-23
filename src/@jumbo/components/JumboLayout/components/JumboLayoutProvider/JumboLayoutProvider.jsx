@@ -1,46 +1,37 @@
-'use client';
-import { useJumboTheme } from '@jumbo/components/JumboTheme/hooks';
-import { LAYOUT_ACTIONS, SIDEBAR_VARIANTS } from '@jumbo/utilities/constants';
-import { useMediaQuery } from '@mui/system';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { LayoutOptions } from '../../prop-types';
-import { JumboLayoutContext, defaultLayoutOptions } from './JumboLayoutContext';
-import { jumboLayoutReducer } from './reducer';
-let prevLayoutOptions = null;
+"use client";
+import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
+import { LAYOUT_ACTIONS, SIDEBAR_VARIANTS } from "@jumbo/utilities/constants";
+import { useMediaQuery } from "@mui/system";
+import PropTypes from "prop-types";
+import React from "react";
+import { LayoutOptions } from "../../prop-types";
+import { JumboLayoutContext, defaultLayoutOptions } from "./JumboLayoutContext";
+import { jumboLayoutReducer } from "./reducer";
 
-function JumboLayoutProvider({ children, layoutConfig }) {
+function JumboLayoutProvider({ children, layoutConfig, debugOptions }) {
   const [layoutOptions, setLayoutOptions] = React.useReducer(
     jumboLayoutReducer,
     layoutConfig ?? defaultLayoutOptions
   );
-
+  const [prevLayoutOptions, setPrevLayoutOptions] = React.useState(null);
   //handle mobile screen sizes
   const { theme } = useJumboTheme();
   const isBelowLg = useMediaQuery(
-    theme.breakpoints.down(layoutOptions?.sidebar?.drawerBreakpoint ?? 'xl')
+    theme.breakpoints.down(layoutOptions.sidebar?.drawerBreakpoint ?? "xl")
   );
+
   React.useEffect(() => {
-    if (!layoutOptions.sidebar?.hide) {
-      if (isBelowLg) {
-        prevLayoutOptions = layoutOptions.sidebar;
-        setLayoutOptions({
-          type: LAYOUT_ACTIONS.SET_SIDEBAR_OPTIONS,
-          payload: {
-            variant: SIDEBAR_VARIANTS.TEMPORARY,
-            open: false,
-          },
-        });
-      } else {
-        if (prevLayoutOptions) {
-          setLayoutOptions({
-            type: LAYOUT_ACTIONS.SET_SIDEBAR_OPTIONS,
-            payload: prevLayoutOptions,
-          });
-        }
-      }
+    if (isBelowLg) {
+      setSidebarOptions({
+        variant: SIDEBAR_VARIANTS.TEMPORARY,
+        open: false,
+      });
+    } else {
+      setSidebarOptions({
+        ...prevLayoutOptions,
+      });
     }
-  }, [isBelowLg]);
+  }, [isBelowLg, prevLayoutOptions]);
 
   React.useEffect(() => {
     if (layoutConfig)
@@ -57,12 +48,24 @@ function JumboLayoutProvider({ children, layoutConfig }) {
     });
   }, []);
 
-  const setSidebarOptions = React.useCallback((options) => {
-    setLayoutOptions({
-      type: LAYOUT_ACTIONS.SET_SIDEBAR_OPTIONS,
-      payload: options,
-    });
-  }, []);
+  const setSidebarOptions = React.useCallback(
+    (options) => {
+      if (isBelowLg) {
+        if (prevLayoutOptions === null)
+          setPrevLayoutOptions(layoutOptions.sidebar);
+      } else {
+        if (prevLayoutOptions) {
+          setPrevLayoutOptions(null);
+        }
+      }
+
+      setLayoutOptions({
+        type: LAYOUT_ACTIONS.SET_SIDEBAR_OPTIONS,
+        payload: options,
+      });
+    },
+    [isBelowLg, prevLayoutOptions, layoutOptions.sidebar]
+  );
 
   const setFooterOptions = React.useCallback((options) => {
     setLayoutOptions({
@@ -85,9 +88,30 @@ function JumboLayoutProvider({ children, layoutConfig }) {
     });
   }, []);
 
+  const setWrapperOptions = React.useCallback((options) => {
+    setLayoutOptions({
+      type: LAYOUT_ACTIONS.SET_WRAPPER_OPTIONS,
+      payload: options,
+    });
+  }, []);
+
+  const setMainOptions = React.useCallback((options) => {
+    setLayoutOptions({
+      type: LAYOUT_ACTIONS.SET_MAIN_OPTIONS,
+      payload: options,
+    });
+  }, []);
+
   const setOptions = React.useCallback((options) => {
     setLayoutOptions({
       type: LAYOUT_ACTIONS.SET_OPTIONS,
+      payload: options,
+    });
+  }, []);
+
+  const setRightSidebarOptions = React.useCallback((options) => {
+    setLayoutOptions({
+      type: LAYOUT_ACTIONS.SET_RIGHT_SIDEBAR_OPTIONS,
       payload: options,
     });
   }, []);
@@ -100,20 +124,31 @@ function JumboLayoutProvider({ children, layoutConfig }) {
       footerOptions: layoutOptions.footer,
       contentOptions: layoutOptions.content,
       rootOptions: layoutOptions.root,
+      wrapperOptions: layoutOptions.wrapper,
+      mainOptions: layoutOptions.main,
+      rightSidebarOptions: layoutOptions.rightSidebar,
+      debugOptions,
       setHeaderOptions,
       setSidebarOptions,
       setFooterOptions,
       setContentOptions,
       setRootOptions,
+      setWrapperOptions,
+      setMainOptions,
+      setRightSidebarOptions,
       setOptions,
     }),
     [
       layoutOptions,
+      debugOptions,
       setHeaderOptions,
       setFooterOptions,
       setSidebarOptions,
       setContentOptions,
       setRootOptions,
+      setWrapperOptions,
+      setMainOptions,
+      JumboLayoutProvider,
       setOptions,
     ]
   );
