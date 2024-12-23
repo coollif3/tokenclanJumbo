@@ -5,7 +5,6 @@ import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/Curren
 
 export default async function PriceStats({ slug }) {
   const coinData = await getCoinPriceChngForSlug(slug);
-  console.log("coinData: ", coinData);
   return (
     <>
       <Grid item xs={12} sm={6} md={3}>
