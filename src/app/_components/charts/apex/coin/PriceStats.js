@@ -12,7 +12,7 @@ export default async function PriceStats({ slug }) {
           subheader={"Today's Price USD"}
           value={coinData.price}
           prefixUnit={"$"}
-          roundedDigit={0}
+          roundedDigit={2}
         />
       </Grid>
       <Grid item xs={12} sm={6} md={3}>

@@ -61,11 +61,10 @@ export async function generateMetadata({ params, searchParams }) {
 }
 
 export default async function CoinProfilePage({ params, searchParams }) {
-  const param = params;
   const slug = params.slug;
   const coin = await getCoinNameFor(slug);
   const { route } = searchParams;
-  // console.log("param: ", param);
+  // console.log("param: ", params);
   // console.log("slug: ", slug);
   // console.log(searchParams);
 
