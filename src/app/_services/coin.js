@@ -227,6 +227,7 @@ export const getCoinSlugUsingBlkChainSlug = async (slug) => {
   return await getData(slug);
 }
 
+// **need to create standalone view table for coin price chng data and alter the query for optimisation
 export const getCoinPriceChngForSlug = async (slug) => {
   const getData = nextCache(
     cache(async (slug) => {
@@ -248,6 +249,7 @@ export const getCoinPriceChngForSlug = async (slug) => {
   return await getData(slug);
 };
 
+// **need to create standalone view table for coin price data and alter the query for optimisation
 export const getCoinPriceForSlug = async (slug, period) => {
   const getData = nextCache(
     cache(async (slug, period) => {

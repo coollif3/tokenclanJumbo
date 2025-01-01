@@ -23,21 +23,6 @@ const CoinProfileAccordion = lazy(
   () => import("@app/_components/widgets/CoinProfileAccordion")
 );
 
-export async function generateStaticParams() {
-  const rows = await getCoinSlug();
-  // console.log("rows: ", rows);
-
-  const results = rows
-    .filter((row) => row.slug !== null) // Filter out rows where coin_slug is null
-    .map((row) => {
-      let slug = row.slug; // Use coin slug
-      return { slug };
-    });
-
-  // console.log("results: ", results);
-  return results;
-}
-
 export async function generateMetadata({ params, searchParams }) {
   const slug = params.slug;
   const coin = await getCoinNameFor(slug);
@@ -58,6 +43,21 @@ export async function generateMetadata({ params, searchParams }) {
     title,
     description,
   };
+}
+
+export async function generateStaticParams() {
+  const rows = await getCoinSlug();
+  // console.log("rows: ", rows);
+
+  const results = rows
+    .filter((row) => row.slug !== null) // Filter out rows where coin_slug is null
+    .map((row) => {
+      let slug = row.slug; // Use coin slug
+      return { slug };
+    });
+
+  // console.log("results: ", results);
+  return results;
 }
 
 export default async function CoinProfilePage({ params, searchParams }) {
