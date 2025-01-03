@@ -9,7 +9,7 @@ import {
 const clippedUnderHeaderLayoutConfig = {
   sidebar: {
     variant: SIDEBAR_VARIANTS.PERSISTENT,
-    style: SIDEBAR_STYLES.CLIPPED_UNDER_HEADER,
+    style: SIDEBAR_STYLES.FULL_HEIGHT,
     view: SIDEBAR_VIEWS.FULL,
     open: true,
     hide: false,
@@ -17,6 +17,7 @@ const clippedUnderHeaderLayoutConfig = {
     anchor: SIDEBAR_ANCHOR_POSITIONS.LEFT,
     width: 240,
     minWidth: 80,
+    drawer: true
   },
   header: {
     hide: false,

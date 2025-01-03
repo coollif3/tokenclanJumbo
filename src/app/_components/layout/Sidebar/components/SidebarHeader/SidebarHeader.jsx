@@ -1,14 +1,13 @@
 'use client';
-import { Logo } from '@app/_components/_core/Logo';
+import { Logo } from '@app/_components/_core';
 import {
   useJumboLayout,
   useSidebarState,
 } from '@jumbo/components/JumboLayout/hooks';
 import { useJumboTheme } from '@jumbo/components/JumboTheme/hooks';
-import { SIDEBAR_STYLES, SIDEBAR_VIEWS } from '@jumbo/utilities/constants';
+import { SIDEBAR_VIEWS } from '@jumbo/utilities/constants';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { IconButton, Zoom } from '@mui/material';
-import React from 'react';
 import { SidebarHeaderDiv } from '..';
 
 function SidebarHeader() {
@@ -21,10 +20,8 @@ function SidebarHeader() {
     setSidebarOptions({ open: false });
   }
 
-  return (
-    <React.Fragment>
-      {sidebarOptions?.style !== SIDEBAR_STYLES.CLIPPED_UNDER_HEADER && (
-        <SidebarHeaderDiv>
+  return ( 
+      <SidebarHeaderDiv>
           <Logo mini={miniAndClosed} mode={theme.type} />
           {sidebarOptions?.view !== SIDEBAR_VIEWS.MINI && (
             <Zoom in={sidebarOptions?.open}>
@@ -39,10 +36,9 @@ function SidebarHeader() {
               </IconButton>
             </Zoom>
           )}
-        </SidebarHeaderDiv>
-      )}
-    </React.Fragment>
+        </SidebarHeaderDiv> 
   );
 }
 
 export { SidebarHeader };
+

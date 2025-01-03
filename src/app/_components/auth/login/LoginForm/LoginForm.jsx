@@ -1,4 +1,4 @@
-import { Link } from '@app/_components/_core/NextLink';
+import { Link } from '@app/_components/_core';
 import {
   JumboCheckbox,
   JumboForm,

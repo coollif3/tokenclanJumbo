@@ -1,4 +1,4 @@
-import { SearchGlobal } from '@app/_components/_core/SearchGlobal';
+import { SearchGlobal } from '@app/_components/_core';
 import { useSmallScreen } from '@app/_hooks';
 import { Div } from '@jumbo/shared';
 import CloseIcon from '@mui/icons-material/Close';
