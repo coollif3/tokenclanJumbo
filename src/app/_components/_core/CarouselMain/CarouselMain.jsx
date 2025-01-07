@@ -1,18 +1,31 @@
 "use client";
-import Carousel from "react-material-ui-carousel";
 import { Typography, Paper, Button, CardMedia, Grid } from "@mui/material";
 import { Div } from "@jumbo/shared";
 
 import { getAssetPath } from "@app/_utilities/helpers";
 import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
+var settings = {
+  dots: true,
+  fade: true,
+  infinite: true,
+  speed: 2000,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+};
 function CarouselMain({ items }) {
   return (
-    <Carousel>
+    <div className="slider-container">
+      <Slider {...settings}>
       {items.map((item, index) => (
         <Item item={item} key={index} />
       ))}
-    </Carousel>
+      </Slider>
+    </div>
   );
 }
 

@@ -1,17 +1,28 @@
 "use client";
-import Carousel from "react-material-ui-carousel";
 import { Typography, Paper, Button, CardMedia, Grid } from "@mui/material";
 import { Div } from "@jumbo/shared";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 import { getAssetPath } from "@app/_utilities/helpers";
-
+var settings = {
+  dots: true,
+  fade: true,
+  infinite: true,
+  speed: 2000,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+};
 function CarouselImg({ items }) {
   return (
-    <Carousel>
-      {items.map((item, index) => (
-        <Item item={item} key={index} />
-      ))}
-    </Carousel>
+    <Slider {...settings}>
+        {items.map((item, index) => (
+          <Item item={item} key={index} />
+        ))}
+    </Slider>
   );
 }
 
