@@ -6,7 +6,7 @@ import {
 } from "@app/_services/blockchain";
 import {
   Container,
-  Grid,
+  Grid2 as Grid,
   Typography,
   Breadcrumbs,
   Link,
@@ -69,10 +69,10 @@ export default async function SlugTvlPage({ params }) {
       disableGutters
     >
       <Grid container>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Typography variant="h3">{`${blockchain.name} TVL`}</Typography>
         </Grid>
-        <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
+        <Grid size={{ xs: 12, sm: 4 }} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
             <Link underline="hover" color="inherit" href="/">
               Home
@@ -93,10 +93,10 @@ export default async function SlugTvlPage({ params }) {
       </Grid>
 
       <Grid container spacing={1.2}>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <BlockchainSubmenu slug={slug} coinSlug={coin.slug} />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <CurrentMarketCard
             subheader={"Today's TVL USD"}
             value={tvlChng.usd}
@@ -104,7 +104,7 @@ export default async function SlugTvlPage({ params }) {
             roundedDigit={0}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <PercentChngCard
             title={`24hr Change`}
             value={parseFloat(tvlChng.one_day_chng)}
@@ -112,7 +112,7 @@ export default async function SlugTvlPage({ params }) {
             unit={"%"}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <PercentChngCard
             title={`7 Day Change`}
             value={parseFloat(tvlChng.seven_day_chng)}
@@ -120,7 +120,7 @@ export default async function SlugTvlPage({ params }) {
             unit={"%"}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <PercentChngCard
             title={`30 Day Change`}
             value={parseFloat(tvlChng.thirty_day_chng)}
@@ -128,16 +128,19 @@ export default async function SlugTvlPage({ params }) {
             unit={"%"}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <CompareTimeSeriesBox slugData={listingRows} boxType="blockchain" />
         </Grid>
-        <Suspense fallback={<CircularProgress />}>
-          <DataTimeframeChart
-            slug={slug}
-            dataFunc={getBlockchainTvlForSlug}
-            chartConfig={chartConfig}
-          />
-        </Suspense>
+        <Grid size={12}>
+          <Suspense fallback={<CircularProgress />}>
+            <DataTimeframeChart
+              slug={slug}
+              dataFunc={getBlockchainTvlForSlug}
+              chartConfig={chartConfig}
+              chartType={"blockchain"}
+            />
+          </Suspense>
+        </Grid>
       </Grid>
     </Container>
   );

@@ -1,5 +1,11 @@
 "use client";
-import { Grid, ButtonGroup, Button, Box, Typography } from "@mui/material";
+import {
+  Grid2 as Grid,
+  ButtonGroup,
+  Button,
+  Box,
+  Typography,
+} from "@mui/material";
 import Chart from "@app/_components/charts/apex/Chart";
 import { useEffect, useState } from "react";
 import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
@@ -57,8 +63,8 @@ export default function DataTimeframeChart({
   };
 
   return (
-    <Grid container spacing={3.75} sx={{ mb: 3 }}>
-      <Grid item xs={12}>
+    <Grid container spacing={2} sx={{ mb: 3 }}>
+      <Grid size={12}>
         <Box
           sx={{
             display: "flex",
@@ -113,7 +119,7 @@ export default function DataTimeframeChart({
           </ButtonGroup>
         </Box>
       </Grid>
-      <Grid item xs={12}>
+      <Grid size={12}>
         <Chart
           series={chartData}
           config={chartConfig}

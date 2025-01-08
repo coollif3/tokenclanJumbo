@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import {
   Container,
-  Grid,
+  Grid2 as Grid,
   Typography,
   Breadcrumbs,
   Link,
@@ -60,12 +60,13 @@ export default async function BlockchainDetailedPage({ params }) {
       disableGutters
       className={styles.tokenclan}
     >
+      {/* Sub Navbar */}
       <Grid container sx={{ mb: 3 }}>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Typography variant="h3">{`${blockchain.name} Blockchain TVL (USD)`}</Typography>
           <BlockchainSubmenu slug={slug} coinSlug={coin.slug} />
         </Grid>
-        <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
+        <Grid size={{ xs: 12, sm: 4 }} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
             <Link underline="hover" color="inherit" href="/">
               Home
@@ -77,20 +78,20 @@ export default async function BlockchainDetailedPage({ params }) {
           </Breadcrumbs>
         </Grid>
       </Grid>
-
-      <Grid container spacing={3.75}>
+      {/* Start slug content */}
+      <Grid container spacing={2}>
         <Suspense fallback={<CircularProgress />}>
           <Tvl slug={slug} />
         </Suspense>
 
-        <Grid item xs={12} mt={5}>
+        <Grid size={{ xs: 12, mt: 5 }}>
           <Typography variant="h3">{`${blockchain.name} Market Cap (USD)`}</Typography>
         </Grid>
 
         <Suspense fallback={<CircularProgress />}>
           <Marketcap slug={slug} />
         </Suspense>
-        <Grid item xs={12} mt={5}>
+        <Grid size={{ xs: 12, mt: 5 }}>
           <Typography variant="h3">{`${blockchain.name} MarketCap/TVL Ratio`}</Typography>
         </Grid>
 

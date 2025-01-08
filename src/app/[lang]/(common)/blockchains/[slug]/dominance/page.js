@@ -1,6 +1,6 @@
 import {
   Container,
-  Grid,
+  Grid2 as Grid,
   Typography,
   Breadcrumbs,
   Link,
@@ -64,10 +64,10 @@ export default async function SlugDominancePage({ params }) {
       disableGutters
     >
       <Grid container>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Typography variant="h3">{`${blockchain.name} TVL Dominance`}</Typography>
         </Grid>
-        <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
+        <Grid size={{ xs: 12, sm: 4 }} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
             <Link underline="hover" color="inherit" href="/">
               Home
@@ -85,21 +85,22 @@ export default async function SlugDominancePage({ params }) {
             <Typography color="text.primary">Dominance</Typography>
           </Breadcrumbs>
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <BlockchainSubmenu slug={slug} coinSlug={coin.slug} />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <CompareTimeSeriesBox slugData={listingRows} boxType="blockchain" />
         </Grid>
       </Grid>
 
-      <Grid container spacing={3.75}>
-        <Grid item xs={12}>
+      <Grid container spacing={2}>
+        <Grid size={12}>
           <Suspense fallback={<CircularProgress />}>
             <DataTimeframeChart
               slug={slug}
               dataFunc={getBlockchainDomForSlug}
               chartConfig={chartConfig}
+              chartType="blockchain"
             />
           </Suspense>
         </Grid>
