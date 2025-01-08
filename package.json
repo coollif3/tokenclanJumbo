@@ -40,7 +40,6 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.51.5",
-    "react-material-ui-carousel": "^3.4.2",
     "react-mathjax2": "^0.0.2",
     "react-slick": "^0.30.3",
     "recharts": "^2.12.3",
