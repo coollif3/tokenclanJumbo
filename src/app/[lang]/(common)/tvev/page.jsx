@@ -9,7 +9,7 @@ import {
   Button,
   CardMedia,
   Container,
-  Grid,
+  Grid2 as Grid,
   Typography,
 } from "@mui/material";
 
@@ -35,12 +35,9 @@ export default function tvevRatio() {
       <Typography variant="h3" align="center" mb={3}>
         What Is TVEV Ratio?
       </Typography>
-      <JumboCard
-        contentWrapper
-        contentSx={{ pt: 0 }}
-      >
+      <JumboCard contentWrapper contentSx={{ pt: 0 }}>
         <Grid>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box sx={{ maxWidth: "1000px", margin: "auto" }}>
               <Typography variant="h4" mt={3} paragraph>
                 TVEV Ratio Definition
@@ -84,7 +81,7 @@ export default function tvevRatio() {
                 The TVEV ratio is calculated using the following formula:
               </Typography>
               <Typography variant="body1" paragraph>
-                <span style={{ fontWeight: 'bold' }}>
+                <span style={{ fontWeight: "bold" }}>
                   TVEV Ratio = (TokenPriceInBTC * TotalTokenSupply) /
                   (24hrExchangeVolumeInBTC)
                 </span>

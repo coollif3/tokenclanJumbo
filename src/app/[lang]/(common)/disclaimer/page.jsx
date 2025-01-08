@@ -9,7 +9,7 @@ import {
   Button,
   CardMedia,
   Container,
-  Grid,
+  Grid2 as Grid,
   Typography,
 } from "@mui/material";
 
@@ -50,7 +50,7 @@ export default function Disclaimer() {
         contentSx={{ pt: 0 }}
       >
         <Grid>
-          {/* <Grid item xs={12} md={6}>
+          {/* <Grid size={{xs:12 md:6}}>
             <CardMedia
               component={'img'}
               sx={{ borderRadius: 2 }}
@@ -61,7 +61,7 @@ export default function Disclaimer() {
               alt={'About Us'}
             />
           </Grid> */}
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             {/* <Button
               disableRipple
               variant={'text'}

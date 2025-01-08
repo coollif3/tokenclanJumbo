@@ -20,7 +20,7 @@ import {
   Button,
   CardMedia,
   Container,
-  Grid,
+  Grid2 as Grid,
   Typography,
 } from "@mui/material";
 
@@ -56,7 +56,8 @@ const data = [
   },
   {
     category: "Browser, device and Site usage information",
-    purpose: "For the Site improvement and to protect the Site against fraudulent activities",
+    purpose:
+      "For the Site improvement and to protect the Site against fraudulent activities",
     basis: "Consent",
     retention: "For three years since you last logged on to the Site",
   },
@@ -73,14 +74,16 @@ const data = [
     retention: "Until you withdraw consent",
   },
   {
-    category: "Information generated in the course of the use of our products and services",
+    category:
+      "Information generated in the course of the use of our products and services",
     purpose: "To improve the features and functions of the Site",
     basis: "Consent",
     retention: "Until you withdraw consent",
   },
   {
     category: "Information collected through cookies and similar technologies",
-    purpose: "To conduct and store site usage analytics, statistical and trend analysis for market research",
+    purpose:
+      "To conduct and store site usage analytics, statistical and trend analysis for market research",
     basis: "Consent",
     retention: "For three years after you last visited the Site",
   },
@@ -198,8 +201,12 @@ export default function Privacy() {
               <Typography variant="body1" paragraph>
                 If you have any concerns or would like further information about
                 our use of data or this notice in general, you can contact our
-                Data Protection Officer through <Link href="https://support.tokenclan.io/">Contact Us</Link> , 
-                or through email; <Link href="mailto:support@tokenclan.io">support@tokenclan.io</Link>
+                Data Protection Officer through{" "}
+                <Link href="https://support.tokenclan.io/">Contact Us</Link> ,
+                or through email;{" "}
+                <Link href="mailto:support@tokenclan.io">
+                  support@tokenclan.io
+                </Link>
               </Typography>
             </Box>
             <Box mb={3}>
