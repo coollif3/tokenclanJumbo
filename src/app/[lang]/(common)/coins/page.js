@@ -1,13 +1,15 @@
 import { lazy, Suspense } from "react";
 import { getCoinData } from "@app/_services/coin";
-import { Container, Grid, Typography, CircularProgress } from "@mui/material";
+import {
+  Container,
+  Grid2 as Grid,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 
 const CoinDataTable = lazy(
-  () =>
-    import(
-      "@app/_components/widgets/CoinTableListing/CoinDataTable"
-    )
+  () => import("@app/_components/widgets/CoinTableListing/CoinDataTable")
 );
 
 export const metadata = {
@@ -30,11 +32,11 @@ const CoinsPage = async () => {
       }}
       disableGutters
     >
-      <Grid container spacing={3.75}>
-        <Grid item xs={12}>
+      <Grid container spacing={2}>
+        <Grid size={12}>
           <Typography variant="h3">Coin List</Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Suspense fallback={<CircularProgress />}>
             <CoinDataTable rows={listingRows} />
           </Suspense>

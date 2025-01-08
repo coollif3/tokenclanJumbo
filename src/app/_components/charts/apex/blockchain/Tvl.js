@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid2 as Grid } from "@mui/material";
 import TvlStats from "./TvlStats";
 import Chart from "@app/_components/charts/apex/Chart";
 import { getBlockchainTvlForSlug } from "@app/_services/blockchain";
@@ -16,7 +16,7 @@ export default async function Tvl({ slug }) {
   return (
     <>
       <TvlStats slug={slug} />
-      <Grid item xs={12}>
+      <Grid size={12}>
         <Chart series={tvlData} config={tvlChartConfig} />
       </Grid>
     </>

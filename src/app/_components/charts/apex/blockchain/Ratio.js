@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid2 as Grid } from "@mui/material";
 import RatioStats from "./RatioStats";
 import Chart from "@app/_components/charts/apex/Chart";
 import { getBlockchainRatioForSlug } from "@app/_services/blockchain";
@@ -16,7 +16,7 @@ export default async function Ratio({ slug }) {
   return (
     <>
       <RatioStats slug={slug} />
-      <Grid item xs={12}>
+      <Grid size={12}>
         <Chart series={ratioData} config={ratioChartConfig} />
       </Grid>
     </>

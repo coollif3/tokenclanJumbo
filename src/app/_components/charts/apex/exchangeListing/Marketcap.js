@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid2 as Grid } from "@mui/material";
 import MarketcapStats from "./MarketcapStats";
 import Chart from "@app/_components/charts/apex/Chart";
 import { getExchangeMktcapFor } from "@app/_services/exchange";
@@ -16,7 +16,7 @@ export default async function Marketcap({ slug }) {
   return (
     <>
       <MarketcapStats slug={slug} />
-      <Grid item xs={12}>
+      <Grid size={12}>
         <Chart series={mktcapData} config={marketcapChartConfig} />
       </Grid>
     </>

@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid2 as Grid } from "@mui/material";
 import TvevStats from "./TvevStats";
 import Chart from "@app/_components/charts/apex/Chart";
 import { getExchangeTvevFor } from "@app/_services/exchange";
@@ -16,7 +16,7 @@ export default async function Tvev({ slug }) {
   return (
     <>
       <TvevStats slug={slug} />
-      <Grid item xs={12}>
+      <Grid size={12}>
         <Chart series={tvevData} config={tvevChartConfig} />
       </Grid>
     </>

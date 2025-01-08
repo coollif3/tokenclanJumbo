@@ -1,23 +1,25 @@
 import { lazy, Suspense } from "react";
 import {
   Container,
-  Grid,
+  Grid2 as Grid,
   Typography,
   Breadcrumbs,
   Link,
   CircularProgress,
 } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
-import { getCoinNameFor, getCommonCoinSlug, getCoinSlug } from "@app/_services/coin";
+import {
+  getCoinNameFor,
+  getCommonCoinSlug,
+  getCoinSlug,
+} from "@app/_services/coin";
 
 // import CoinSubmenu from "@app/_components/_core/CoinSubmenu";
 
 import classes from "./styles.module.css";
 
 // chart component for coin price
-const CoinPrice = lazy(
-  () => import("@app/_components/charts/apex/coin/Price")
-);
+const CoinPrice = lazy(() => import("@app/_components/charts/apex/coin/Price"));
 
 const CoinProfileAccordion = lazy(
   () => import("@app/_components/widgets/CoinProfileAccordion")
@@ -91,11 +93,11 @@ export default async function CoinProfilePage({ params, searchParams }) {
         disableGutters
         className={classes.tokenclan}
       >
-        <Grid container spacing={3.75} sx={{ mb: 3 }}>
-          <Grid item xs={12} sm={4}>
+        <Grid container spacing={2} sx={{ mb: 1 }}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Typography variant="h3">{`${name}`}</Typography>
           </Grid>
-          <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
+          <Grid size={{ xs: 12, sm: 4 }} sx={{ marginLeft: "auto" }}>
             <Breadcrumbs aria-label="breadcrumb">
               <Link underline="hover" color="inherit" href="/">
                 Home
@@ -107,11 +109,11 @@ export default async function CoinProfilePage({ params, searchParams }) {
             </Breadcrumbs>
           </Grid>
         </Grid>
-        <Grid container spacing={3.75}>
+        <Grid container spacing={2}>
           <Suspense fallback={<CircularProgress />}>
             <CoinPrice slug={slug} />
           </Suspense>
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Suspense fallback={<CircularProgress />}>
               <CoinProfileAccordion slug={slug} route={route} />
             </Suspense>

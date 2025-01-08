@@ -1,7 +1,7 @@
 import { Suspense, lazy } from "react";
 import {
   Container,
-  Grid,
+  Grid2 as Grid,
   Typography,
   Breadcrumbs,
   Link,
@@ -67,12 +67,12 @@ export default async function SlugMktcapPage({ params }) {
       }}
       disableGutters
     >
-      <Grid container spacing={3.75} sx={{ mb: 3 }}>
-        <Grid item xs={12} sm={6}>
+      <Grid container spacing={2} sx={{ mb: 1 }}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Typography variant="h3">{`${exchange.name} Marketcap`}</Typography>
           <ExchangeSubmenu slug={slug} coinSlug={coin.slug} />
         </Grid>
-        <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
+        <Grid size={{ xs: 12, sm: 4 }} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
             <Link underline="hover" color="inherit" href="/">
               Home
@@ -88,8 +88,8 @@ export default async function SlugMktcapPage({ params }) {
         </Grid>
       </Grid>
 
-      <Grid container spacing={3.75}>
-        <Grid item xs={12} sm={6} md={3}>
+      <Grid container spacing={2}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <CurrentMarketCard
             subheader={"Today's Marketcap"}
             value={mktcapChng.market_cap}
@@ -97,7 +97,7 @@ export default async function SlugMktcapPage({ params }) {
             roundedDigit={0}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <PercentChngCard
             title={`24hr Change`}
             value={parseFloat(mktcapChng.one_day_chng)}
@@ -105,7 +105,7 @@ export default async function SlugMktcapPage({ params }) {
             unit={"%"}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <PercentChngCard
             title={`7 Day Change`}
             value={parseFloat(mktcapChng.seven_day_chng)}
@@ -113,7 +113,7 @@ export default async function SlugMktcapPage({ params }) {
             unit={"%"}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <PercentChngCard
             title={`30 Day Change`}
             value={parseFloat(mktcapChng.thirty_day_chng)}
@@ -121,10 +121,10 @@ export default async function SlugMktcapPage({ params }) {
             unit={"%"}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <CompareTimeSeriesBox slugData={listingRows} boxType="exchange" />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Suspense fallback={<CircularProgress />}>
             <DataTimeframeChart
               slug={slug}

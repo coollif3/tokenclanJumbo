@@ -1,5 +1,5 @@
 import {
-  Grid,
+  Grid2 as Grid,
   Accordion,
   AccordionDetails,
   AccordionSummary,
@@ -47,14 +47,12 @@ export default async function ExchangeProfileAccordion({ slug }) {
             if (key === "twitter" && value !== "N.A") {
               value = `@${value}`;
             }
+            const smSize =
+              displayKey === "Description" && value !== "N.A" ? 12 : 6;
+            const mdSize =
+              displayKey === "Description" && value !== "N.A" ? 12 : 4;
             return (
-              <Grid
-                item
-                xs={12}
-                sm={displayKey === "Description" && value !== "N.A" ? 12 : 6}
-                md={displayKey === "Description" && value !== "N.A" ? 12 : 4}
-                key={key}
-              >
+              <Grid size={{ xs: 12, sm: smSize, md: mdSize }}>
                 <Card
                   elevation={3}
                   sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}
