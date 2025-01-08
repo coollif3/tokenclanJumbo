@@ -2,10 +2,10 @@ import {
   splitIntoParagraphs,
   capitalizeFirstLetter,
   assignValueNA,
-  filterByLowestRelationId
+  filterByLowestRelationId,
 } from "@app/_utilities/helpers";
 import {
-  Grid,
+  Grid2 as Grid,
   Typography,
   Link,
   Card,
@@ -45,7 +45,7 @@ export default async function CoinProfileAccordion({ slug, route }) {
   // console.log("filteredProfiles: ", filteredProfiles);
 
   const renderAccordion = (profile, index) => {
-    profile = assignValueNA(profile, ['description', 'homepage', 'subreddit']); // Assign "N.A" to empty or null values
+    profile = assignValueNA(profile, ["description", "homepage", "subreddit"]); // Assign "N.A" to empty or null values
     return (
       <Accordion
         key={profile.id}
@@ -57,55 +57,73 @@ export default async function CoinProfileAccordion({ slug, route }) {
         sx={{ boxShadow: "none", mb: 3, border: "1px solid #ddd" }}
       >
         <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
-          <Typography variant="h5">{capitalizeFirstLetter(profile.type_name)} Coin Profile</Typography>
+          <Typography variant="h5">
+            {capitalizeFirstLetter(profile.type_name)} Coin Profile
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={2}>
             {profile.symbol && profile.symbol !== "N.A" && (
-              <Grid item xs={12} sm={6}>
-                <Card elevation={3} sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <Card
+                  elevation={3}
+                  sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}
+                >
                   <CardContent>
-                    <Typography variant="h6">{capitalizeFirstLetter(profile.type_name)}</Typography>
-                    <Typography variant="body1">
-                      {profile.name}
+                    <Typography variant="h6">
+                      {capitalizeFirstLetter(profile.type_name)}
                     </Typography>
+                    <Typography variant="body1">{profile.name}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
             )}
             {profile.symbol && profile.symbol !== "N.A" && (
-              <Grid item xs={12} sm={6}>
-                <Card elevation={3} sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <Card
+                  elevation={3}
+                  sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}
+                >
                   <CardContent>
                     <Typography variant="h6">Coin Symbol</Typography>
-                    <Typography variant="body1">
-                      {profile.symbol}
-                    </Typography>
+                    <Typography variant="body1">{profile.symbol}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
             )}
             {profile.description && profile.description !== "N.A" && (
-              <Grid item xs={12}>
-                <Card elevation={3} sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}>
+              <Grid size={12}>
+                <Card
+                  elevation={3}
+                  sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}
+                >
                   <CardContent>
                     <Typography variant="h6">About {profile.name}</Typography>
-                    {splitIntoParagraphs(profile.description).map((paragraph, index) => (
-                      <Typography variant="body1" paragraph key={index}>
-                        {paragraph}
-                      </Typography>
-                    ))}
+                    {splitIntoParagraphs(profile.description).map(
+                      (paragraph, index) => (
+                        <Typography variant="body1" paragraph key={index}>
+                          {paragraph}
+                        </Typography>
+                      )
+                    )}
                   </CardContent>
                 </Card>
               </Grid>
             )}
             {profile.homepage && profile.homepage !== "N.A" && (
-              <Grid item xs={12} sm={6}>
-                <Card elevation={3} sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <Card
+                  elevation={3}
+                  sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}
+                >
                   <CardContent>
                     <Typography variant="h6">Homepage URL</Typography>
                     <Typography variant="body1">
-                      <Link href={profile.homepage} target="_blank" rel="noopener noreferrer">
+                      <Link
+                        href={profile.homepage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         {profile.homepage}
                       </Link>
                     </Typography>
@@ -114,12 +132,19 @@ export default async function CoinProfileAccordion({ slug, route }) {
               </Grid>
             )}
             {profile.subreddit && profile.subreddit !== "N.A" && (
-              <Grid item xs={12} sm={6}>
-                <Card elevation={3} sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}>
+              <Grid size={{ xs: 12, sm: 6 }}>
+                <Card
+                  elevation={3}
+                  sx={{ border: "1px solid #ddd", p: 1, mb: 1 }}
+                >
                   <CardContent>
                     <Typography variant="h6">Subreddit URL</Typography>
                     <Typography variant="body1">
-                      <Link href={profile.subreddit} target="_blank" rel="noopener noreferrer">
+                      <Link
+                        href={profile.subreddit}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         {profile.subreddit}
                       </Link>
                     </Typography>
