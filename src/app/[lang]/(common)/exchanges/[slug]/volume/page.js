@@ -1,6 +1,6 @@
 import {
   Container,
-  Grid,
+  Grid2 as Grid,
   Typography,
   Breadcrumbs,
   Link,
@@ -65,12 +65,12 @@ export default async function SlugVolumePage({ params }) {
       }}
       disableGutters
     >
-      <Grid container spacing={3.75} sx={{ mb: 3 }}>
-        <Grid item xs={12} sm={6}>
+      <Grid container spacing={2} sx={{ mb: 1 }}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Typography variant="h3">{`${exchange.name} Exchange Volume`}</Typography>
           <ExchangeSubmenu slug={slug} coinSlug={coin.slug} />
         </Grid>
-        <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
+        <Grid size={{ xs: 12, sm: 4 }} sx={{ marginLeft: "auto" }}>
           <Breadcrumbs aria-label="breadcrumb">
             <Link underline="hover" color="inherit" href="/">
               Home
@@ -87,7 +87,7 @@ export default async function SlugVolumePage({ params }) {
       </Grid>
 
       <Grid container spacing={3.75}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <CurrentMarketCard
             subheader={"Today's Volume BTC"}
             value={volumeChng.vol_24hr_normalized}
@@ -95,7 +95,7 @@ export default async function SlugVolumePage({ params }) {
             roundedDigit={0}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <PercentChngCard
             title={`24hr Change`}
             value={parseFloat(volumeChng.one_day_chng)}
@@ -103,7 +103,7 @@ export default async function SlugVolumePage({ params }) {
             unit={"%"}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <PercentChngCard
             title={`7 Day Change`}
             value={parseFloat(volumeChng.seven_day_chng)}
@@ -111,7 +111,7 @@ export default async function SlugVolumePage({ params }) {
             unit={"%"}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <PercentChngCard
             title={`30 Day Change`}
             value={parseFloat(volumeChng.thirty_day_chng)}
@@ -119,10 +119,10 @@ export default async function SlugVolumePage({ params }) {
             unit={"%"}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <CompareTimeSeriesBox slugData={listingRows} boxType="exchange" />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Suspense fallback={<CircularProgress />}>
             <DataTimeframeChart
               slug={slug}

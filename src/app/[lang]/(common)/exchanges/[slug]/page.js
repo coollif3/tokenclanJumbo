@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import {
   Container,
-  Grid,
+  Grid2 as Grid,
   Typography,
   Breadcrumbs,
   Link,
@@ -61,13 +61,13 @@ export default async function ExchangeDetailedPage({ params }) {
         className={styles.tokenclan}
       >
         <Grid container sx={{ mb: 3 }}>
-          <Grid item xs={12} sm={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Typography variant="h3">
               {`${exchange.name} Exchange Data `}
             </Typography>
             <ExchangeSubmenu slug={slug} coinSlug={coin.slug} />
           </Grid>
-          <Grid item xs={12} sm={4} sx={{ marginLeft: "auto" }}>
+          <Grid size={{ xs: 12, sm: 4 }} sx={{ marginLeft: "auto" }}>
             <Breadcrumbs aria-label="breadcrumb">
               <Link underline="hover" color="inherit" href="/">
                 Home
@@ -79,25 +79,25 @@ export default async function ExchangeDetailedPage({ params }) {
             </Breadcrumbs>
           </Grid>
         </Grid>
-        <Grid container spacing={3.75}>
+        <Grid container spacing={2}>
           <Suspense fallback={<CircularProgress />}>
             <Volume slug={slug} />
           </Suspense>
 
-          <Grid item xs={12} mt={5}>
+          <Grid size={12} mt={5}>
             <Typography variant="h3">{`${exchange.name} Market Cap (USD)`}</Typography>
           </Grid>
           <Suspense fallback={<CircularProgress />}>
             <Marketcap slug={slug} />
           </Suspense>
 
-          <Grid item xs={12} mt={5}>
+          <Grid size={12} mt={5}>
             <Typography variant="h3">{`${exchange.name} TVEV Ratio`}</Typography>
           </Grid>
           <Suspense fallback={<CircularProgress />}>
             <Tvev slug={slug} />
           </Suspense>
-          <Grid item xs={12}>
+          <Grid size={12}>
             <ExchangeProfileAccordion slug={slug} />
           </Grid>
         </Grid>

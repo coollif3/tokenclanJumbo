@@ -4,7 +4,12 @@ import {
   getVolumeMktOverview,
   getVolumeMktOverviewChng,
 } from "@app/_services/exchange";
-import { Container, Grid, Typography, CircularProgress } from "@mui/material";
+import {
+  Container,
+  Grid2 as Grid,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
 import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChngCard";
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
@@ -47,10 +52,10 @@ const ExchangesPage = async () => {
       disableGutters
     >
       <Grid container spacing={3.75}>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Typography variant="h3">Global Volume</Typography>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <CurrentMarketCard
             subheader={"Today's Volume USD"}
             value={chngData.totalvolume_usd}
@@ -58,33 +63,33 @@ const ExchangesPage = async () => {
             roundedDigit={0}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <PercentChngCard
             title={`24hr Change`}
             value={parseFloat(chngData.one_day_chng)}
             period={"day"}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <PercentChngCard
             title={`7 Day Change`}
             value={parseFloat(chngData.seven_day_chng)}
             period={"week"}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <PercentChngCard
             title={`30 Day Change`}
             value={parseFloat(chngData.thirty_day_chng)}
             period={"month"}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Suspense fallback={<CircularProgress />}>
             <Chart series={chartSeries} config={chartConfig} />
           </Suspense>
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Suspense fallback={<CircularProgress />}>
             <ExchangeDataTable rows={results} />
           </Suspense>
