@@ -8,16 +8,18 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { CONTAINER_MAX_WIDTH } from "@app/_config/layouts";
-import { getCoinNameFor, getCommonCoinSlug, getCoinSlug } from "@app/_services/coin";
+import {
+  getCoinNameFor,
+  getCommonCoinSlug,
+  getCoinSlug,
+} from "@app/_services/coin";
 
 // import CoinSubmenu from "@app/_components/_core/CoinSubmenu";
 
 import classes from "./styles.module.css";
 
 // chart component for coin price
-const CoinPrice = lazy(
-  () => import("@app/_components/charts/apex/coin/Price")
-);
+const CoinPrice = lazy(() => import("@app/_components/charts/apex/coin/Price"));
 
 const CoinProfileAccordion = lazy(
   () => import("@app/_components/widgets/CoinProfileAccordion")
@@ -47,17 +49,9 @@ export async function generateMetadata({ params, searchParams }) {
 
 export async function generateStaticParams() {
   const rows = await getCoinSlug();
-  // console.log("rows: ", rows);
+  console.log("coin slug rows: ", rows);
 
-  const results = rows
-    .filter((row) => row.slug !== null) // Filter out rows where coin_slug is null
-    .map((row) => {
-      let slug = row.slug; // Use coin slug
-      return { slug };
-    });
-
-  // console.log("results: ", results);
-  return results;
+  return rows.map((row) => ({ slug: row.slug }));
 }
 
 export default async function CoinProfilePage({ params, searchParams }) {

@@ -32,9 +32,7 @@ export const getCoinProfileFor = async (slug) => {
         return results;
       } catch (error) {
         console.log(error);
-        throw new Error(
-          `Error fetching coin profile for slug ${slug}`
-        );
+        throw new Error(`Error fetching coin profile for slug ${slug}`);
       }
     }),
     [`getCoinProfileForSlug-${slug}`],
@@ -58,7 +56,7 @@ export const getCoinNameFor = async (slug) => {
       }
     }),
     [`getCoinNameForSlug-${slug}`],
-    { revalidate: 28800, tags: [`coin-${slug}`] }
+    { revalidate: 86400, tags: [`coin-${slug}`] }
   );
   return await getData(slug);
 };
@@ -81,7 +79,7 @@ export const getCoinNameFromExchangeSlug = async (slug) => {
       }
     }),
     [`getCoinNameFromExchangeSlug-${slug}`],
-    { revalidate: 28800, tags: [`coin-${slug}`] }
+    { revalidate: 86400, tags: [`coin-${slug}`] }
   );
   return await getData(slug);
 };
@@ -191,9 +189,12 @@ export const getCoinSlugUsingExchngSlug = async (slug) => {
   const getData = nextCache(
     cache(async (slug) => {
       try {
-        const [results, metadata] = await dbc.query(getCoinSlugUsingExchngSlugSql, {
-          replacements: { slug },
-        });
+        const [results, metadata] = await dbc.query(
+          getCoinSlugUsingExchngSlugSql,
+          {
+            replacements: { slug },
+          }
+        );
 
         return results[0];
       } catch (error) {
@@ -211,30 +212,37 @@ export const getCoinSlugUsingBlkChainSlug = async (slug) => {
   const getData = nextCache(
     cache(async (slug) => {
       try {
-        const [results, metadata] = await dbc.query(getCoinSlugUsingBlkChainSlugSql, {
-          replacements: { slug },
-        });
+        const [results, metadata] = await dbc.query(
+          getCoinSlugUsingBlkChainSlugSql,
+          {
+            replacements: { slug },
+          }
+        );
 
         return results[0];
       } catch (error) {
         console.log(error);
-        throw new Error(`Error fetching coin slug using blockchain slug ${slug}`);
+        throw new Error(
+          `Error fetching coin slug using blockchain slug ${slug}`
+        );
       }
     }),
     [`getCoinSlugUsingBlkChainSlug-${slug}`],
     { revalidate: 86400, tags: [`coin-${slug}`] }
   );
   return await getData(slug);
-}
+};
 
 // Get coin price change latest data for a given slug
 export const getCoinPriceChngForSlug = async (slug) => {
   const getData = nextCache(
     cache(async (slug) => {
       try {
-        const [results, metadata] = await dbc.query(getCoinPriceChngForSlugSql, {
-          replacements: { slug },
-        }
+        const [results, metadata] = await dbc.query(
+          getCoinPriceChngForSlugSql,
+          {
+            replacements: { slug },
+          }
         );
 
         return results[0];
