@@ -63,6 +63,13 @@ export const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
+export function numberSeperatorFormat(value) {
+  return new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
+}
+
 export const displayRedGreenColumn = (item, colorPalette, last = false) => {
   const num = (+item).toFixed(2);
   if (last) {

@@ -6,7 +6,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Link from "next/link";
-import { displayRedGreenColumn } from "@app/_utilities/helpers";
+import { displayRedGreenColumn, numberSeperatorFormat } from "@app/_utilities/helpers";
 import styles from "./styles.module.css";
 
 const colorPalette = {
@@ -49,7 +49,7 @@ export default function BlockchainDataTable({ rows }) {
                   {row.name}
                 </Link>
               </TableCell>
-              <TableCell align="right">{row.usd}</TableCell>
+              <TableCell align="right">{numberSeperatorFormat(row.usd)}</TableCell>
               <TableCell align="right">{row.dominance}</TableCell>
               {displayRedGreenColumn(row.one_day_chng, colorPalette)}
               {displayRedGreenColumn(row.seven_day_chng, colorPalette)}

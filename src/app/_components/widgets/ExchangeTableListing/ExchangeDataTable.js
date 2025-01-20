@@ -6,7 +6,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Link from "next/link";
-import { displayRedGreenColumn } from "@app/_utilities/helpers/";
+import { displayRedGreenColumn, numberSeperatorFormat } from "@app/_utilities/helpers/";
 import styles from "./styles.module.css";
 
 const colorPalette = {
@@ -45,7 +45,7 @@ export default function ExchangeDataTable({ rows }) {
                 <Link href={`/exchanges/${row.slug}`}>{row.exchange}</Link>
               </TableCell>
               <TableCell align="right">{row.category}</TableCell>
-              <TableCell align="right">{row.vol_24hr}</TableCell>
+              <TableCell align="right">{numberSeperatorFormat(row.vol_24hr)}</TableCell>
               {displayRedGreenColumn(row.one_day_chng, colorPalette)}
               {displayRedGreenColumn(row.seven_day_chng, colorPalette)}
               {displayRedGreenColumn(row.thirty_day_chng, colorPalette)}

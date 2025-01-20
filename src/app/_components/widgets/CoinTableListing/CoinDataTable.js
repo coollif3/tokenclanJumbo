@@ -8,6 +8,7 @@ import Paper from "@mui/material/Paper";
 import Link from "next/link";
 import { displayRedGreenColumn, filterCoinList } from "@app/_utilities/helpers";
 import styles from "./styles.module.css";
+import { numberSeperatorFormat } from "@app/_utilities/helpers";
 
 const colorPalette = {
   red: "#FF5E5B",
@@ -55,10 +56,10 @@ const CoinDataTable = (props) => {
                     {row.coin_name}
                   </Link>
                 </TableCell>
-                <TableCell align="right">{row.price}</TableCell>
-                {displayRedGreenColumn(row.price_chg_percent_24h, colorPalette)}
-                <TableCell align="right">{row.total_vol}</TableCell>
-                <TableCell align="right">{row.market_cap}</TableCell>
+                <TableCell align="right">{numberSeperatorFormat(row.price)}</TableCell>
+                {displayRedGreenColumn(numberSeperatorFormat(row.price_chg_percent_24h), colorPalette)}
+                <TableCell align="right">{numberSeperatorFormat(row.total_vol)}</TableCell>
+                <TableCell align="right">{numberSeperatorFormat(row.market_cap)}</TableCell>
               </TableRow>
             ))
           ) : (
