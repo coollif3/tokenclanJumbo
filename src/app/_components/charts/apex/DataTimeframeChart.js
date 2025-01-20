@@ -12,6 +12,7 @@ import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
 import { useSearchParams } from "next/navigation";
 import { getBlockchainNameForSlug } from "@app/_services/blockchain";
 import { getExchangeNameFor } from "@app/_services/exchange";
+import { capitalizeFirstLetter } from "@app/_utilities/helpers";
 
 export default function DataTimeframeChart({
   slug,
@@ -47,6 +48,7 @@ export default function DataTimeframeChart({
             }
           })
         );
+        chartConfig.tooltipSeries = capitalizeFirstLetter(slug);
         chartConfig.slugtooltipSeriesArray = slugNameArray
           .map((result) => result.value)
           .map((x) => x.name);
