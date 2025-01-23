@@ -12,7 +12,7 @@ const priceChartConfig = {
 };
 
 export default async function Price({ slug }) {
-  const priceData = await getCoinPriceForSlug(slug, 30);
+  const coinPrice = await getCoinPriceForSlug(slug, 30);
   return (
     <>
       <PriceStats slug={slug} />

@@ -419,18 +419,15 @@ export const getCoinPriceChngForSlug = `SELECT
     7day_usd_chng AS seven_day_chng, 
     30day_usd_chng AS thirty_day_chng 
   FROM 
-    coin_mkt_data 
+    coin_price_chng_latest 
   WHERE 
-    coin_slug = :slug 
-  ORDER BY 
-    createdAt DESC 
-  LIMIT 1`;
+    coin_slug = :slug`;
 
 export const getCoinPriceForSlug = `SELECT
   createdAt AS x,
   price AS y
 FROM
-  coin_mkt_data
+  coin_price
 WHERE 
   coin_slug = :slug 
 ORDER BY 

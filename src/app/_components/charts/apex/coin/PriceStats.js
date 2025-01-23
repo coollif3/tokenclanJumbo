@@ -4,21 +4,21 @@ import PercentChngCard from "@app/_components/metrics/PercentChngCard/PercentChn
 import CurrentMarketCard from "@app/_components/widgets/CurrentMarketCard/CurrentMarketCard";
 
 export default async function PriceStats({ slug }) {
-  const coinData = await getCoinPriceChngForSlug(slug);
+  const coinPriceChng = await getCoinPriceChngForSlug(slug);
   return (
     <>
       <Grid size={{ xs: 12, sm: 6, md: 3 }}>
         <CurrentMarketCard
           subheader={"Today's Price USD"}
-          value={coinData.price}
+          value={coinPriceChng.price}
           prefixUnit={"$"}
-          roundedDigit={0}
+          roundedDigit={2}
         />
       </Grid>
       <Grid size={{ xs: 12, sm: 6, md: 3 }}>
         <PercentChngCard
           title={`24hr Change`}
-          value={parseFloat(coinData.one_day_chng)}
+          value={parseFloat(coinPriceChng.one_day_chng)}
           period={"day"}
           unit={"%"}
         />
@@ -26,7 +26,7 @@ export default async function PriceStats({ slug }) {
       <Grid size={{ xs: 12, sm: 6, md: 3 }}>
         <PercentChngCard
           title={`7 Day Change`}
-          value={parseFloat(coinData.seven_day_chng)}
+          value={parseFloat(coinPriceChng.seven_day_chng)}
           period={"week"}
           unit={"%"}
         />
@@ -34,7 +34,7 @@ export default async function PriceStats({ slug }) {
       <Grid size={{ xs: 12, sm: 6, md: 3 }}>
         <PercentChngCard
           title={`30 Day Change`}
-          value={parseFloat(coinData.thirty_day_chng)}
+          value={parseFloat(coinPriceChng.thirty_day_chng)}
           period={"month"}
           unit={"%"}
         />
