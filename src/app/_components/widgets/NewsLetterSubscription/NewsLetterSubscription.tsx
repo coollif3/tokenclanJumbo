@@ -40,7 +40,12 @@ export function NewsLetterSubscription({
 
   return (
     <MailingListJumboCard
+      avatar={null}
+      bgimage={null}
+      textColor="common.white"
+      bgcolor={["primary.main"]}
       title={title}
+      action={null}
       subheader={subheader}
       contentWrapper
       contentSx={{ pt: 0 }}

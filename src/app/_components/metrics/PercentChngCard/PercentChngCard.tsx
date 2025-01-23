@@ -31,11 +31,16 @@ const PercentChngCard = ({
 
   return (
     <JumboCard
+      avatar={null} // Provide a default or placeholder value
+      bgimage={null} // Provide a default or placeholder value
+      textColor="common.white" // Provide a default or placeholder value
       title={
         <Typography variant={"h6"} mb={0} sx={{ color: "common.white" }}>
           {title}
         </Typography>
       }
+      subheader={null} // Provide a default or placeholder value
+      action={null} // Provide a default or placeholder value
       sx={{ color: "common.white" }}
       bgcolor={
         outcome ? [theme.palette.primary.main] : [theme.palette.secondary.main]

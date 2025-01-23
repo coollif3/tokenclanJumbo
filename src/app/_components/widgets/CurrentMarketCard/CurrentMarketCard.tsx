@@ -23,27 +23,33 @@ const CurrentMarketCard = ({
   const formattedValue = numberWithCommas(marketValue);
   return (
     <JumboCard
-      bgcolor={[theme.palette.primary.main]}
-      // bgcolor={["#5DCBA6"]}
-      contentSx={{ p: 3, height: 154.03 }}
-      contentWrapper
-    >
-      <Div sx={{ display: "flex", alignItems: "center" }}>
+      avatar={
         <Image
           alt={""}
-          width={48}
-          height={48}
+          width={38}
+          height={38}
           src={`${ASSET_IMAGES}/dashboard/filesIcon.svg`}
         />
-        <Div sx={{ ml: 2, flex: 1 }}>
-          <Typography color={"common.white"} variant={"h5"} mb={0.5}>
-            {`${prefixUnit} ${formattedValue} `}
-          </Typography>
-          <Typography color={"common.white"} variant={"h6"} mb={0}>
-            {subheader}
-          </Typography>
-        </Div>
-      </Div>
+      } // Provide a default or placeholder value
+      bgimage={null} // Provide a default or placeholder value
+      textColor="common.white" // Provide a default or placeholder value
+      bgcolor={[theme.palette.primary.main]}
+      title={
+        <Typography color={"common.white"} variant={"h5"} mb={0.5}>
+          {`${prefixUnit} ${formattedValue} `}
+        </Typography>
+      }
+      subheader={
+        <Typography color={"common.white"} variant={"h5"} mb={0.5}>
+          {subheader}
+        </Typography>
+      }
+      // bgcolor={["#5DCBA6"]}
+      contentSx={{ p: 3, height: 56 }}
+      action={null}
+      contentWrapper
+    >
+      <Typography variant={"body1"} color={"common.white"}></Typography>
     </JumboCard>
   );
 };

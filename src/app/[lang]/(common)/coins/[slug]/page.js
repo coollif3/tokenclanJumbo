@@ -49,7 +49,7 @@ export async function generateMetadata({ params, searchParams }) {
 
 export async function generateStaticParams() {
   const rows = await getCoinSlug();
-  console.log("coin slug rows: ", rows);
+  // console.log("coin slug rows: ", rows);
 
   return rows.map((row) => ({ slug: row.slug }));
 }

@@ -8,6 +8,9 @@ import React from "react";
 const BitcoinPrice = ({ subheader }: { subheader: React.ReactNode }) => {
   return (
     <JumboCard
+      avatar={null}
+      bgimage={null}
+      textColor="common.white"
       title={
         <Typography variant={"h2"} color={"common.white"}>
           $9,626
@@ -28,7 +31,7 @@ const BitcoinPrice = ({ subheader }: { subheader: React.ReactNode }) => {
       }
       headerSx={{ pb: 0 }}
       sx={{ color: "common.white" }}
-      bgcolor={["#6f42c1"]}
+      bgcolor={"#6f42c1"}
     >
       <ChartLastMonthSales />
     </JumboCard>

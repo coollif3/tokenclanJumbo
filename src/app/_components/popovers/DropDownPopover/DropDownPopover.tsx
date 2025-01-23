@@ -47,6 +47,7 @@ const DropDownPopover = () => {
           </ThemeProvider>
         }
         // disableInsideClick
+        sx={{}} // Provide a default or placeholder value for sx
       >
         <Div
           sx={{
