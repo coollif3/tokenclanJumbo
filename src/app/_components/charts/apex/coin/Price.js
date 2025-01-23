@@ -17,7 +17,7 @@ export default async function Price({ slug }) {
     <>
       <PriceStats slug={slug} />
       <Grid size={12}>
-        <Chart series={priceData} config={priceChartConfig} />
+        <Chart series={coinPrice} config={priceChartConfig} />
       </Grid>
     </>
   );
