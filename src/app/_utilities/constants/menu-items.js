@@ -26,6 +26,16 @@ export async function getMenus(locale) {
       ],
     },
     {
+      label: sidebar.menu.knowledge,
+      children: [
+        {
+          path: `/${locale}/vault`,
+          label: sidebar.menuItem.vault,
+          icon: "vault",
+        },
+      ],
+    },
+    {
       label: sidebar.menu.main,
       children: [
         {
@@ -47,11 +57,6 @@ export async function getMenus(locale) {
           path: `/${locale}/terms`,
           label: sidebar.menuItem.terms,
           icon: "terms",
-        },
-        {
-          path: `/${locale}/vault`,
-          label: sidebar.menuItem.vault,
-          icon: "vault",
         },
         {
           path: `https://support.tokenclan.io`,

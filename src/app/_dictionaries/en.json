@@ -2,7 +2,8 @@
   "sidebar": {
     "menu": {
       "main": "Other Links",
-      "chart": "Charts"
+      "chart": "Charts",
+      "knowledge": "Knowledge"
     },
     "menuItem": {
       "blockchains": "Blockchains",
@@ -13,7 +14,7 @@
       "privacy": "Privacy",
       "terms": "Terms",
       "contact": "Contact Us",
-      "vault": "Knowledge Vault"
+      "vault": "Vault"
     }
   },
   "footer": {

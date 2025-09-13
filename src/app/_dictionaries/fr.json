@@ -3,11 +3,12 @@
     "menu": {
       "sample": "Exemple de menu",
       "main": "Autres Liens",
-      "chart": "Graphiques"
+      "chart": "Graphiques",
+      "knowledge": "Connaissance"
     },
     "menuItem": {
       "sample": "Exemple d'article",
-      "vault": "Coffre-fort de Connaissances"
+      "vault": "Coffre-fort"
     }
   },
   "footer": {

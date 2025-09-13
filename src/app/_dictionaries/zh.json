@@ -3,11 +3,12 @@
     "menu": {
       "sample": "菜单示例",
       "main": "其他链接",
-      "chart": "图表"
+      "chart": "图表",
+      "knowledge": "知识"
     },
     "menuItem": {
       "sample": "样品项目",
-      "vault": "知识库"
+      "vault": "库"
     }
   },
   "footer": {

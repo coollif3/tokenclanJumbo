@@ -3,11 +3,12 @@
     "menu": {
       "sample": "Menù di esempio",
       "main": "Altri Collegamenti",
-      "chart": "Grafici"
+      "chart": "Grafici",
+      "knowledge": "Conoscenza"
     },
     "menuItem": {
       "sample": "Articolo campione",
-      "vault": "Caveau della Conoscenza"
+      "vault": "Caveau"
     }
   },
   "footer": {

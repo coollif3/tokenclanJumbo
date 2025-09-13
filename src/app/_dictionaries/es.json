@@ -3,11 +3,12 @@
     "menu": {
       "sample": "Menú de muestra",
       "main": "Otros Enlaces",
-      "chart": "Gráficos"
+      "chart": "Gráficos",
+      "knowledge": "Conocimiento"
     },
     "menuItem": {
       "sample": "Artículo de muestra",
-      "vault": "Bóveda de Conocimiento"
+      "vault": "Bóveda"
     }
   },
   "footer": {
