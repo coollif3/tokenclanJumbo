@@ -19,7 +19,7 @@ const WEBHOOK_URL = process.env.NEXT_PUBLIC_CHATBOT_WEBHOOK_URL || "https://api.
 
 const suggestedQuestions = [
   "What is Bitcoin?",
-  "How do I a evaluate a Crypto project?",
+  "How do I a evaluate a crypto project?",
   "What are the key blockchain metrics?",
   "Explain market cap to TVL ratio",
 ];
