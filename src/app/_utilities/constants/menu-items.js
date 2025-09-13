@@ -49,6 +49,11 @@ export async function getMenus(locale) {
           icon: "terms",
         },
         {
+          path: `/${locale}/vault`,
+          label: sidebar.menuItem.vault,
+          icon: "vault",
+        },
+        {
           path: `https://support.tokenclan.io`,
           label: sidebar.menuItem.contact,
           icon: "contact",

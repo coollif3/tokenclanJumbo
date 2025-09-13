@@ -1,10 +1,13 @@
 {
   "sidebar": {
     "menu": {
-      "sample": "菜单示例"
+      "sample": "菜单示例",
+      "main": "其他链接",
+      "chart": "图表"
     },
     "menuItem": {
-      "sample": "样品项目"
+      "sample": "样品项目",
+      "vault": "知识库"
     }
   },
   "footer": {

@@ -1,10 +1,13 @@
 {
   "sidebar": {
     "menu": {
-      "sample": "Menú de muestra"
+      "sample": "Menú de muestra",
+      "main": "Otros Enlaces",
+      "chart": "Gráficos"
     },
     "menuItem": {
-      "sample": "Artículo de muestra"
+      "sample": "Artículo de muestra",
+      "vault": "Bóveda de Conocimiento"
     }
   },
   "footer": {

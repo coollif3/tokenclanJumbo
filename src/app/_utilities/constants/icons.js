@@ -18,6 +18,7 @@ import {
   Policy,
   ContactMail,
   Toll,
+  SmartToy as SmartToyIcon,
 } from "@mui/icons-material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
@@ -114,6 +115,10 @@ const APP_ICONS = [
   {
     name: "contact",
     Component: ContactMail,
+  },
+  {
+    name: "vault",
+    Component: SmartToyIcon,
   },
 ];
 

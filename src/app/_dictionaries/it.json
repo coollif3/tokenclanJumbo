@@ -1,10 +1,13 @@
 {
   "sidebar": {
     "menu": {
-      "sample": "Menù di esempio"
+      "sample": "Menù di esempio",
+      "main": "Altri Collegamenti",
+      "chart": "Grafici"
     },
     "menuItem": {
-      "sample": "Articolo campione"
+      "sample": "Articolo campione",
+      "vault": "Caveau della Conoscenza"
     }
   },
   "footer": {
