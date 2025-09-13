@@ -11,7 +11,7 @@ import ChatbotInterface from "@app/_components/widgets/ChatbotInterface/ChatbotI
 
 export const metadata = {
   title: "Knowledge Vault - AI Assistant | TokenClan",
-  description: "Get instant answers about cryptocurrency, blockchain, and DeFi from our AI-powered knowledge vault.",
+  description: "Get concise, knowledgeable answers about cryptocurrency and blockchain from our AI-powered knowledge vault.",
 };
 
 export default async function KnowledgeVaultPage({ params }) {
@@ -33,7 +33,7 @@ export default async function KnowledgeVaultPage({ params }) {
             Knowledge Vault
           </Typography>
           <Typography variant="body1" align="center" color="text.secondary" mb={4}>
-            Ask our AI assistant anything about cryptocurrency, blockchain technology, DeFi, and market analysis.
+            Ask our AI assistant anything about cryptocurrency and blockchain technology.
           </Typography>
         </Grid>
         <Grid size={12}>
@@ -41,7 +41,7 @@ export default async function KnowledgeVaultPage({ params }) {
             contentWrapper
             contentSx={{ p: 0, height: "70vh" }}
           >
-            <Suspense fallback={<div>Loading chatbot...</div>}>
+            <Suspense fallback={<div>Loading Vault...</div>}>
               <ChatbotInterface />
             </Suspense>
           </JumboCard>
