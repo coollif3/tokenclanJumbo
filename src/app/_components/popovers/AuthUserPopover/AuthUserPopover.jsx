@@ -1,4 +1,5 @@
 import { JumboDdPopover } from '@jumbo/components';
+import { useAuth } from '@app/_contexts/AuthContext';
 import { useJumboTheme } from '@jumbo/components/JumboTheme/hooks';
 import { Div } from '@jumbo/shared';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -15,30 +16,30 @@ import {
   ThemeProvider,
   Typography,
 } from '@mui/material';
-import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
-import { authUser } from './data';
 
 const AuthUserPopover = () => {
+  const { user, signOut } = useAuth();
+  const router = useRouter();
   const { theme } = useJumboTheme();
 
   const logout = React.useCallback(() => {
-    (async () => {
-      await signOut({
-        callbackUrl: 'http://localhost:3000/en-US/auth/login-1',
-      });
-    })();
-  }, []);
+    signOut();
+    router.push('/auth/login');
+  }, [signOut, router]);
 
+  if (!user) return null;
   return (
     <ThemeProvider theme={theme}>
       <JumboDdPopover
         triggerButton={
           <Avatar
-            src={authUser?.profile_pic}
+            sx={{ bgcolor: 'primary.main', cursor: 'pointer' }}
             sizes={'small'}
-            sx={{ boxShadow: 23, cursor: 'pointer' }}
-          />
+          >
+            {user.user_metadata?.full_name?.charAt(0) || user.email?.charAt(0)}
+          </Avatar>
         }
         sx={{ ml: 3 }}
       >
@@ -51,13 +52,14 @@ const AuthUserPopover = () => {
           }}
         >
           <Avatar
-            src={authUser?.profile_pic}
-            alt={authUser.name}
+            sx={{ bgcolor: 'primary.main' }}
             sx={{ width: 60, height: 60, mb: 2 }}
-          />
-          <Typography variant={'h5'}>{authUser.name}</Typography>
+          >
+            {user.user_metadata?.full_name?.charAt(0) || user.email?.charAt(0)}
+          </Avatar>
+          <Typography variant={'h5'}>{user.user_metadata?.full_name || 'Member'}</Typography>
           <Typography variant={'body1'} color='text.secondary'>
-            {authUser.handle}
+            {user.email}
           </Typography>
         </Div>
         <Divider />

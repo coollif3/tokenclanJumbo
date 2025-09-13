@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from '@app/_contexts/AuthContext';
 import { AuthUserPopover } from "@app/_components/popovers/AuthUserPopover";
 import { MessagesPopover } from "@app/_components/popovers/MessagesPopover";
 import { NotificationsPopover } from "@app/_components/popovers/NotificationsPopover";
@@ -18,8 +19,12 @@ import React from "react";
 import { Search, SearchIconButtonOnSmallScreen } from "./components";
 import { ThemeModeOption } from "./components/ThemeModeOptions";
 import { DropDownPopover } from "@app/_components/popovers/DropDownPopover";
+import { Button } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 function Header() {
+  const { user } = useAuth();
+  const router = useRouter();
   const { isSidebarStyle } = useSidebarState();
 
   const [searchVisibility, setSearchVisibility] = React.useState(false);
@@ -45,8 +50,20 @@ function Header() {
         {/* <SearchIconButtonOnSmallScreen onClick={handleSearchVisibility} /> */}
         {/* <MessagesPopover /> */}
         {/* <NotificationsPopover /> */}
-        <DropDownPopover />
-        {/* <AuthUserPopover /> */}
+        {user ? (
+          <>
+            <DropDownPopover />
+            <AuthUserPopover />
+          </>
+        ) : (
+          <Button
+            variant="contained"
+            onClick={() => router.push('/auth/login')}
+            sx={{ ml: 2 }}
+          >
+            Login
+          </Button>
+        )}
       </Stack>
     </React.Fragment>
   );

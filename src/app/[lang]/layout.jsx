@@ -1,6 +1,8 @@
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 
 import { AppSnackbar } from "@app/_components/_core";
+import { AuthProvider } from "@app/_contexts/AuthContext";
+import ProtectedRoute from "@app/_components/auth/ProtectedRoute";
 import { CONFIG } from "@app/_config";
 import "@app/_themes/assets/fonts/noir-pro/styles.css";
 import { ASSET_IMAGES } from "@app/_utilities/constants/paths";
@@ -32,16 +34,20 @@ export default async function RootLayout({ children, params: { lang } }) {
         <div id="root">
           <AppRouterCacheProvider>
             <JumboConfigProvider LinkComponent={Link}>
-              <JumboTheme init={CONFIG.THEME}>
-                <GoogleAnalytics gaId={process.env.GA_ANALYTICS} />
-                <CssBaseline />
-                <JumboDialogProvider>
-                  <JumboDialog />
-                  <AppSnackbar>
-                    <Suspense fallback={<Loading />}>{children}</Suspense>
-                  </AppSnackbar>
-                </JumboDialogProvider>
-              </JumboTheme>
+              <AuthProvider>
+                <JumboTheme init={CONFIG.THEME}>
+                  <GoogleAnalytics gaId={process.env.GA_ANALYTICS} />
+                  <CssBaseline />
+                  <JumboDialogProvider>
+                    <JumboDialog />
+                    <AppSnackbar>
+                      <ProtectedRoute>
+                        <Suspense fallback={<Loading />}>{children}</Suspense>
+                      </ProtectedRoute>
+                    </AppSnackbar>
+                  </JumboDialogProvider>
+                </JumboTheme>
+              </AuthProvider>
             </JumboConfigProvider>
           </AppRouterCacheProvider>
         </div>
