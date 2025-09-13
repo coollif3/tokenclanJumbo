@@ -74,7 +74,7 @@ export default function ChatbotInterface() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to get response from AI");
+        throw new Error("Failed to get response from Vault");
       }
 
       const data = await response.json();
