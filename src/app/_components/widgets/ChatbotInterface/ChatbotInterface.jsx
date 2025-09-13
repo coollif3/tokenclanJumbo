@@ -29,7 +29,7 @@ export default function ChatbotInterface() {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I'm your crypto knowledge assistant. Ask me anything about cryptocurrency, blockchain, DeFi, or market analysis.",
+      text: "Hello! I'm your crypto knowledge assistant. Ask me anything about cryptocurrency, blockchain related topics.",
       sender: "bot",
       timestamp: new Date(),
     },
