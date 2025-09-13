@@ -18,7 +18,7 @@ import { useJumboTheme } from "@jumbo/components/JumboTheme/hooks";
 const WEBHOOK_URL = process.env.NEXT_PUBLIC_CHATBOT_WEBHOOK_URL || "https://api.example.com/webhook/chat";
 
 const suggestedQuestions = [
-  "What is TVEV ratio?",
+  "What is Bitcoin",
   "How do I analyze DeFi protocols?",
   "What are the key blockchain metrics?",
   "Explain market cap to TVL ratio",
