@@ -9,14 +9,14 @@ export const supabase = supabaseUrl.startsWith('https://') && supabaseUrl !== 'h
   : null
 
 // Auth helper functions
-export const signUp = async (email, password, fullName, membershipTier = 'free') => {
+export const signUp = async (email, password, fullName) => {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: {
         full_name: fullName,
-        membership_tier: membershipTier,
+        membership_tier: 'free',
       }
     }
   })
