@@ -9,14 +9,14 @@ export const supabase = supabaseUrl.startsWith('https://') && supabaseUrl !== 'h
   : null
 
 // Auth helper functions
-export const signUp = async (email, password, fullName) => {
+export const signUp = async (email, password, fullName, membershipTier = 'free') => {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: {
         full_name: fullName,
-        membership_tier: 'free',
+        membership_tier: membershipTier,
       }
     }
   })
@@ -74,9 +74,17 @@ export const getUserProfile = async (userId) => {
 }
 
 export const updateUserProfile = async (userId, updates) => {
+  if (!supabase) {
+    return { data: null, error: { message: 'Supabase not configured' } }
+  }
+
   const { data, error } = await supabase
     .from('user_profiles')
-    .update({ ...updates, updated_at: new Date().toISOString() })
+    .upsert({ 
+      user_id: userId,
+      ...updates, 
+      updated_at: new Date().toISOString() 
+    })
     .eq('user_id', userId)
     .select()
     .single()
