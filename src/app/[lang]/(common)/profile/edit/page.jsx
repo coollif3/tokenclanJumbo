@@ -227,6 +227,10 @@ export default function EditProfilePage() {
                     value={user.email}
                     disabled
                     helperText="Email cannot be changed"
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
                     label="Membership Tier"
