@@ -79,3 +79,6 @@ const AuthUserPopover = () => {
 };
 
 export { AuthUserPopover };
+
+  )
+}
