@@ -27,9 +27,9 @@ export const AuthProvider = ({ children }) => {
       if (session?.user) {
         // Fetch user profile
         const { data: profile } = await supabase
-          .from('profiles')
+          .from('user_profiles')
           .select('*')
-          .eq('id', session.user.id)
+          .eq('user_id', session.user.id)
           .single();
         setUserProfile(profile);
       }
@@ -47,9 +47,9 @@ export const AuthProvider = ({ children }) => {
         if (session?.user) {
           // Fetch user profile
           const { data: profile } = await supabase
-            .from('profiles')
+            .from('user_profiles')
             .select('*')
-            .eq('id', session.user.id)
+            .eq('user_id', session.user.id)
             .single();
           setUserProfile(profile);
         } else {
@@ -95,9 +95,9 @@ export const AuthProvider = ({ children }) => {
       if (!user) return { error: 'No user logged in' };
       
       const { data, error } = await supabase
-        .from('profiles')
+        .from('user_profiles')
         .update(updates)
-        .eq('id', user.id)
+        .eq('user_id', user.id)
         .select()
         .single();
       
