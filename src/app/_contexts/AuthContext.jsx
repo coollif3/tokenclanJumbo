@@ -41,7 +41,10 @@ export const AuthProvider = ({ children }) => {
       setUser(session?.user ?? null)
       
       if (session?.user) {
-        const { data: profile } = await getUserProfile(session.user.id)
+        const { data: profile, error } = await getUserProfile(session.user.id)
+        if (error && error.code !== 'PGRST116') { // PGRST116 is "not found" error
+          console.error('Error fetching user profile:', error)
+        }
         setUserProfile(profile)
       }
       
@@ -56,7 +59,10 @@ export const AuthProvider = ({ children }) => {
         setUser(session?.user ?? null)
         
         if (session?.user) {
-          const { data: profile } = await getUserProfile(session.user.id)
+          const { data: profile, error } = await getUserProfile(session.user.id)
+          if (error && error.code !== 'PGRST116') { // PGRST116 is "not found" error
+            console.error('Error fetching user profile:', error)
+          }
           setUserProfile(profile)
         } else {
           setUserProfile(null)
