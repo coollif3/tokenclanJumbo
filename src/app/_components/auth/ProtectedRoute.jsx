@@ -8,7 +8,8 @@ const protectedPaths = [
   '/blockchains',
   '/exchanges', 
   '/coins',
-  '/vault'
+  '/vault',
+  '/profile'
 ]
 
 export default function ProtectedRoute({ children }) {
