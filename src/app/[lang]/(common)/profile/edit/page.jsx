@@ -97,25 +97,20 @@ export default function EditProfilePage() {
       if (authError) {
         setError(authError.message)
       } else {
-        // Update or create user profile in database
-        const { data: profileData, error: profileError } = await updateUserProfile(user.id, {
-          full_name: formData.fullName,
-          membership_tier: formData.membershipTier,
-          email: user.email
-        })
-
-        if (profileError) {
-          console.error('Profile update error:', profileError)
-          setError('Profile updated in auth but failed to save to database: ' + profileError.message)
-        } else {
-          setSuccess('Profile updated successfully!')
-          setTimeout(() => {
-            router.push('/profile')
-          }, 2000)
+        // Also update the user_profiles table if it exists
+        if (userProfile) {
+          await updateUserProfile(user.id, {
+            full_name: formData.fullName,
+            membership_tier: formData.membershipTier
+          })
         }
+        
+        setSuccess('Profile updated successfully!')
+        setTimeout(() => {
+          router.push('/profile')
+        }, 2000)
       }
     } catch (err) {
-      console.error('Update error:', err)
       setError('Failed to update profile. Please try again.')
     } finally {
       setSaving(false)

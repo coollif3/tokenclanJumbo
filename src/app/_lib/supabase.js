@@ -74,17 +74,9 @@ export const getUserProfile = async (userId) => {
 }
 
 export const updateUserProfile = async (userId, updates) => {
-  if (!supabase) {
-    return { data: null, error: { message: 'Supabase not configured' } }
-  }
-
   const { data, error } = await supabase
     .from('user_profiles')
-    .upsert({ 
-      user_id: userId,
-      ...updates, 
-      updated_at: new Date().toISOString() 
-    })
+    .update({ ...updates, updated_at: new Date().toISOString() })
     .eq('user_id', userId)
     .select()
     .single()
