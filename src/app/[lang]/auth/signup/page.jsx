@@ -29,7 +29,6 @@ export default function SignUpPage() {
     email: '',
     password: '',
     confirmPassword: '',
-    membershipTier: 'free'
   })
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -69,7 +68,7 @@ export default function SignUpPage() {
       formData.email, 
       formData.password, 
       formData.fullName,
-      formData.membershipTier
+      'free'
     )
     
     if (authError) {
@@ -161,30 +160,6 @@ export default function SignUpPage() {
               sx={{ mb: 2 }}
             />
 
-            <TextField
-              fullWidth
-              label="Email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              sx={{ mb: 2 }}
-            />
-
-            <FormControl fullWidth sx={{ mb: 2 }}>
-              <InputLabel>Membership Tier</InputLabel>
-              <Select
-                name="membershipTier"
-                value={formData.membershipTier}
-                onChange={handleChange}
-                label="Membership Tier"
-              >
-                <MenuItem value="free">Free Member</MenuItem>
-                <MenuItem value="paid">Paid Member</MenuItem>
-              </Select>
-            </FormControl>
-            
             <TextField
               fullWidth
               label="Password"

@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
       
       if (session?.user) {
         const { data: profile, error } = await supabase
-          .from('user_profiles')
+          .from('user_profiles') 
           .select('*')
           .eq('user_id', session.user.id)
           .single()

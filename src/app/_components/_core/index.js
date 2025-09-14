@@ -10,3 +10,4 @@ export * from "./SidebarToggleButton";
 export * from "./Spinner";
 export * from "./CarouselMain";
 export * from "./CarouselImg";
+export * from "./UpgradeButton";

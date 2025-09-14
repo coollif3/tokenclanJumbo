@@ -30,7 +30,6 @@ export default function EditProfilePage() {
   
   const [formData, setFormData] = useState({
     fullName: '',
-    membershipTier: 'free'
   })
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
@@ -41,7 +40,6 @@ export default function EditProfilePage() {
     if (user) {
       setFormData({
         fullName: user.user_metadata?.full_name || '',
-        membershipTier: user.user_metadata?.membership_tier || 'free'
       })
     }
   }, [user])
@@ -60,7 +58,6 @@ export default function EditProfilePage() {
       if (data) {
         setFormData({
           fullName: data.full_name || '',
-          membershipTier: data.membership_tier || 'free'
         })
       }
     } catch (err) {
@@ -118,7 +115,7 @@ export default function EditProfilePage() {
       const { data, error: authError } = await supabase.auth.updateUser({
         data: {
           full_name: formData.fullName,
-          membership_tier: formData.membershipTier
+          membership_tier: user.user_metadata?.membership_tier || 'free'
         }
       })
 
@@ -131,7 +128,7 @@ export default function EditProfilePage() {
           .upsert({ 
             user_id: user.id,
             full_name: formData.fullName,
-            membership_tier: formData.membershipTier,
+            membership_tier: user.user_metadata?.membership_tier || 'free',
             email: user.email,
             updated_at: new Date().toISOString() 
           })
@@ -230,22 +227,14 @@ export default function EditProfilePage() {
                     value={user.email}
                     disabled
                     helperText="Email cannot be changed"
+                  <TextField
+                    fullWidth
+                    label="Membership Tier"
+                    value={`${((user.user_metadata?.membership_tier || 'free').charAt(0).toUpperCase() + 
+                             (user.user_metadata?.membership_tier || 'free').slice(1))} Member`}
+                    disabled
+                    helperText="Membership tier cannot be changed directly. Use the Upgrade button to upgrade to Paid Member."
                   />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <FormControl fullWidth>
-                    <InputLabel>Membership Tier</InputLabel>
-                    <Select
-                      name="membershipTier"
-                      value={formData.membershipTier}
-                      onChange={handleChange}
-                      label="Membership Tier"
-                    >
-                      <MenuItem value="free">Free Member</MenuItem>
-                      <MenuItem value="paid">Paid Member</MenuItem>
-                    </Select>
-                  </FormControl>
                 </Grid>
               </Grid>
 
