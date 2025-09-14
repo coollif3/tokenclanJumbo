@@ -5,6 +5,7 @@ import { Div } from '@jumbo/shared';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import RepeatOutlinedIcon from '@mui/icons-material/RepeatOutlined';
 import {
   Avatar,
   Divider,
@@ -75,6 +76,16 @@ const AuthUserPopover = () => {
                 <EditOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary='Edit Profile' sx={{ my: 0 }} />
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon sx={{ minWidth: 36 }}>
+                <RepeatOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText
+                // onClick={() => navigate('/samples/content-layout')}
+                primary='Switch User'
+                sx={{ my: 0 }}
+              />
             </ListItemButton>
             <ListItemButton onClick={logout}>
               <ListItemIcon sx={{ minWidth: 36 }}>
