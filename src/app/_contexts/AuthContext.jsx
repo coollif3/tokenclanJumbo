@@ -17,6 +17,23 @@ export const AuthProvider = ({ children }) => {
   const [userProfile, setUserProfile] = useState(null)
   const [loading, setLoading] = useState(true)
 
+  // If Supabase is not configured, provide mock auth state
+  if (!supabase) {
+    return (
+      <AuthContext.Provider value={{
+        user: null,
+        userProfile: null,
+        loading: false,
+        signUp: async () => ({ data: null, error: { message: 'Supabase not configured' } }),
+        signIn: async () => ({ data: null, error: { message: 'Supabase not configured' } }),
+        signOut: async () => ({ error: { message: 'Supabase not configured' } }),
+        resetPassword: async () => ({ data: null, error: { message: 'Supabase not configured' } })
+      }}>
+        {children}
+      </AuthContext.Provider>
+    )
+  }
+
   useEffect(() => {
     // Get initial session
     const getInitialSession = async () => {
