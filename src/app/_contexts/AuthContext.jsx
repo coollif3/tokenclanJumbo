@@ -41,7 +41,12 @@ export const AuthProvider = ({ children }) => {
       setUser(session?.user ?? null)
       
       if (session?.user) {
-        const { data: profile, error } = await getUserProfile(session.user.id)
+        const { data: profile, error } = await supabase
+          .from('user_profiles')
+          .select('*')
+          .eq('user_id', session.user.id)
+          .single()
+          
         if (error && error.code !== 'PGRST116') { // PGRST116 is "not found" error
           console.error('Error fetching user profile:', error)
         }
@@ -59,7 +64,12 @@ export const AuthProvider = ({ children }) => {
         setUser(session?.user ?? null)
         
         if (session?.user) {
-          const { data: profile, error } = await getUserProfile(session.user.id)
+          const { data: profile, error } = await supabase
+            .from('user_profiles')
+            .select('*')
+            .eq('user_id', session.user.id)
+            .single()
+            
           if (error && error.code !== 'PGRST116') { // PGRST116 is "not found" error
             console.error('Error fetching user profile:', error)
           }
