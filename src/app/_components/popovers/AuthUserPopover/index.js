@@ -1,1 +1,1 @@
-export * from './AuthUserPopover';
+export { default as AuthUserPopover } from './AuthUserPopover';

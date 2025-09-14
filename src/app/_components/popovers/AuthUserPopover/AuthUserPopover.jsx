@@ -88,3 +88,5 @@ const AuthUserPopover = () => {
     </ThemeProvider>
   );
 };
+
+export default AuthUserPopover;
