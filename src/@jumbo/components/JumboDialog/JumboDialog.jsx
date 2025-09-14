@@ -1,5 +1,4 @@
 'use client';
-'use client';
 import { DialogConfirm } from './components/DialogConfirm';
 import { DialogDefault } from './components/DialogDefault';
 import { useJumboDialog } from './hooks/useJumboDialog';

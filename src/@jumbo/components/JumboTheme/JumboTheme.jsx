@@ -1,5 +1,4 @@
 'use client';
-'use client';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { enUS } from '@mui/material/locale';
 import PropTypes from 'prop-types';

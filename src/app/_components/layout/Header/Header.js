@@ -1,7 +1,5 @@
 'use client';
 
-'use client';
-
 import { ThemeModeOption } from "./components/ThemeModeOptions";
 import { DropDownPopover } from "@app/_components/popovers/DropDownPopover";
 import { Button } from '@mui/material';

@@ -1,5 +1,3 @@
-'use client';
-
 import { JumboDdPopover } from '@jumbo/components';
 import { useAuth } from '@app/_contexts/AuthContext';
 import { useJumboTheme } from '@jumbo/components/JumboTheme/hooks';
