@@ -65,7 +65,7 @@ export default function ForgotPasswordPage() {
             </Typography>
             <Button
               variant="outlined"
-              href="/auth/login"
+              href="/en-US/auth/login"
             >
               Back to Login
             </Button>
@@ -133,7 +133,7 @@ export default function ForgotPasswordPage() {
 
             <Typography variant="body2" align="center">
               Remember your password?{' '}
-              <Link href="/auth/login" underline="hover">
+              <Link href="/en-US/auth/login" underline="hover">
                 Sign In
               </Link>
             </Typography>

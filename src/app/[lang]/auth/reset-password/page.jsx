@@ -97,7 +97,7 @@ export default function ResetPasswordPage() {
             </Typography>
             <Button
               variant="contained"
-              onClick={() => router.push('/auth/login')}
+              onClick={() => router.push('/en-US/auth/login')}
             >
               Sign In
             </Button>

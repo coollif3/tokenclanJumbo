@@ -123,14 +123,14 @@ export default function LoginPage() {
             </Button>
 
             <Box sx={{ textAlign: 'center', mb: 2 }}>
-              <Link href="/auth/forgot-password" underline="hover">
+              <Link href="/en-US/auth/forgot-password" underline="hover">
                 Forgot Password?
               </Link>
             </Box>
 
             <Typography variant="body2" align="center">
               Don't have an account?{' '}
-              <Link href="/auth/signup" underline="hover">
+              <Link href="/en-US/auth/signup" underline="hover">
                 Sign Up
               </Link>
             </Typography>

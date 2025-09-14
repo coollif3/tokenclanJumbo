@@ -106,7 +106,7 @@ export default function SignUpPage() {
             </Typography>
             <Button
               variant="contained"
-              onClick={() => router.push('/auth/login')}
+              onClick={() => router.push('/en-US/auth/login')}
             >
               Go to Login
             </Button>
@@ -244,7 +244,7 @@ export default function SignUpPage() {
 
             <Typography variant="body2" align="center">
               Already have an account?{' '}
-              <Link href="/auth/login" underline="hover">
+              <Link href="/en-US/auth/login" underline="hover">
                 Sign In
               </Link>
             </Typography>
