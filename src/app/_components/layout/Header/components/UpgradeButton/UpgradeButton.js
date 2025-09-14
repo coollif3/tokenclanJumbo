@@ -1,4 +1,6 @@
 'use client'
+'use client';
+
 import { useState } from 'react'
 import { useAuth } from '@app/_contexts/AuthContext'
 import { Button, CircularProgress } from '@mui/material'

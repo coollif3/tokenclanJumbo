@@ -1,3 +1,5 @@
+'use client';
+
 import { JumboDdPopover, JumboIconButton } from "@jumbo/components";
 import {
   useJumboTheme,
