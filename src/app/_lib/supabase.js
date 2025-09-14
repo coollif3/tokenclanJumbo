@@ -6,13 +6,14 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 // Auth helper functions
-export const signUp = async (email, password, fullName) => {
+export const signUp = async (email, password, fullName, membershipTier = 'free') => {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: {
         full_name: fullName,
+        membership_tier: membershipTier,
       }
     }
   })
@@ -49,4 +50,26 @@ export const updatePassword = async (newPassword) => {
 export const getCurrentUser = async () => {
   const { data: { user }, error } = await supabase.auth.getUser()
   return { user, error }
+}
+
+// User profile functions
+export const getUserProfile = async (userId) => {
+  const { data, error } = await supabase
+    .from('user_profiles')
+    .select('*')
+    .eq('user_id', userId)
+    .single()
+  
+  return { data, error }
+}
+
+export const updateUserProfile = async (userId, updates) => {
+  const { data, error } = await supabase
+    .from('user_profiles')
+    .update({ ...updates, updated_at: new Date().toISOString() })
+    .eq('user_id', userId)
+    .select()
+    .single()
+  
+  return { data, error }
 }

@@ -68,7 +68,8 @@ export default function SignUpPage() {
     const { data, error: authError } = await signUp(
       formData.email, 
       formData.password, 
-      formData.fullName
+      formData.fullName,
+      formData.membershipTier
     )
     
     if (authError) {
@@ -76,15 +77,6 @@ export default function SignUpPage() {
       setLoading(false)
     } else {
       setSuccess(true)
-      // Store membership tier in user metadata
-      if (data.user) {
-        await supabase.from('user_profiles').insert({
-          user_id: data.user.id,
-          full_name: formData.fullName,
-          membership_tier: formData.membershipTier,
-          email: formData.email
-        })
-      }
     }
   }
 

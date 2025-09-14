@@ -1,6 +1,6 @@
 'use client'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { supabase } from '@app/_lib/supabase'
+import { supabase, getUserProfile } from '@app/_lib/supabase'
 
 const AuthContext = createContext({})
 
@@ -14,6 +14,7 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
+  const [userProfile, setUserProfile] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -21,6 +22,12 @@ export const AuthProvider = ({ children }) => {
     const getInitialSession = async () => {
       const { data: { session } } = await supabase.auth.getSession()
       setUser(session?.user ?? null)
+      
+      if (session?.user) {
+        const { data: profile } = await getUserProfile(session.user.id)
+        setUserProfile(profile)
+      }
+      
       setLoading(false)
     }
 
@@ -30,6 +37,14 @@ export const AuthProvider = ({ children }) => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         setUser(session?.user ?? null)
+        
+        if (session?.user) {
+          const { data: profile } = await getUserProfile(session.user.id)
+          setUserProfile(profile)
+        } else {
+          setUserProfile(null)
+        }
+        
         setLoading(false)
       }
     )
@@ -39,14 +54,16 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     user,
+    userProfile,
     loading,
-    signUp: async (email, password, fullName) => {
+    signUp: async (email, password, fullName, membershipTier = 'free') => {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
             full_name: fullName,
+            membership_tier: membershipTier,
           }
         }
       })
