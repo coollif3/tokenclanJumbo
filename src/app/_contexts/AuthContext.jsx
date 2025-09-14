@@ -98,8 +98,13 @@ export const AuthProvider = ({ children }) => {
       return { error }
     },
     resetPassword: async (email) => {
+      // Get the correct base URL for the current environment
+      const baseUrl = typeof window !== 'undefined' 
+        ? window.location.origin 
+        : process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+        
       const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/en-US/auth/reset-password`,
+        redirectTo: `${baseUrl}/en-US/auth/reset-password`,
       })
       return { data, error }
     }
