@@ -2,7 +2,7 @@
 
 import { ThemeModeOption } from "./components/ThemeModeOptions";
 import { DropDownPopover } from "@app/_components/popovers/DropDownPopover";
-import AuthUserPopover from "@app/_components/popovers/AuthUserPopover";
+import { AuthUserPopover } from "@app/_components/popovers/AuthUserPopover";
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { UpgradeButton } from './components/UpgradeButton';
