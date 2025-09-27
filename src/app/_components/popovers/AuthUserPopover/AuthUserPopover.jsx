@@ -70,12 +70,6 @@ const AuthUserPopover = () => {
               </ListItemIcon>
               <ListItemText primary='Profile' sx={{ my: 0 }} />
             </ListItemButton>
-            <ListItemButton onClick={() => router.push('/profile/edit')}>
-              <ListItemIcon sx={{ minWidth: 36 }}>
-                <EditOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary='Edit Profile' sx={{ my: 0 }} />
-            </ListItemButton>
             <ListItemButton onClick={logout}>
               <ListItemIcon sx={{ minWidth: 36 }}>
                 <LogoutIcon />

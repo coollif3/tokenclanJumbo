@@ -129,12 +129,6 @@ export default function ProfilePage() {
 
           <Box sx={{ mt: 4, display: 'flex', gap: 2 }}>
             <Button
-              variant="contained"
-              onClick={() => router.push('/profile/edit')}
-            >
-              Edit Profile
-            </Button>
-            <Button
               variant="outlined"
               onClick={() => router.back()}
             >
