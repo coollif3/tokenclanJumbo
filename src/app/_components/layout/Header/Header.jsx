@@ -21,7 +21,6 @@ import { ThemeModeOption } from "./components/ThemeModeOptions";
 import { DropDownPopover } from "@app/_components/popovers/DropDownPopover";
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { UpgradeButton } from '@app/_components/_core/UpgradeButton';
 
 function Header() {
   const { user } = useAuth();
@@ -54,7 +53,6 @@ function Header() {
         {user ? (
           <>
             <DropDownPopover />
-            <UpgradeButton />
             <AuthUserPopover />
           </>
         ) : (
