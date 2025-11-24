@@ -80,14 +80,53 @@ export const updateUserProfile = async (userId, updates) => {
 
   const { data, error } = await supabase
     .from('user_profiles')
-    .upsert({ 
+    .upsert({
       user_id: userId,
-      ...updates, 
-      updated_at: new Date().toISOString() 
+      ...updates,
+      updated_at: new Date().toISOString()
     })
     .eq('user_id', userId)
     .select()
     .single()
-  
+
   return { data, error }
+}
+
+export const createUserProfile = async (userId, email, fullName, membershipTier = 'free') => {
+  if (!supabase) {
+    return { data: null, error: { message: 'Supabase not configured' } }
+  }
+
+  const { data, error } = await supabase
+    .from('user_profiles')
+    .insert({
+      user_id: userId,
+      email: email,
+      full_name: fullName,
+      membership_tier: membershipTier,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    })
+    .select()
+    .single()
+
+  return { data, error }
+}
+
+export const checkEmailExists = async (email) => {
+  if (!supabase) {
+    return { exists: false, error: { message: 'Supabase not configured' } }
+  }
+
+  const { data, error } = await supabase
+    .from('user_profiles')
+    .select('email')
+    .eq('email', email)
+    .maybeSingle()
+
+  if (error) {
+    return { exists: false, error }
+  }
+
+  return { exists: data !== null, error: null }
 }

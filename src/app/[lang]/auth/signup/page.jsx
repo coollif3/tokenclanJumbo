@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useAuth } from '@app/_contexts/AuthContext'
+import { checkEmailExists } from '@app/_lib/supabase'
 import { useRouter } from 'next/navigation'
 import {
   Container,
@@ -52,7 +53,6 @@ export default function SignUpPage() {
     setLoading(true)
     setError('')
 
-    // Validation
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match')
       setLoading(false)
@@ -65,15 +65,31 @@ export default function SignUpPage() {
       return
     }
 
+    const { exists, error: checkError } = await checkEmailExists(formData.email)
+
+    if (checkError) {
+      console.error('Error checking email:', checkError)
+    }
+
+    if (exists) {
+      setError('An account with this email address already exists. Please sign in instead.')
+      setLoading(false)
+      return
+    }
+
     const { data, error: authError } = await signUp(
-      formData.email, 
-      formData.password, 
+      formData.email,
+      formData.password,
       formData.fullName,
       formData.membershipTier
     )
-    
+
     if (authError) {
-      setError(authError.message)
+      if (authError.message.includes('already registered')) {
+        setError('An account with this email address already exists. Please sign in instead.')
+      } else {
+        setError(authError.message)
+      }
       setLoading(false)
     } else {
       setSuccess(true)

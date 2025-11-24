@@ -1,6 +1,6 @@
 'use client'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { supabase, getUserProfile } from '@app/_lib/supabase'
+import { supabase, getUserProfile, createUserProfile } from '@app/_lib/supabase'
 
 const AuthContext = createContext({})
 
@@ -100,6 +100,20 @@ export const AuthProvider = ({ children }) => {
           }
         }
       })
+
+      if (!error && data.user) {
+        const { data: profile, error: profileError } = await createUserProfile(
+          data.user.id,
+          email,
+          fullName,
+          membershipTier
+        )
+
+        if (profileError && profileError.code !== '23505') {
+          console.error('Error creating user profile:', profileError)
+        }
+      }
+
       return { data, error }
     },
     signIn: async (email, password) => {
